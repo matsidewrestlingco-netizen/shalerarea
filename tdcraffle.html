@@ -330,6 +330,8 @@
         <div class="row">
           <a class="btn btn-blue" id="venmoBtn" href="#" target="_blank" rel="noopener">Pay via Venmo: @SAWATitans2</a>
           <a class="btn btn-red" id="paypalBtn" href="#" target="_blank" rel="noopener">Pay via PayPal: @SAWATitans</a>
+          <a class="btn btn-green" id="cashappBtn" href="#" target="_blank" rel="noopener">Pay via CashApp: $SAWATitans</a>
+          <a class="btn btn-purple" id="squareBtn" href="#" target="_blank" rel="noopener">Pay via Credit Card - Square</a>
         </div>
 
         <p class="notice" style="margin-top:12px;">
@@ -344,6 +346,14 @@
           <div class="qrbox">
             <img src="https://www.shalerareawrestling.com/assets/tdc/paypal_sawa.jpg" alt="PayPal QR" />
             <div class="qrlabel">PayPal QR</div>
+          </div>
+          <div class="qrbox">
+            <img src="https://www.shalerareawrestling.com/assets/tdc/cashapp_sawa.png" alt="CashApp QR" />
+            <div class="qrlabel">CashApp QR</div>
+          </div>
+          <div class="qrbox">
+            <img src="https://www.shalerareawrestling.com/assets/tdc/square_sawa.png" alt="Square QR" />
+            <div class="qrlabel">Square QR</div>
           </div>
         </div>
 
@@ -366,6 +376,8 @@
               <select id="payMethod" required>
                 <option value="venmo">Venmo</option>
                 <option value="paypal">PayPal</option>
+                <option value="cashapp">CashApp</option>
+                <option value="square">Square</option>
                 <option value="cash">Cash / Other</option>
               </select>
             </div>
@@ -434,6 +446,8 @@
     // Payment links (adjust if you want deep links or custom URLs)
     document.getElementById("venmoBtn").href = "https://venmo.com/SAWATitans2";
     document.getElementById("paypalBtn").href = "https://paypal.me/SAWATitans";
+    document.getElementById("cashappBtn").href = "https://cash.app/$SAWATitans";
+    document.getElementById("squareBtn").href = "https://square.link/u/Mozq9oFO"
 
     const meta = document.getElementById("meta");
     const statusText = document.getElementById("statusText");
