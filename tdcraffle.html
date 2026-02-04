@@ -582,7 +582,8 @@
       }
 
       await loadConfirmedTickets();
-      setInterval(loadConfirmedTickets, 30000);
+      // Refresh every 10 minutes (600000ms) to reduce Firestore quota usage
+      setInterval(loadConfirmedTickets, 600000);
     }
 
     form.addEventListener("submit", async (e) => {
