@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Raffle Drawing | Take Down Cancer</title>
+
+  <style>
+    :root{
+      --bg1:#f6f8fc;
+      --bg2:#eef3fb;
+      --card:#ffffff;
+      --stroke:rgba(15, 23, 42, 0.10);
+      --text:#0f172a;
+      --muted:#475569;
+      --blue:#1b3a6b;
+      --red:#c81f2d;
+      --paidDeep:#0b6b2a;
+      --paidDeepBg:rgba(11,107,42,0.18);
+      --gold:#b8860b;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 450px at 15% 0%, rgba(27,58,107,0.08), transparent 55%),
+        radial-gradient(900px 450px at 85% 0%, rgba(200,31,45,0.08), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+
+    .wrap{ max-width:800px; margin:0 auto; padding:20px; }
+
+    .hero-banner{
+      width:100%;
+      border-radius: var(--radius);
+      overflow:hidden;
+      margin-bottom:14px;
+      box-shadow: var(--shadow);
+    }
+    .hero-banner img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:14px 16px;
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, rgba(27,58,107,0.06), rgba(200,31,45,0.05));
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+    .topbar img{ height:46px; width:auto; display:block; }
+    .topbar h1{ font-size:24px; margin:0; line-height:1.1; }
+    .topbar .sub{ margin:4px 0 0; color:var(--muted); font-size:13px; }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding:24px;
+      box-shadow: var(--shadow);
+      margin-bottom:14px;
+    }
+
+    h2{ margin:0 0 10px; font-size:18px; }
+    p{ margin: 8px 0; color:var(--muted); line-height:1.45; }
+
+    .hr{ height:1px; background: rgba(15,23,42,0.10); margin:14px 0; }
+
+    .draw-area{
+      text-align:center;
+      padding:20px 0;
+    }
+
+    /* The slot-machine style display */
+    .slot{
+      position:relative;
+      width:100%;
+      max-width:460px;
+      margin:0 auto 24px;
+      height:120px;
+      border:2px solid var(--stroke);
+      border-radius:20px;
+      background:#fff;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .slot.spinning{
+      border-color: rgba(27,58,107,0.35);
+      box-shadow: 0 0 0 4px rgba(27,58,107,0.10), 0 0 30px rgba(27,58,107,0.08);
+    }
+    .slot.winner{
+      border-color: rgba(200,31,45,0.5);
+      box-shadow:
+        0 0 0 4px rgba(200,31,45,0.15),
+        0 0 40px rgba(200,31,45,0.12),
+        0 0 80px rgba(200,31,45,0.06);
+    }
+
+    .slot-text{
+      font-size:22px;
+      font-weight:900;
+      color:var(--muted);
+      transition: none;
+      user-select:none;
+    }
+    .slot.spinning .slot-text{
+      color:var(--blue);
+    }
+    .slot.winner .slot-text{
+      color:var(--red);
+      font-size:26px;
+    }
+
+    .slot-ticket{
+      font-size:14px;
+      font-weight:700;
+      color:var(--muted);
+      margin-top:4px;
+      letter-spacing:0.5px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 28px;
+      border-radius:14px;
+      border:1px solid rgba(15, 23, 42, 0.14);
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      white-space:nowrap;
+      text-decoration:none;
+      font-size:18px;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+    .btn:hover{ background: rgba(15, 23, 42, 0.03); }
+    .btn:active{ transform:scale(0.97); }
+
+    .btn-draw{
+      border-color: rgba(200,31,45,0.35);
+      background: linear-gradient(180deg, rgba(200,31,45,0.12), rgba(200,31,45,0.06));
+      color: var(--red);
+      font-size:20px;
+      padding:16px 40px;
+    }
+    .btn-draw:hover{
+      box-shadow: 0 0 20px rgba(200,31,45,0.15);
+    }
+    .btn-draw:disabled{
+      opacity:0.5;
+      cursor:not-allowed;
+    }
+
+    .btn-reset{
+      border-color: rgba(27,58,107,0.28);
+      background: linear-gradient(180deg, rgba(27,58,107,0.10), rgba(27,58,107,0.06));
+      color: var(--blue);
+      font-size:14px;
+      padding:10px 20px;
+    }
+
+    .pool-info{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 12px; border-radius:999px;
+      border:1px solid var(--stroke);
+      color:var(--muted);
+      font-weight:900; font-size:13px;
+      background:#fff;
+    }
+    .dot{ width:10px; height:10px; border-radius:999px; display:inline-block; }
+    .dot.green{ background: rgba(11,107,42,0.92); }
+    .dot.red{ background: rgba(200,31,45,0.70); }
+
+    /* Winner celebration */
+    .winner-banner{
+      display:none;
+      margin-top:20px;
+      padding:20px;
+      border-radius:16px;
+      border:2px solid rgba(200,31,45,0.25);
+      background: linear-gradient(135deg, rgba(200,31,45,0.06), rgba(27,58,107,0.06));
+    }
+    .winner-banner.show{ display:block; }
+    .winner-label{
+      font-size:14px;
+      font-weight:800;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:8px;
+    }
+    .winner-name{
+      font-size:36px;
+      font-weight:1000;
+      color:var(--red);
+      margin:0;
+      line-height:1.2;
+    }
+    .winner-ticket{
+      font-size:16px;
+      font-weight:700;
+      color:var(--blue);
+      margin-top:6px;
+    }
+
+    /* Past draws */
+    .past-draws{ margin-top:14px; }
+    .past-draw{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px 14px;
+      border:1px solid var(--stroke);
+      border-radius:14px;
+      margin-bottom:8px;
+      background:#fff;
+    }
+    .past-draw .draw-num{
+      font-weight:900;
+      color:var(--muted);
+      font-size:13px;
+      min-width:60px;
+    }
+    .past-draw .draw-name{
+      font-weight:800;
+      color:var(--text);
+      flex:1;
+    }
+    .past-draw .draw-ticket{
+      font-weight:700;
+      color:var(--blue);
+      font-size:13px;
+    }
+
+    .muted{ color:var(--muted); }
+    .err{ color:#dc2626; font-weight:900; }
+
+    @keyframes pulse{
+      0%, 100%{ opacity:1; }
+      50%{ opacity:0.6; }
+    }
+    .pulsing{ animation: pulse 0.4s ease-in-out infinite; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero-banner">
+      <img src="https://www.shalerareawrestling.com/assets/tdc/TDC_Header.png" alt="Take Down Cancer - One Team. One Fight." />
+    </div>
+
+    <div class="topbar">
+      <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SA Wrestling" />
+      <div>
+        <h1>Take Down Cancer — Raffle Drawing</h1>
+        <div class="sub">Live raffle drawing from confirmed tickets</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="draw-area">
+        <div class="pool-info">
+          <span class="pill"><span class="dot green"></span> <span id="poolCount">Loading...</span></span>
+          <span class="pill"><span class="dot red"></span> <span id="drawCount">0 drawn</span></span>
+        </div>
+
+        <div class="slot" id="slot">
+          <div>
+            <div class="slot-text" id="slotText">Ready to draw</div>
+            <div class="slot-ticket" id="slotTicket"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-draw" id="drawBtn" disabled>Draw Winner</button>
+        <div style="margin-top:12px;">
+          <button class="btn btn-reset" id="resetBtn" style="display:none;">Reset &amp; Draw Again</button>
+        </div>
+
+        <div id="statusMsg" style="margin-top:12px;"></div>
+
+        <div class="winner-banner" id="winnerBanner">
+          <div class="winner-label">Winner!</div>
+          <p class="winner-name" id="winnerName"></p>
+          <div class="winner-ticket" id="winnerTicket"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past draws log -->
+    <div class="card" id="historyCard" style="display:none;">
+      <h2>Drawing History</h2>
+      <div class="hr"></div>
+      <div class="past-draws" id="pastDraws"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore, collection, query, where, orderBy, limit, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDiXKDy1Xg_W7BNzO-bo1FbapXt_hJTYco",
+      authDomain: "tdc-raffle.firebaseapp.com",
+      projectId: "tdc-raffle",
+      storageBucket: "tdc-raffle.firebasestorage.app",
+      messagingSenderId: "832529502371",
+      appId: "1:832529502371:web:7f35743f8be7774c736f16"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const slot = document.getElementById("slot");
+    const slotText = document.getElementById("slotText");
+    const slotTicket = document.getElementById("slotTicket");
+    const drawBtn = document.getElementById("drawBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const poolCount = document.getElementById("poolCount");
+    const drawCount = document.getElementById("drawCount");
+    const statusMsg = document.getElementById("statusMsg");
+    const winnerBanner = document.getElementById("winnerBanner");
+    const winnerName = document.getElementById("winnerName");
+    const winnerTicket = document.getElementById("winnerTicket");
+    const historyCard = document.getElementById("historyCard");
+    const pastDraws = document.getElementById("pastDraws");
+
+    let tickets = [];
+    let drawnIds = [];
+    let drawHistory = [];
+    let isSpinning = false;
+
+    function escapeHtml(s) {
+      return String(s ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function maskName(full) {
+      const parts = String(full || "").trim().split(/\s+/).filter(Boolean);
+      if (!parts.length) return "";
+      if (parts.length === 1) return parts[0];
+      return parts[0] + " " + parts[1][0].toUpperCase() + ".";
+    }
+
+    function ticketLabel(docId) {
+      return "#" + String(docId).slice(-6).toUpperCase();
+    }
+
+    function updatePoolInfo() {
+      const remaining = tickets.filter(t => !drawnIds.includes(t.id));
+      poolCount.textContent = `${remaining.length} ticket${remaining.length === 1 ? "" : "s"} in pool`;
+      drawCount.textContent = `${drawnIds.length} drawn`;
+      drawBtn.disabled = remaining.length === 0 || isSpinning;
+    }
+
+    function sleep(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    // Pick a random ticket that hasn't been drawn yet
+    function pickRandom() {
+      const pool = tickets.filter(t => !drawnIds.includes(t.id));
+      if (!pool.length) return null;
+      const idx = Math.floor(Math.random() * pool.length);
+      return pool[idx];
+    }
+
+    // The big animated draw
+    async function runDraw() {
+      if (isSpinning) return;
+
+      const pool = tickets.filter(t => !drawnIds.includes(t.id));
+      if (!pool.length) return;
+
+      isSpinning = true;
+      drawBtn.disabled = true;
+      resetBtn.style.display = "none";
+      winnerBanner.classList.remove("show");
+      slot.classList.remove("winner");
+      slot.classList.add("spinning");
+
+      // Pre-select the winner
+      const winner = pickRandom();
+
+      // Spin animation: cycle through random names, slowing down
+      const totalCycles = 30 + Math.floor(Math.random() * 15);
+      for (let i = 0; i < totalCycles; i++) {
+        const t = pool[Math.floor(Math.random() * pool.length)];
+        const display = t.displayName || maskName(t.name || "");
+        slotText.textContent = display;
+        slotTicket.textContent = ticketLabel(t.id);
+
+        // Start fast, slow down toward the end
+        const progress = i / totalCycles;
+        const delay = 40 + Math.pow(progress, 3) * 350;
+        await sleep(delay);
+      }
+
+      // Final reveal: flash a few times then land on winner
+      for (let i = 0; i < 3; i++) {
+        slotText.style.opacity = "0.3";
+        await sleep(100);
+        slotText.style.opacity = "1";
+        await sleep(100);
+      }
+
+      // Show the winner
+      const winnerDisplay = winner.displayName || maskName(winner.name || "");
+      slotText.textContent = winnerDisplay;
+      slotTicket.textContent = ticketLabel(winner.id);
+
+      slot.classList.remove("spinning");
+      slot.classList.add("winner");
+
+      // Show winner banner
+      winnerName.textContent = winner.name || winnerDisplay;
+      winnerTicket.textContent = "Ticket " + ticketLabel(winner.id);
+      winnerBanner.classList.add("show");
+
+      // Add to drawn list and history
+      drawnIds.push(winner.id);
+      drawHistory.push({
+        num: drawHistory.length + 1,
+        name: winner.name || winnerDisplay,
+        displayName: winnerDisplay,
+        ticketId: ticketLabel(winner.id)
+      });
+      renderHistory();
+      updatePoolInfo();
+
+      isSpinning = false;
+      resetBtn.style.display = "inline-flex";
+
+      // Re-enable if there are more tickets
+      const remaining = tickets.filter(t => !drawnIds.includes(t.id));
+      drawBtn.disabled = remaining.length === 0;
+    }
+
+    function resetSlot() {
+      winnerBanner.classList.remove("show");
+      slot.classList.remove("winner");
+      slotText.textContent = "Ready to draw";
+      slotTicket.textContent = "";
+      resetBtn.style.display = "none";
+      updatePoolInfo();
+    }
+
+    function renderHistory() {
+      if (!drawHistory.length) {
+        historyCard.style.display = "none";
+        return;
+      }
+      historyCard.style.display = "block";
+      pastDraws.innerHTML = drawHistory.slice().reverse().map(d => `
+        <div class="past-draw">
+          <span class="draw-num">Draw #${d.num}</span>
+          <span class="draw-name">${escapeHtml(d.name)}</span>
+          <span class="draw-ticket">${escapeHtml(d.ticketId)}</span>
+        </div>
+      `).join("");
+    }
+
+    async function loadTickets() {
+      statusMsg.innerHTML = '<span class="muted">Loading confirmed tickets...</span>';
+      try {
+        const q = query(
+          collection(db, "tdc_raffle_tickets"),
+          where("status", "==", "confirmed"),
+          orderBy("createdAt", "asc"),
+          limit(500)
+        );
+        const snap = await getDocs(q);
+        tickets = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        if (!tickets.length) {
+          statusMsg.innerHTML = '<span class="muted">No confirmed tickets found. Confirm tickets in the admin panel first.</span>';
+          slotText.textContent = "No tickets";
+        } else {
+          statusMsg.textContent = "";
+          slotText.textContent = "Ready to draw";
+        }
+        updatePoolInfo();
+      } catch (e) {
+        console.error(e);
+        statusMsg.innerHTML = '<span class="err">Error loading tickets.</span>';
+      }
+    }
+
+    async function boot() {
+      try {
+        await signInAnonymously(auth);
+      } catch (e) {
+        console.error(e);
+        statusMsg.innerHTML = '<span class="err">Auth error. Enable Anonymous Auth in Firebase.</span>';
+        return;
+      }
+      await loadTickets();
+    }
+
+    drawBtn.addEventListener("click", runDraw);
+    resetBtn.addEventListener("click", resetSlot);
+
+    boot();
+  </script>
+</body>
+</html>
