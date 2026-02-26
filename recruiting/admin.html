@@ -639,14 +639,14 @@ function renderForm(a) {
         </div>
         <div class="coaches-2col">
           <div>
-            <div class="col-label">Club Coaches</div>
-            <div class="dyn-list" id="clubCoaches-list"></div>
-            <button class="btn-add-row" onclick="addCoach('clubCoaches-list')">+ Add Club Coach</button>
-          </div>
-          <div>
             <div class="col-label">School Coaches</div>
             <div class="dyn-list" id="schoolCoaches-list"></div>
             <button class="btn-add-row" onclick="addCoach('schoolCoaches-list')">+ Add School Coach</button>
+          </div>
+          <div>
+            <div class="col-label">Club Coaches</div>
+            <div class="dyn-list" id="clubCoaches-list"></div>
+            <button class="btn-add-row" onclick="addCoach('clubCoaches-list')">+ Add Club Coach</button>
           </div>
         </div>
       </div>
@@ -1103,12 +1103,12 @@ function buildProfileHTML(a) {
       </div>
       <div class="coaches-grid">
         <div class="coaches-column">
-          <h3 class="coaches-col-title">Club Coaches</h3>
-          ${coachCards(a.clubCoaches)}
-        </div>
-        <div class="coaches-column">
           <h3 class="coaches-col-title">School Coaches \u2014 ${h(a.school)}</h3>
           ${coachCards(a.schoolCoaches)}
+        </div>
+        <div class="coaches-column">
+          <h3 class="coaches-col-title">Club Coaches</h3>
+          ${coachCards(a.clubCoaches)}
         </div>
       </div>
     </div>
