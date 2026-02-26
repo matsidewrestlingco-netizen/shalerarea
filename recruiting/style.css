@@ -1,7 +1,7 @@
 /* ================================================
-   WESTON EMMONS — WRESTLING RECRUITING PROFILE
+   SHALER AREA WRESTLING — RECRUITING PROFILE
    style.css
-   D1 Athletics Design · Navy/Gold/White
+   D1 Athletics Design · Navy / Red / White
    Mobile-first · 768px breakpoint
    ================================================ */
 
@@ -11,8 +11,8 @@
 :root {
   --navy:       #1B3A6B;
   --navy-dark:  #122850;
-  --gold:       #c81f2d;
-  --gold-dark:  #a01824;
+  --red:        #c81f2d;
+  --red-dark:   #a01824;
   --white:      #FFFFFF;
   --gray-light: #F5F5F5;
   --gray-mid:   #E0E0E0;
@@ -22,9 +22,9 @@
   --font-display: 'Oswald', Impact, sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
 
-  --max-width: 1100px;
-  --section-pad: 4rem 1.25rem;
-  --section-pad-lg: 5.5rem 2rem;
+  --max-width:      1100px;
+  --section-pad:    2.75rem 1.25rem;
+  --section-pad-lg: 3.5rem 2rem;
 }
 
 /* -----------------------------------------------
@@ -79,7 +79,7 @@ ul {
 
 .section-heading {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -92,14 +92,10 @@ ul {
 }
 
 .heading-bar {
-  width: 56px;
-  height: 5px;
-  background: var(--gold);
-  margin-top: 0.75rem;
-}
-
-.heading-bar.gold {
-  background: var(--gold);
+  width: 48px;
+  height: 4px;
+  background: var(--red);
+  margin-top: 0.6rem;
 }
 
 /* -----------------------------------------------
@@ -112,7 +108,7 @@ ul {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.85rem 2rem;
+  padding: 0.75rem 1.75rem;
   border-radius: 3px;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
   cursor: pointer;
@@ -120,14 +116,14 @@ ul {
 }
 
 .btn-gold {
-  background: var(--gold);
+  background: var(--red);
   color: var(--white);
-  border: 2px solid var(--gold);
+  border: 2px solid var(--red);
 }
 
 .btn-gold:hover {
-  background: var(--gold-dark);
-  border-color: var(--gold-dark);
+  background: var(--red-dark);
+  border-color: var(--red-dark);
 }
 
 .btn-outline {
@@ -146,7 +142,6 @@ ul {
 ----------------------------------------------- */
 .hero {
   background-color: var(--navy-dark);
-  /* Subtle diagonal stripe overlay */
   background-image:
     repeating-linear-gradient(
       -45deg,
@@ -155,11 +150,11 @@ ul {
       rgba(255,255,255,0.02) 30px,
       rgba(255,255,255,0.02) 32px
     );
-  min-height: 100svh;
+  min-height: 82svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.25rem;
+  padding: 3rem 1.25rem;
 }
 
 .hero-inner {
@@ -168,15 +163,15 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
   text-align: center;
 }
 
 /* Photo */
 .hero-photo-wrap {
   position: relative;
-  width: 280px;
-  max-width: 80vw;
+  width: 260px;
+  max-width: 75vw;
   flex-shrink: 0;
 }
 
@@ -187,8 +182,7 @@ ul {
   object-fit: cover;
   object-position: top center;
   display: block;
-  /* Subtle shadow + slight clip for athletic feel */
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 4px 4px 0 var(--gold);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 4px 4px 0 var(--red);
   clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
 }
 
@@ -205,7 +199,7 @@ ul {
   color: rgba(255,255,255,0.4);
   text-align: center;
   line-height: 1.6;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 4px 4px 0 var(--gold);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 4px 4px 0 var(--red);
 }
 
 /* Hero text */
@@ -213,21 +207,22 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .hero-eyebrow {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gold);
+  /* White at reduced opacity — red on dark navy is low-contrast */
+  color: rgba(255,255,255,0.6);
 }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 14vw, 8rem);
+  font-size: clamp(3.2rem, 13vw, 7.5rem);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -237,17 +232,17 @@ ul {
 
 .hero-tagline {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.65);
   letter-spacing: 0.03em;
 }
 
 .hero-ctas {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
   width: 100%;
   align-items: center;
 }
@@ -256,14 +251,14 @@ ul {
    SECTION 2: STATS BAR
 ----------------------------------------------- */
 .stats-bar {
-  background: var(--gold);
+  background: var(--red);
   padding: 0;
 }
 
 .stats-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2.5rem 1.25rem;
+  padding: 1.75rem 1.25rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -275,33 +270,36 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.75rem 2.5rem;
-  flex: 1 1 140px;
+  padding: 0.6rem 2rem;
+  flex: 1 1 130px;
 }
 
 .stat-value {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
   font-weight: 700;
-  color: var(--navy-dark);
+  /* White on red — strong contrast */
+  color: var(--white);
   line-height: 1;
   letter-spacing: 0.02em;
 }
 
 .stat-label {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--navy);
-  margin-top: 0.35rem;
+  /* Off-white — readable on red */
+  color: rgba(255,255,255,0.8);
+  margin-top: 0.3rem;
 }
 
 .stat-divider {
   width: 1px;
-  height: 50px;
-  background: rgba(27,58,107,0.3);
+  height: 40px;
+  /* White divider — visible on red */
+  background: rgba(255,255,255,0.25);
   display: none;
 }
 
@@ -319,17 +317,17 @@ ul {
 .accolades-content {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.75rem;
 }
 
 .accolades-group-title {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gray-text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--gray-mid);
 }
@@ -343,8 +341,8 @@ ul {
 .accolade-item {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1rem 0;
+  gap: 1.1rem;
+  padding: 0.65rem 0;
   border-bottom: 1px solid var(--gray-light);
   position: relative;
 }
@@ -356,36 +354,37 @@ ul {
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
-  height: 70%;
-  background: var(--gold);
+  height: 65%;
+  background: var(--red);
   border-radius: 2px;
 }
 
 .accolade-year {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--gold-dark);
+  /* Dark red on white — good contrast */
+  color: var(--red-dark);
   letter-spacing: 0.05em;
-  min-width: 55px;
+  min-width: 52px;
   padding-top: 0.1rem;
 }
 
 .accolade-detail {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
 }
 
 .accolade-detail strong {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-dark);
 }
 
 .accolade-sub {
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   color: var(--gray-text);
 }
 
@@ -401,43 +400,46 @@ ul {
 }
 
 .coaches-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .coaches-club-name {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-top: 1.25rem;
+  /* Muted white — readable on navy */
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.65rem;
 }
 
 .coaches-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .coaches-col-title {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(212,160,23,0.35);
+  /* White on navy — clear and readable */
+  color: var(--white);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  /* White divider — replaces old hardcoded gold */
+  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .coach-card {
-  padding: 1.1rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .coach-card:last-child {
@@ -447,14 +449,15 @@ ul {
 .coach-name {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--white);
 }
 
 .coach-contact {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--gold);
+  font-size: 0.875rem;
+  /* Light off-white — red on navy had terrible contrast */
+  color: rgba(255,255,255,0.65);
   transition: color 0.2s;
 }
 
@@ -470,10 +473,10 @@ ul {
 }
 
 .schedule-note {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--gray-text);
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1.25rem;
   font-weight: 500;
 }
 
@@ -488,7 +491,7 @@ ul {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   background: var(--white);
   min-width: 480px;
 }
@@ -499,10 +502,10 @@ ul {
 }
 
 .schedule-table th {
-  padding: 0.9rem 1.1rem;
+  padding: 0.8rem 1.1rem;
   text-align: left;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -522,36 +525,38 @@ ul {
 }
 
 .schedule-table td {
-  padding: 1rem 1.1rem;
+  padding: 0.75rem 1.1rem;
   color: var(--text-dark);
   vertical-align: middle;
 }
 
-/* Style badges */
+/* Style badges — three distinct looks within the navy/red scheme */
 .style-badge {
   display: inline-block;
-  padding: 0.25rem 0.65rem;
+  padding: 0.22rem 0.6rem;
   border-radius: 3px;
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .style-badge.folkstyle {
-  background: rgba(27,58,107,0.1);
+  background: rgba(27,58,107,0.12);
   color: var(--navy);
 }
 
+/* Freestyle: neutral gray — avoids conflicting with navy and red */
 .style-badge.freestyle {
-  background: rgba(212,160,23,0.15);
-  color: #7a5c00;
+  background: rgba(0,0,0,0.07);
+  color: #444444;
 }
 
+/* Greco: red tint — previously hardcoded red, now uses scheme */
 .style-badge.greco {
-  background: rgba(220,38,38,0.1);
-  color: #991b1b;
+  background: rgba(200,31,45,0.1);
+  color: var(--red-dark);
 }
 
 /* -----------------------------------------------
@@ -559,7 +564,6 @@ ul {
 ----------------------------------------------- */
 .videos {
   background: var(--navy-dark);
-  /* Repeat diagonal texture from hero */
   background-image:
     repeating-linear-gradient(
       -45deg,
@@ -577,23 +581,24 @@ ul {
 .video-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-top: 2.5rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .video-card {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .video-label {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gold);
+  /* Off-white — red on dark navy was near-invisible */
+  color: rgba(255,255,255,0.8);
 }
 
 .video-embed {
@@ -619,52 +624,53 @@ ul {
 ----------------------------------------------- */
 .footer {
   background: var(--navy-dark);
-  border-top: 3px solid var(--gold);
+  border-top: 3px solid var(--red);
 }
 
 .footer-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 3rem 1.25rem 2rem;
+  padding: 2rem 1.25rem 1.5rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   text-align: center;
 }
 
 .footer-name {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--white);
 }
 
 .footer-details {
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.5);
-  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.25rem;
 }
 
 .footer-recruiting-label,
 .footer-social-label {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.6rem;
+  /* Muted white label — red on dark navy had very poor contrast */
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.5rem;
 }
 
 .footer-email {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.8);
   transition: color 0.2s;
 }
 
 .footer-email:hover {
-  color: var(--gold);
+  color: var(--white);
 }
 
 .social-links {
@@ -674,21 +680,21 @@ ul {
 }
 
 .social-link {
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.5);
   transition: color 0.2s;
   display: flex;
   align-items: center;
 }
 
 .social-link:hover {
-  color: var(--gold);
+  color: var(--white);
 }
 
 .footer-bottom {
   text-align: center;
-  padding: 1.25rem 1.25rem 1.5rem;
+  padding: 0.9rem 1.25rem 1.1rem;
   border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: rgba(255,255,255,0.3);
   letter-spacing: 0.04em;
 }
@@ -703,12 +709,12 @@ ul {
     flex-direction: row;
     align-items: center;
     text-align: left;
-    gap: 4rem;
+    gap: 3.5rem;
   }
 
   .hero-photo-wrap {
-    width: 340px;
-    max-width: 35%;
+    width: 320px;
+    max-width: 32%;
     flex-shrink: 0;
   }
 
@@ -729,13 +735,13 @@ ul {
   }
 
   .stat-block {
-    flex: 1 1 160px;
+    flex: 1 1 150px;
   }
 
   /* Accolades two-column */
   .two-col {
-    grid-template-columns: 220px 1fr;
-    gap: 4rem;
+    grid-template-columns: 200px 1fr;
+    gap: 3.5rem;
   }
 
   .accolade-item.accolade-top::before {
@@ -745,13 +751,13 @@ ul {
   /* Coaches two-column */
   .coaches-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 3.5rem;
   }
 
   /* Video three-column grid */
   .video-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.75rem;
+    gap: 1.5rem;
   }
 
   /* Footer three-column */
@@ -765,7 +771,7 @@ ul {
     justify-content: flex-start;
   }
 
-  /* Sections: more padding on desktop */
+  /* Sections: more breathing room on desktop */
   .section-inner {
     padding: var(--section-pad-lg);
   }
@@ -781,6 +787,6 @@ ul {
 ----------------------------------------------- */
 @media (min-width: 1100px) {
   .hero-photo-wrap {
-    width: 380px;
+    width: 360px;
   }
 }
