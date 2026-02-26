@@ -658,7 +658,7 @@ function renderForm(a) {
       <div class="form-card-body">
         <div class="form-group" style="margin-bottom:1rem">
           <label>Club Name</label>
-          <input type="text" id="f-club" value="${h(a.club)}" placeholder="xx Club">
+          <input type="text" id="f-club" value="${h(a.club)}" placeholder="TWC / Tiger Wrestling Club">
         </div>
         <div class="coaches-2col">
           <div>
@@ -1071,7 +1071,7 @@ function buildProfileHTML(a) {
       </div>
       <div class="hero-text">
         <div class="hero-school-badge">
-          ${a.schoolLogo ? `<img src="${h(a.schoolLogo)}" alt="${h(a.school)}" class="hero-school-logo" onerror="this.style.display='none'" />` : ''}
+          <img src="${h(a.schoolLogo || 'assets/images/titans-logo.png')}" alt="${h(a.school)}" class="hero-school-logo" onerror="this.style.display='none'" />
           <span class="hero-school-name">${h(a.school)}</span>
         </div>
         <p class="hero-eyebrow">Recruiting Profile</p>
