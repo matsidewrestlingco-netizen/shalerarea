@@ -121,7 +121,7 @@ ul {
 
 .btn-gold {
   background: var(--gold);
-  color: var(--navy-dark);
+  color: var(--white);
   border: 2px solid var(--gold);
 }
 
