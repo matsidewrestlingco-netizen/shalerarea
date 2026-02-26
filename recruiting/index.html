@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiting Profiles — Shaler Area Wrestling</title>
+  <meta name="description" content="Official recruiting profiles for Shaler Area Wrestling student-athletes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #1B3A6B;
+      --navy-dark: #122850;
+      --red:       #c81f2d;
+      --red-dark:  #a01824;
+      --white:     #FFFFFF;
+      --gray-light:#F5F5F5;
+      --gray-mid:  #E0E0E0;
+      --gray-text: #555555;
+      --text-dark: #111111;
+      --font-display: 'Oswald', Impact, sans-serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-light);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; }
+
+    /* ---- HEADER ---- */
+    .site-header {
+      background: var(--navy-dark);
+      background-image: repeating-linear-gradient(
+        -45deg, transparent, transparent 30px,
+        rgba(255,255,255,0.02) 30px, rgba(255,255,255,0.02) 32px
+      );
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+      border-bottom: 4px solid var(--red);
+    }
+
+    .header-eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.6rem;
+    }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .header-sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    /* ---- MAIN ---- */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---- ATHLETE GRID ---- */
+    .athlete-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .athlete-card {
+      background: var(--white);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .athlete-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .card-photo-wrap {
+      width: 100%;
+      aspect-ratio: 3/2;
+      overflow: hidden;
+      background: var(--navy-dark);
+      position: relative;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .card-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.2);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .card-weight-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    .card-body {
+      padding: 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-class {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--navy);
+      line-height: 1.05;
+    }
+
+    .card-meta {
+      font-size: 0.85rem;
+      color: var(--gray-text);
+      margin-top: 0.4rem;
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-mid);
+    }
+
+    .card-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-stat-val {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .card-stat-lbl {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-text);
+      margin-top: 0.1rem;
+    }
+
+    .card-footer {
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.7rem 1rem;
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+
+    .card-btn:hover {
+      background: var(--red);
+    }
+
+    /* ---- EMPTY / ERROR STATE ---- */
+    .state-msg {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--gray-text);
+      grid-column: 1 / -1;
+    }
+
+    .state-msg h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .state-msg code {
+      background: var(--gray-mid);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+    }
+
+    /* ---- FOOTER ---- */
+    .site-footer {
+      background: var(--navy-dark);
+      border-top: 3px solid var(--red);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <p class="header-eyebrow">Shaler Area Wrestling</p>
+    <h1 class="header-title">Recruiting</h1>
+    <p class="header-sub">Student-Athlete Profiles &mdash; Class of 2025 &ndash; 2029</p>
+  </header>
+
+  <main class="main">
+    <p class="section-label" id="count-label">Loading profiles&hellip;</p>
+    <div class="athlete-grid" id="athlete-grid">
+      <!-- Cards rendered by JavaScript from athletes.json -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Shaler Area Wrestling &mdash; Recruiting &mdash; shalerareawrestling.com</p>
+  </footer>
+
+  <script>
+    fetch('athletes.json')
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(data => renderAthletes(data.athletes || []))
+      .catch(err => {
+        document.getElementById('count-label').textContent = 'Could not load profiles';
+        document.getElementById('athlete-grid').innerHTML = `
+          <div class="state-msg">
+            <h2>Profiles unavailable</h2>
+            <p>
+              This page requires a web server to load data.<br>
+              Open it from <strong>shalerareawrestling.com/recruiting/</strong>, or run a local server:
+              <br><br>
+              <code>python3 -m http.server 8080</code>
+              <br>then visit <code>http://localhost:8080</code>
+            </p>
+          </div>`;
+      });
+
+    function renderAthletes(athletes) {
+      const grid = document.getElementById('athlete-grid');
+      const label = document.getElementById('count-label');
+
+      if (!athletes.length) {
+        label.textContent = '0 Profiles';
+        grid.innerHTML = '<div class="state-msg"><h2>No profiles yet</h2><p>Add athletes using the admin tool.</p></div>';
+        return;
+      }
+
+      label.textContent = athletes.length + ' Profile' + (athletes.length !== 1 ? 's' : '');
+      grid.innerHTML = '';
+      athletes.forEach(a => grid.appendChild(buildCard(a)));
+    }
+
+    function buildCard(a) {
+      const fullName = (a.firstName || '') + ' ' + (a.lastName || '');
+      const card = document.createElement('div');
+      card.className = 'athlete-card';
+
+      card.innerHTML = `
+        <div class="card-photo-wrap">
+          <img
+            src="${e(a.photo)}"
+            alt="${e(fullName)}"
+            class="card-photo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="card-photo-placeholder" style="display:none">No photo</div>
+          <span class="card-weight-badge">${e(a.weightClass)} lbs</span>
+        </div>
+        <div class="card-body">
+          <p class="card-class">Class of ${e(a.classYear)}</p>
+          <h2 class="card-name">${e(a.firstName)}<br>${e(a.lastName)}</h2>
+          <p class="card-meta">${e(a.school)} &mdash; ${e(a.currentCity)}, ${e(a.currentState)}</p>
+          <div class="card-stats">
+            <div class="card-stat">
+              <span class="card-stat-val">${e(a.height)}</span>
+              <span class="card-stat-lbl">Height</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-val">${e(a.gpa)}</span>
+              <span class="card-stat-lbl">GPA</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-val">${e(a.hometown)}</span>
+              <span class="card-stat-lbl">Hometown, ${e(a.hometownState)}</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="${e(a.id)}.html" class="card-btn">View Full Profile</a>
+        </div>
+      `;
+      return card;
+    }
+
+    function e(s) {
+      return String(s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+
+</body>
+</html>

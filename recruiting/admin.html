@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiting CMS — Shaler Area Wrestling</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #1B3A6B;
+      --red:     #c81f2d;
+      --red-dk:  #a01824;
+      --white:   #fff;
+      --g50:     #f9fafb;
+      --g100:    #f3f4f6;
+      --g200:    #e5e7eb;
+      --g300:    #d1d5db;
+      --g400:    #9ca3af;
+      --g500:    #6b7280;
+      --g700:    #374151;
+      --g900:    #111827;
+      --sidebar: 240px;
+      --topbar:  52px;
+      --botbar:  60px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--g900);
+      background: var(--g100);
+    }
+
+    /* =============================================
+       APP SHELL
+    ============================================= */
+    .app { display: flex; height: 100vh; }
+
+    /* =============================================
+       SIDEBAR
+    ============================================= */
+    .sidebar {
+      width: var(--sidebar);
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-head {
+      padding: 1rem 1rem 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sidebar-brand {
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .sidebar-sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-top: 0.2rem;
+    }
+
+    .athlete-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.4rem;
+    }
+
+    .athlete-list::-webkit-scrollbar { width: 4px; }
+    .athlete-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    .athlete-item {
+      padding: 0.65rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 2px;
+      transition: background 0.12s;
+    }
+
+    .athlete-item:hover { background: rgba(255,255,255,0.07); }
+    .athlete-item.active { background: var(--red); }
+
+    .athlete-item-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+
+    .athlete-item-meta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.15rem;
+    }
+
+    .athlete-item.active .athlete-item-meta { color: rgba(255,255,255,0.7); }
+
+    .sidebar-foot {
+      padding: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-new-athlete {
+      width: 100%;
+      padding: 0.55rem;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .btn-new-athlete:hover { background: rgba(255,255,255,0.15); }
+
+    /* =============================================
+       MAIN PANEL
+    ============================================= */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ---- TOP BAR ---- */
+    .topbar {
+      height: var(--topbar);
+      background: var(--white);
+      border-bottom: 1px solid var(--g200);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .topbar-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--g700);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ---- FORM AREA ---- */
+    .form-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+    }
+
+    .form-area::-webkit-scrollbar { width: 5px; }
+    .form-area::-webkit-scrollbar-thumb { background: var(--g300); border-radius: 3px; }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--g400);
+      text-align: center;
+      gap: 0.4rem;
+      padding: 2rem;
+    }
+
+    .empty-state h2 { font-size: 1rem; color: var(--g500); font-weight: 600; }
+    .empty-state p { font-size: 0.85rem; line-height: 1.5; }
+
+    /* ---- BOTTOM BAR ---- */
+    .botbar {
+      height: var(--botbar);
+      background: var(--white);
+      border-top: 1px solid var(--g200);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .spacer { flex: 1; }
+
+    /* =============================================
+       FORM CARDS
+    ============================================= */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--g200);
+      border-radius: 7px;
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+    }
+
+    .form-card-head {
+      padding: 0.75rem 1.1rem;
+      background: var(--g50);
+      border-bottom: 1px solid var(--g200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+    }
+
+    .form-card-body { padding: 1.1rem; }
+
+    /* ---- GRID LAYOUTS ---- */
+    .fg { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.85rem; }
+    .fg-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .fg-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+
+    .full { grid-column: 1 / -1; }
+
+    /* ---- LABELS & INPUTS ---- */
+    .fg label, .fg-2 label, .fg-3 label, .form-group label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--g500);
+      margin-bottom: 0.3rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    select {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border: 1px solid var(--g200);
+      border-radius: 4px;
+      font-size: 0.83rem;
+      font-family: inherit;
+      color: var(--g900);
+      background: var(--white);
+      transition: border-color 0.12s, box-shadow 0.12s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 2px rgba(27,58,107,0.12);
+    }
+
+    .form-group { display: flex; flex-direction: column; }
+
+    /* ---- DYNAMIC ROWS ---- */
+    .dyn-list { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .dyn-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.65rem;
+      background: var(--g50);
+      border: 1px solid var(--g200);
+      border-radius: 5px;
+    }
+
+    .dyn-row input, .dyn-row select { flex: 1; min-width: 0; }
+    .dyn-row input.w-sm { flex: 0 0 72px; }
+    .dyn-row input.w-md { flex: 0 0 130px; }
+    .dyn-row select.w-sm { flex: 0 0 110px; }
+
+    .check-lbl {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      color: var(--g500);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .check-lbl input[type="checkbox"] { width: auto; }
+
+    .btn-rm {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--g200);
+      border-radius: 4px;
+      color: var(--g400);
+      cursor: pointer;
+      font-size: 11px;
+      transition: all 0.12s;
+      line-height: 1;
+    }
+
+    .btn-rm:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+
+    .btn-add-row {
+      width: 100%;
+      padding: 0.45rem;
+      margin-top: 0.4rem;
+      background: transparent;
+      border: 1px dashed var(--g300);
+      border-radius: 5px;
+      color: var(--g500);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 500;
+      transition: all 0.12s;
+    }
+
+    .btn-add-row:hover { border-color: var(--navy); color: var(--navy); background: rgba(27,58,107,0.03); }
+
+    /* ---- COACHES 2-COL ---- */
+    .coaches-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .col-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--g500);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---- HELPER TEXT ---- */
+    .hint {
+      font-size: 0.75rem;
+      color: var(--g400);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .hint code {
+      background: var(--g100);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.12s;
+      white-space: nowrap;
+    }
+
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { background: #152f59; }
+
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-red:hover { background: var(--red-dk); }
+
+    .btn-ghost {
+      background: var(--g100);
+      color: var(--g700);
+      border: 1px solid var(--g200);
+    }
+    .btn-ghost:hover { background: var(--g200); }
+
+    .btn-danger {
+      background: transparent;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+    }
+    .btn-danger:hover { background: #fee2e2; }
+
+    /* ---- FILE INPUT ---- */
+    #file-input { display: none; }
+
+    /* =============================================
+       TOAST
+    ============================================= */
+    .toast {
+      position: fixed;
+      bottom: 4.5rem;
+      right: 1.25rem;
+      background: var(--g900);
+      color: #fff;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.18s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- =============================================
+       SIDEBAR
+  ============================================= -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">Shaler Area Wrestling</div>
+      <div class="sidebar-sub">Recruiting CMS</div>
+    </div>
+    <div class="athlete-list" id="athlete-list"></div>
+    <div class="sidebar-foot">
+      <button class="btn-new-athlete" onclick="newAthlete()">+ Add New Athlete</button>
+    </div>
+  </aside>
+
+  <!-- =============================================
+       MAIN
+  ============================================= -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <span class="topbar-title" id="topbar-title">Select or create an athlete</span>
+      <input type="file" id="file-input" accept=".json" onchange="importJSON(this)" />
+      <button class="btn btn-ghost" onclick="document.getElementById('file-input').click()">&#8645; Import JSON</button>
+      <button class="btn btn-ghost" onclick="exportJSON()">&#8595; Export JSON</button>
+    </div>
+
+    <!-- FORM AREA -->
+    <div class="form-area" id="form-area">
+      <div class="empty-state">
+        <h2>No athlete selected</h2>
+        <p>
+          Pick an athlete from the sidebar<br>
+          or click <strong>+ Add New Athlete</strong>.<br><br>
+          Your data auto-saves in the browser.<br>
+          Use <strong>Export JSON</strong> to save <code>athletes.json</code>.
+        </p>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="botbar" id="botbar" style="display:none">
+      <button class="btn btn-danger" onclick="deleteAthlete()">Delete Profile</button>
+      <div class="spacer"></div>
+      <button class="btn btn-ghost" onclick="saveAthlete()">Save Changes</button>
+      <button class="btn btn-red" onclick="downloadHTML()">&#8595; Generate &amp; Download HTML</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- =============================================
+     JAVASCRIPT
+============================================= -->
+<script>
+
+// ============================================================
+// STATE
+// ============================================================
+let athletes = [];
+let currentId = null;
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  loadStorage();
+  renderSidebar();
+  if (athletes.length > 0) selectAthlete(athletes[0].id);
+});
+
+// ============================================================
+// STORAGE
+// ============================================================
+function loadStorage() {
+  const raw = localStorage.getItem('shaler_cms_v1');
+  if (raw) {
+    try { athletes = JSON.parse(raw); return; } catch(e) {}
+  }
+  athletes = [westonDefault()];
+  saveStorage();
+}
+
+function saveStorage() {
+  localStorage.setItem('shaler_cms_v1', JSON.stringify(athletes));
+}
+
+// ============================================================
+// DEFAULT ATHLETE DATA (Weston Emmons)
+// ============================================================
+function westonDefault() {
+  return {
+    id: 'wemmons',
+    firstName: 'Weston', lastName: 'Emmons',
+    classYear: '2028', weightClass: '165',
+    height: "6'1\"", gpa: '3.5',
+    currentCity: 'Pittsburgh', currentState: 'PA',
+    hometown: 'Dayton', hometownState: 'OH',
+    school: 'Shaler Area High School',
+    email: '', photo: 'assets/images/wemmons.jpg',
+    social: { twitter: '', instagram: '', facebook: '' },
+    club: 'TWC / Tiger Wrestling Club',
+    clubCoaches: [
+      { name: 'Mason Manville', email: '', phone: '' },
+      { name: 'Dwayne Nasiadka', email: '', phone: '' }
+    ],
+    schoolCoaches: [
+      { name: "Drew D'Agostino", email: '', phone: '' },
+      { name: 'Mickey Moran', email: '', phone: '' },
+      { name: "Ronnie D'Amico", email: '', phone: '' }
+    ],
+    accolades: [
+      { year: '2025', title: 'Fargo National Qualifier', detail: 'Freestyle & Greco-Roman', top: true },
+      { year: '2025', title: 'PA Freestyle State Placer', detail: '4th Place', top: false },
+      { year: '2025', title: 'PA Greco-Roman State Placer', detail: '5th Place', top: false },
+      { year: '2024', title: 'PA Greco-Roman State Placer', detail: '6th Place', top: false },
+      { year: '2022', title: 'Ohio All-Star Wrestling Team', detail: 'Team Member', top: false }
+    ],
+    academics: [
+      { year: 'Current', title: '3.5 GPA', detail: 'Shaler Area High School' },
+      { year: '2025', title: 'Honor Roll', detail: 'Academic Excellence' }
+    ],
+    tournaments: [],
+    videos: [
+      { label: '2025 Freestyle', youtubeId: '' },
+      { label: '2025 Greco-Roman', youtubeId: '' },
+      { label: '2025 HS Freshman Season', youtubeId: '' }
+    ]
+  };
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function renderSidebar() {
+  const list = document.getElementById('athlete-list');
+  if (!athletes.length) {
+    list.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.75rem;text-align:center;padding:1.5rem 1rem">No athletes yet</p>';
+    return;
+  }
+  list.innerHTML = '';
+  athletes.forEach(a => {
+    const d = document.createElement('div');
+    d.className = 'athlete-item' + (a.id === currentId ? ' active' : '');
+    d.onclick = () => selectAthlete(a.id);
+    d.innerHTML = `
+      <div class="athlete-item-name">${h(a.firstName)} ${h(a.lastName)}</div>
+      <div class="athlete-item-meta">Class of ${h(a.classYear)} &middot; ${h(a.weightClass)} lbs</div>`;
+    list.appendChild(d);
+  });
+}
+
+// ============================================================
+// SELECT ATHLETE & RENDER FORM
+// ============================================================
+function selectAthlete(id) {
+  currentId = id;
+  renderSidebar();
+  const a = athletes.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('topbar-title').textContent = a.firstName + ' ' + a.lastName;
+  document.getElementById('botbar').style.display = 'flex';
+  renderForm(a);
+}
+
+function renderForm(a) {
+  const area = document.getElementById('form-area');
+  area.innerHTML = `
+
+    <!-- ── BASIC INFO ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Basic Info</span></div>
+      <div class="form-card-body">
+        <div class="fg">
+          <div class="form-group"><label>First Name</label><input type="text" id="f-firstName" value="${h(a.firstName)}"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="f-lastName" value="${h(a.lastName)}"></div>
+          <div class="form-group"><label>Profile ID (filename, no spaces)</label><input type="text" id="f-id" value="${h(a.id)}" placeholder="e.g. wemmons"></div>
+          <div class="form-group"><label>Class Year</label><input type="text" id="f-classYear" value="${h(a.classYear)}" placeholder="2028"></div>
+          <div class="form-group"><label>Weight Class (lbs)</label><input type="text" id="f-weightClass" value="${h(a.weightClass)}" placeholder="165"></div>
+          <div class="form-group"><label>Height</label><input type="text" id="f-height" value="${h(a.height)}" placeholder="6'1&quot;"></div>
+          <div class="form-group"><label>GPA</label><input type="text" id="f-gpa" value="${h(a.gpa)}" placeholder="3.5"></div>
+          <div class="form-group"><label>School</label><input type="text" id="f-school" value="${h(a.school)}"></div>
+          <div class="form-group"><label>City (shown in tagline)</label><input type="text" id="f-currentCity" value="${h(a.currentCity)}" placeholder="Pittsburgh"></div>
+          <div class="form-group"><label>State</label><input type="text" id="f-currentState" value="${h(a.currentState)}" placeholder="PA"></div>
+          <div class="form-group"><label>Hometown (stats bar)</label><input type="text" id="f-hometown" value="${h(a.hometown)}" placeholder="Dayton"></div>
+          <div class="form-group"><label>Hometown State</label><input type="text" id="f-hometownState" value="${h(a.hometownState)}" placeholder="OH"></div>
+          <div class="form-group full"><label>Athlete Email (for contact button)</label><input type="email" id="f-email" value="${h(a.email)}" placeholder="athlete@email.com"></div>
+          <div class="form-group full"><label>Photo path (relative from recruiting folder)</label><input type="text" id="f-photo" value="${h(a.photo)}" placeholder="assets/images/wemmons.jpg"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOCIAL ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Social Links</span></div>
+      <div class="form-card-body">
+        <div class="fg">
+          <div class="form-group"><label>X / Twitter URL</label><input type="url" id="f-twitter" value="${h(a.social.twitter)}" placeholder="https://x.com/username"></div>
+          <div class="form-group"><label>Instagram URL</label><input type="url" id="f-instagram" value="${h(a.social.instagram)}" placeholder="https://instagram.com/username"></div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="f-facebook" value="${h(a.social.facebook)}" placeholder="https://facebook.com/username"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COACHES & CLUB ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Coaches &amp; Club</span></div>
+      <div class="form-card-body">
+        <div class="form-group" style="margin-bottom:1rem">
+          <label>Club Name</label>
+          <input type="text" id="f-club" value="${h(a.club)}" placeholder="TWC / Tiger Wrestling Club">
+        </div>
+        <div class="coaches-2col">
+          <div>
+            <div class="col-label">Club Coaches</div>
+            <div class="dyn-list" id="clubCoaches-list"></div>
+            <button class="btn-add-row" onclick="addCoach('clubCoaches-list')">+ Add Club Coach</button>
+          </div>
+          <div>
+            <div class="col-label">School Coaches</div>
+            <div class="dyn-list" id="schoolCoaches-list"></div>
+            <button class="btn-add-row" onclick="addCoach('schoolCoaches-list')">+ Add School Coach</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPETITION ACCOLADES ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Competition Accolades</span></div>
+      <div class="form-card-body">
+        <div class="dyn-list" id="accolades-list"></div>
+        <button class="btn-add-row" onclick="addAccolade()">+ Add Accolade</button>
+      </div>
+    </div>
+
+    <!-- ── ACADEMICS ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Academic Accolades</span></div>
+      <div class="form-card-body">
+        <div class="dyn-list" id="academics-list"></div>
+        <button class="btn-add-row" onclick="addAcademic()">+ Add Academic Item</button>
+      </div>
+    </div>
+
+    <!-- ── TOURNAMENT SCHEDULE ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Tournament Schedule</span></div>
+      <div class="form-card-body">
+        <div class="dyn-list" id="tournaments-list"></div>
+        <button class="btn-add-row" onclick="addTournament()">+ Add Tournament</button>
+      </div>
+    </div>
+
+    <!-- ── VIDEOS ── -->
+    <div class="form-card">
+      <div class="form-card-head"><span class="form-card-title">Video Highlights</span></div>
+      <div class="form-card-body">
+        <p class="hint">Enter only the YouTube <strong>Video ID</strong> — the part after <code>?v=</code> in the URL (e.g. <code>dQw4w9WgXcQ</code>).</p>
+        <div class="dyn-list" id="videos-list"></div>
+        <button class="btn-add-row" onclick="addVideo()">+ Add Video</button>
+      </div>
+    </div>
+  `;
+
+  // Populate dynamic lists
+  fillCoaches('clubCoaches-list', a.clubCoaches);
+  fillCoaches('schoolCoaches-list', a.schoolCoaches);
+  fillAccolades(a.accolades);
+  fillAcademics(a.academics);
+  fillTournaments(a.tournaments);
+  fillVideos(a.videos);
+}
+
+// ============================================================
+// DYNAMIC ROW BUILDERS
+// ============================================================
+
+// ── Coaches ──
+function fillCoaches(listId, coaches) {
+  const el = document.getElementById(listId);
+  el.innerHTML = '';
+  (coaches || []).forEach(c => el.appendChild(makeCoachRow(c)));
+}
+function makeCoachRow(c = {}) {
+  const d = document.createElement('div');
+  d.className = 'dyn-row';
+  d.innerHTML = `
+    <input type="text"  data-f="name"  value="${h(c.name  || '')}" placeholder="Coach Name" class="w-md">
+    <input type="email" data-f="email" value="${h(c.email || '')}" placeholder="Email">
+    <input type="tel"   data-f="phone" value="${h(c.phone || '')}" placeholder="Phone" class="w-md">
+    <button class="btn-rm" onclick="this.closest('.dyn-row').remove()" title="Remove">&times;</button>`;
+  return d;
+}
+function addCoach(listId) { document.getElementById(listId).appendChild(makeCoachRow()); }
+
+// ── Accolades ──
+function fillAccolades(list) {
+  const el = document.getElementById('accolades-list');
+  el.innerHTML = '';
+  (list || []).forEach(a => el.appendChild(makeAccoladeRow(a)));
+}
+function makeAccoladeRow(a = {}) {
+  const d = document.createElement('div');
+  d.className = 'dyn-row';
+  d.innerHTML = `
+    <input type="text" data-f="year"   value="${h(a.year   || '')}" placeholder="Year"   class="w-sm">
+    <input type="text" data-f="title"  value="${h(a.title  || '')}" placeholder="Achievement">
+    <input type="text" data-f="detail" value="${h(a.detail || '')}" placeholder="Detail / Place" class="w-md">
+    <label class="check-lbl"><input type="checkbox" data-f="top" ${a.top ? 'checked' : ''}> Featured</label>
+    <button class="btn-rm" onclick="this.closest('.dyn-row').remove()" title="Remove">&times;</button>`;
+  return d;
+}
+function addAccolade() { document.getElementById('accolades-list').appendChild(makeAccoladeRow()); }
+
+// ── Academics ──
+function fillAcademics(list) {
+  const el = document.getElementById('academics-list');
+  el.innerHTML = '';
+  (list || []).forEach(a => el.appendChild(makeAcademicRow(a)));
+}
+function makeAcademicRow(a = {}) {
+  const d = document.createElement('div');
+  d.className = 'dyn-row';
+  d.innerHTML = `
+    <input type="text" data-f="year"   value="${h(a.year   || '')}" placeholder="Year" class="w-sm">
+    <input type="text" data-f="title"  value="${h(a.title  || '')}" placeholder="Achievement">
+    <input type="text" data-f="detail" value="${h(a.detail || '')}" placeholder="Detail" class="w-md">
+    <button class="btn-rm" onclick="this.closest('.dyn-row').remove()" title="Remove">&times;</button>`;
+  return d;
+}
+function addAcademic() { document.getElementById('academics-list').appendChild(makeAcademicRow()); }
+
+// ── Tournaments ──
+function fillTournaments(list) {
+  const el = document.getElementById('tournaments-list');
+  el.innerHTML = '';
+  (list || []).forEach(t => el.appendChild(makeTournamentRow(t)));
+}
+function makeTournamentRow(t = {}) {
+  const d = document.createElement('div');
+  d.className = 'dyn-row';
+  const opts = ['folkstyle','freestyle','greco'].map(s =>
+    `<option value="${s}" ${(t.style||'') === s ? 'selected' : ''}>${s[0].toUpperCase()+s.slice(1)}</option>`
+  ).join('');
+  d.innerHTML = `
+    <input type="text" data-f="date"     value="${h(t.date     || '')}" placeholder="Date" class="w-md">
+    <input type="text" data-f="event"    value="${h(t.event    || '')}" placeholder="Event Name">
+    <input type="text" data-f="location" value="${h(t.location || '')}" placeholder="City, ST" class="w-md">
+    <select data-f="style" class="w-sm">${opts}</select>
+    <button class="btn-rm" onclick="this.closest('.dyn-row').remove()" title="Remove">&times;</button>`;
+  return d;
+}
+function addTournament() { document.getElementById('tournaments-list').appendChild(makeTournamentRow()); }
+
+// ── Videos ──
+function fillVideos(list) {
+  const el = document.getElementById('videos-list');
+  el.innerHTML = '';
+  (list || []).forEach(v => el.appendChild(makeVideoRow(v)));
+}
+function makeVideoRow(v = {}) {
+  const d = document.createElement('div');
+  d.className = 'dyn-row';
+  d.innerHTML = `
+    <input type="text" data-f="label"     value="${h(v.label     || '')}" placeholder="Label (e.g. 2025 Freestyle)" class="w-md">
+    <input type="text" data-f="youtubeId" value="${h(v.youtubeId || '')}" placeholder="YouTube Video ID">
+    <button class="btn-rm" onclick="this.closest('.dyn-row').remove()" title="Remove">&times;</button>`;
+  return d;
+}
+function addVideo() { document.getElementById('videos-list').appendChild(makeVideoRow()); }
+
+// ============================================================
+// READ FORM → DATA OBJECT
+// ============================================================
+function readForm() {
+  const v = id => (document.getElementById(id) || {}).value || '';
+  const rows = (listId, fields) =>
+    Array.from(document.querySelectorAll('#' + listId + ' .dyn-row')).map(row => {
+      const obj = {};
+      fields.forEach(f => {
+        const el = row.querySelector('[data-f="' + f + '"]');
+        if (el) obj[f] = el.type === 'checkbox' ? el.checked : el.value.trim();
+      });
+      return obj;
+    });
+
+  return {
+    id:            v('f-id') || genId(v('f-firstName'), v('f-lastName')),
+    firstName:     v('f-firstName'),
+    lastName:      v('f-lastName'),
+    classYear:     v('f-classYear'),
+    weightClass:   v('f-weightClass'),
+    height:        v('f-height'),
+    gpa:           v('f-gpa'),
+    currentCity:   v('f-currentCity'),
+    currentState:  v('f-currentState'),
+    hometown:      v('f-hometown'),
+    hometownState: v('f-hometownState'),
+    school:        v('f-school'),
+    email:         v('f-email'),
+    photo:         v('f-photo'),
+    social: {
+      twitter:   v('f-twitter'),
+      instagram: v('f-instagram'),
+      facebook:  v('f-facebook')
+    },
+    club:          v('f-club'),
+    clubCoaches:   rows('clubCoaches-list',  ['name','email','phone']),
+    schoolCoaches: rows('schoolCoaches-list', ['name','email','phone']),
+    accolades:     rows('accolades-list',  ['year','title','detail','top']),
+    academics:     rows('academics-list',  ['year','title','detail']),
+    tournaments:   rows('tournaments-list',['date','event','location','style']),
+    videos:        rows('videos-list',     ['label','youtubeId'])
+  };
+}
+
+// ============================================================
+// CRUD
+// ============================================================
+function saveAthlete() {
+  if (!currentId) return;
+  const data = readForm();
+  const idx = athletes.findIndex(a => a.id === currentId);
+  if (idx === -1) return;
+  athletes[idx] = data;
+  currentId = data.id;
+  saveStorage();
+  renderSidebar();
+  toast('Saved!');
+}
+
+function deleteAthlete() {
+  if (!currentId) return;
+  if (!confirm('Delete this profile? This cannot be undone.')) return;
+  athletes = athletes.filter(a => a.id !== currentId);
+  currentId = null;
+  saveStorage();
+  renderSidebar();
+  document.getElementById('form-area').innerHTML = '<div class="empty-state"><h2>Deleted</h2><p>Select or create an athlete.</p></div>';
+  document.getElementById('botbar').style.display = 'none';
+  document.getElementById('topbar-title').textContent = 'Select or create an athlete';
+}
+
+function newAthlete() {
+  const id = 'athlete_' + Date.now();
+  athletes.push({
+    id, firstName: 'New', lastName: 'Athlete',
+    classYear: String(new Date().getFullYear() + 4),
+    weightClass: '', height: '', gpa: '',
+    currentCity: 'Pittsburgh', currentState: 'PA',
+    hometown: '', hometownState: '',
+    school: 'Shaler Area High School',
+    email: '', photo: 'assets/images/' + id + '.jpg',
+    social: { twitter: '', instagram: '', facebook: '' },
+    club: 'TWC / Tiger Wrestling Club',
+    clubCoaches: [], schoolCoaches: [],
+    accolades: [], academics: [], tournaments: [], videos: []
+  });
+  saveStorage();
+  renderSidebar();
+  selectAthlete(id);
+}
+
+// ============================================================
+// IMPORT / EXPORT JSON
+// ============================================================
+function importJSON(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.athletes && Array.isArray(data.athletes)) {
+        athletes = data.athletes;
+        saveStorage();
+        renderSidebar();
+        if (athletes.length) selectAthlete(athletes[0].id);
+        toast('Imported ' + athletes.length + ' athlete(s)');
+      } else {
+        alert('Invalid file — expected { "athletes": [...] }');
+      }
+    } catch(e) { alert('JSON parse error: ' + e.message); }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function exportJSON() {
+  if (currentId) saveAthlete();
+  dlFile(JSON.stringify({ athletes }, null, 2), 'athletes.json', 'application/json');
+  toast('Downloaded athletes.json');
+}
+
+// ============================================================
+// HTML GENERATOR
+// ============================================================
+function downloadHTML() {
+  if (!currentId) return;
+  saveAthlete();
+  const a = athletes.find(x => x.id === currentId);
+  if (!a) return;
+  dlFile(buildProfileHTML(a), a.id + '.html', 'text/html');
+  toast('Downloaded ' + a.id + '.html');
+}
+
+function buildProfileHTML(a) {
+  const fullName  = (a.firstName || '') + ' ' + (a.lastName || '');
+  const tagline   = `Class of ${h(a.classYear)} &amp;nbsp;&amp;middot;&amp;nbsp; ${h(a.weightClass)} lbs &amp;nbsp;&amp;middot;&amp;nbsp; ${h(a.currentCity)}, ${h(a.currentState)}`;
+  const emailSubj = encodeURIComponent('Recruiting Inquiry \u2014 ' + fullName);
+
+  // Accolades
+  const accoladesHTML = (a.accolades || []).map(ac => `
+            <li class="accolade-item${ac.top ? ' accolade-top' : ''}">
+              <span class="accolade-year">${h(ac.year)}</span>
+              <div class="accolade-detail">
+                <strong>${h(ac.title)}</strong>
+                <span class="accolade-sub">${h(ac.detail)}</span>
+              </div>
+            </li>`).join('');
+
+  const academicsHTML = (a.academics || []).map(ac => `
+            <li class="accolade-item">
+              <span class="accolade-year">${h(ac.year)}</span>
+              <div class="accolade-detail">
+                <strong>${h(ac.title)}</strong>
+                <span class="accolade-sub">${h(ac.detail)}</span>
+              </div>
+            </li>`).join('');
+
+  // Coaches
+  const coachCards = coaches => (coaches || []).map(c => `
+          <div class="coach-card">
+            <p class="coach-name">${h(c.name)}</p>
+            ${c.email ? `<a href="mailto:${h(c.email)}" class="coach-contact">${h(c.email)}</a>` : ''}
+            ${c.phone ? `<a href="tel:${h(c.phone)}"   class="coach-contact">${h(c.phone)}</a>`  : ''}
+          </div>`).join('');
+
+  // Tournaments
+  const tourRows = (a.tournaments || []).map(t => `
+            <tr>
+              <td data-label="Date">${h(t.date)}</td>
+              <td data-label="Event">${h(t.event)}</td>
+              <td data-label="Location">${h(t.location)}</td>
+              <td data-label="Style"><span class="style-badge ${h(t.style)}">${h(t.style ? t.style[0].toUpperCase() + t.style.slice(1) : '')}</span></td>
+            </tr>`).join('');
+
+  // Videos (only include rows that have an ID)
+  const validVids = (a.videos || []).filter(v => v.youtubeId && v.youtubeId.trim());
+  const videoCards = validVids.map(v => `
+        <div class="video-card">
+          <div class="video-label">${h(v.label)}</div>
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/${h(v.youtubeId.trim())}"
+              title="${h(v.label)} \u2014 ${h(fullName)}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>`).join('');
+
+  const videosSection = validVids.length ? `
+  <!-- SECTION 6: VIDEO HIGHLIGHTS -->
+  <section class="videos">
+    <div class="section-inner">
+      <h2 class="section-heading light">HIGHLIGHTS</h2>
+      <div class="heading-bar gold"></div>
+      <div class="video-grid">
+        ${videoCards}
+      </div>
+    </div>
+  </section>` : '';
+
+  const tw = (a.social && a.social.twitter)   || '#';
+  const ig = (a.social && a.social.instagram) || '#';
+  const fb = (a.social && a.social.facebook)  || '#';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${h(fullName)} \u00b7 Wrestling Recruiting Profile</title>
+  <meta name="description" content="Official recruiting profile for ${h(fullName)} \u2014 Class of ${h(a.classYear)}, ${h(a.weightClass)} lbs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SECTION 1: HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-photo-wrap">
+        <img
+          src="${h(a.photo)}"
+          alt="${h(fullName)} \u2014 Wrestler"
+          class="hero-photo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hero-photo-placeholder">
+          <span>Photo not found</span>
+        </div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-eyebrow">Recruiting Profile</p>
+        <h1 class="hero-name">${h(a.firstName)}<br>${h(a.lastName)}</h1>
+        <p class="hero-tagline">Class of ${h(a.classYear)} &nbsp;&middot;&nbsp; ${h(a.weightClass)} lbs &nbsp;&middot;&nbsp; ${h(a.currentCity)}, ${h(a.currentState)}</p>
+        <div class="hero-ctas">
+          ${a.email ? `<a href="mailto:${h(a.email)}?subject=${emailSubj}" class="btn btn-gold">Email for Recruiting Info</a>` : ''}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: STATS BAR -->
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-block">
+        <span class="stat-value">${h(a.height)}</span>
+        <span class="stat-label">Height</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <span class="stat-value">${h(a.weightClass)}</span>
+        <span class="stat-label">Weight (lbs)</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <span class="stat-value">${h(a.gpa)}</span>
+        <span class="stat-label">GPA</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block">
+        <span class="stat-value">${h(a.hometown)}</span>
+        <span class="stat-label">Hometown, ${h(a.hometownState)}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ACCOLADES -->
+  <section class="accolades">
+    <div class="section-inner two-col">
+      <div class="section-label-col">
+        <h2 class="section-heading">ACCOLADES</h2>
+        <div class="heading-bar"></div>
+      </div>
+      <div class="accolades-content">
+        <div class="accolades-group">
+          <h3 class="accolades-group-title">Competition</h3>
+          <ul class="accolades-list">
+            ${accoladesHTML || '<li style="padding:1rem 0;color:#9ca3af;font-size:0.875rem">No accolades listed yet</li>'}
+          </ul>
+        </div>
+        <div class="accolades-group">
+          <h3 class="accolades-group-title">Academic</h3>
+          <ul class="accolades-list">
+            ${academicsHTML || '<li style="padding:1rem 0;color:#9ca3af;font-size:0.875rem">No academic items listed yet</li>'}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: COACHES & CLUB -->
+  <section class="coaches">
+    <div class="section-inner">
+      <div class="coaches-header">
+        <h2 class="section-heading light">COACHES &amp; CLUB</h2>
+        <div class="heading-bar gold"></div>
+        <p class="coaches-club-name">${h(a.club)}</p>
+      </div>
+      <div class="coaches-grid">
+        <div class="coaches-column">
+          <h3 class="coaches-col-title">Club Coaches</h3>
+          ${coachCards(a.clubCoaches)}
+        </div>
+        <div class="coaches-column">
+          <h3 class="coaches-col-title">School Coaches \u2014 ${h(a.school)}</h3>
+          ${coachCards(a.schoolCoaches)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TOURNAMENT SCHEDULE -->
+  <section class="schedule">
+    <div class="section-inner">
+      <h2 class="section-heading">TOURNAMENT SCHEDULE</h2>
+      <div class="heading-bar"></div>
+      <p class="schedule-note">${new Date().getFullYear()}\u2013${new Date().getFullYear() + 1} Season</p>
+      <div class="schedule-table-wrap">
+        <table class="schedule-table">
+          <thead>
+            <tr><th>Date</th><th>Event</th><th>Location</th><th>Style</th></tr>
+          </thead>
+          <tbody>
+            ${tourRows || '<tr><td colspan="4" style="text-align:center;padding:2rem;color:#9ca3af">No tournaments scheduled yet</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  ${videosSection}
+
+  <!-- SECTION 7: FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-identity">
+        <p class="footer-name">${h(a.firstName.toUpperCase())} ${h(a.lastName.toUpperCase())}</p>
+        <p class="footer-details">Class of ${h(a.classYear)} &nbsp;&middot;&nbsp; ${h(a.weightClass)} lbs</p>
+        <p class="footer-details">${h(a.school)} &nbsp;&middot;&nbsp; ${h(a.currentCity)}, ${h(a.currentState)}</p>
+      </div>
+      <div class="footer-recruiting">
+        <p class="footer-recruiting-label">Recruiting Inquiries</p>
+        ${a.email
+          ? `<a href="mailto:${h(a.email)}" class="footer-email">${h(a.email)}</a>`
+          : '<span class="footer-email" style="opacity:0.4">Email not set</span>'}
+      </div>
+      <div class="footer-social">
+        <p class="footer-social-label">Connect</p>
+        <div class="social-links">
+          <a href="${h(tw)}" class="social-link" aria-label="X (Twitter)" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          </a>
+          <a href="${h(ig)}" class="social-link" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="${h(fb)}" class="social-link" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          ${a.email ? `<a href="mailto:${h(a.email)}" class="social-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; ${new Date().getFullYear()} ${h(fullName)} &middot; shalerareawrestling.com/recruiting</p>
+    </div>
+  </footer>
+
+</body>
+</html>`;
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function h(s) {
+  return String(s || '')
+    .replace(/&/g,  '&amp;')
+    .replace(/</g,  '&lt;')
+    .replace(/>/g,  '&gt;')
+    .replace(/"/g,  '&quot;');
+}
+
+function genId(first, last) {
+  return ((first || '')[0] + (last || '')).toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function dlFile(content, name, type) {
+  const blob = new Blob([content], { type });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = name; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+</script>
+</body>
+</html>

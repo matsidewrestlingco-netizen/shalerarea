@@ -1,0 +1,52 @@
+{
+  "athletes": [
+    {
+      "id": "wemmons",
+      "firstName": "Weston",
+      "lastName": "Emmons",
+      "classYear": "2028",
+      "weightClass": "165",
+      "height": "6'1\"",
+      "gpa": "3.5",
+      "currentCity": "Pittsburgh",
+      "currentState": "PA",
+      "hometown": "Dayton",
+      "hometownState": "OH",
+      "school": "Shaler Area High School",
+      "email": "",
+      "photo": "assets/images/wemmons.jpg",
+      "social": {
+        "twitter": "",
+        "instagram": "",
+        "facebook": ""
+      },
+      "club": "TWC / Tiger Wrestling Club",
+      "clubCoaches": [
+        { "name": "Mason Manville", "email": "", "phone": "" },
+        { "name": "Dwayne Nasiadka", "email": "", "phone": "" }
+      ],
+      "schoolCoaches": [
+        { "name": "Drew D'Agostino", "email": "", "phone": "" },
+        { "name": "Mickey Moran", "email": "", "phone": "" },
+        { "name": "Ronnie D'Amico", "email": "", "phone": "" }
+      ],
+      "accolades": [
+        { "year": "2025", "title": "Fargo National Qualifier", "detail": "Freestyle & Greco-Roman", "top": true },
+        { "year": "2025", "title": "PA Freestyle State Placer", "detail": "4th Place", "top": false },
+        { "year": "2025", "title": "PA Greco-Roman State Placer", "detail": "5th Place", "top": false },
+        { "year": "2024", "title": "PA Greco-Roman State Placer", "detail": "6th Place", "top": false },
+        { "year": "2022", "title": "Ohio All-Star Wrestling Team", "detail": "Team Member", "top": false }
+      ],
+      "academics": [
+        { "year": "Current", "title": "3.5 GPA", "detail": "Shaler Area High School" },
+        { "year": "2025", "title": "Honor Roll", "detail": "Academic Excellence" }
+      ],
+      "tournaments": [],
+      "videos": [
+        { "label": "2025 Freestyle", "youtubeId": "" },
+        { "label": "2025 Greco-Roman", "youtubeId": "" },
+        { "label": "2025 HS Freshman Season", "youtubeId": "" }
+      ]
+    }
+  ]
+}
