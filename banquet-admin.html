@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Banquet Admin | SAWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #f6f8fc; --bg2: #eef3fb;
+      --card: #ffffff; --stroke: rgba(15,23,42,0.10);
+      --text: #0f172a; --muted: #475569;
+      --blue: #1b3a6b; --red: #c81f2d;
+      --paidDeep: #0b6b2a; --paidDeepBg: rgba(11,107,42,0.15);
+      --pendingDeep: #a16207; --pendingBg: rgba(234,179,8,0.15);
+      --shadow: 0 10px 30px rgba(15,23,42,0.08);
+      --radius: 18px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      background:
+        radial-gradient(900px 450px at 15% 0%, rgba(27,58,107,0.08), transparent 55%),
+        radial-gradient(900px 450px at 85% 0%, rgba(200,31,45,0.08), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+    .topbar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 16px; border: 1px solid var(--stroke); border-radius: var(--radius);
+      background: linear-gradient(90deg, rgba(27,58,107,0.06), rgba(200,31,45,0.05));
+      box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    .topbar img { height: 46px; width: auto; }
+    .topbar h1 { font-family: 'Oswald', sans-serif; font-size: 24px; margin: 0; color: var(--blue); }
+    .topbar .sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+    .card {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius);
+      padding: 18px; box-shadow: var(--shadow); margin-bottom: 14px;
+    }
+    h2 { margin: 0 0 10px; font-family: 'Oswald', sans-serif; font-size: 20px; color: var(--blue); }
+    p  { margin: 8px 0; color: var(--muted); line-height: 1.5; }
+    .hr { height: 1px; background: rgba(15,23,42,0.10); margin: 14px 0; }
+
+    label {
+      display: block; font-size: 12px; color: var(--muted);
+      margin: 12px 0 5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    input, select {
+      width: 100%; padding: 11px 13px; border-radius: 13px;
+      border: 1px solid rgba(15,23,42,0.14); background: #fff;
+      color: var(--text); outline: none; font-size: 15px; font-family: inherit;
+    }
+    input:focus, select:focus {
+      border-color: rgba(27,58,107,0.45); box-shadow: 0 0 0 4px rgba(27,58,107,0.10);
+    }
+
+    /* Login */
+    .login-wrap { max-width: 400px; margin: 80px auto; }
+
+    /* Stats */
+    .stats {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 14px;
+    }
+    @media (max-width: 900px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: 14px; padding: 14px; text-align: center; box-shadow: var(--shadow);
+    }
+    .stat-value { font-family: 'Oswald', sans-serif; font-size: 30px; font-weight: 700; color: var(--blue); }
+    .stat-value.green  { color: var(--paidDeep); }
+    .stat-value.yellow { color: var(--pendingDeep); }
+    .stat-value.red    { color: var(--red); }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 9px 14px; border-radius: 12px; border: 1px solid rgba(15,23,42,0.14);
+      background: #fff; color: var(--text); cursor: pointer; font-weight: 800;
+      font-size: 13px; text-decoration: none; font-family: inherit; transition: filter 0.15s;
+    }
+    .btn:hover { filter: brightness(0.96); }
+    .btn-sm { padding: 6px 10px; font-size: 12px; }
+    .btn-green  { border-color: rgba(11,107,42,0.28);  background: linear-gradient(180deg, rgba(11,107,42,0.12), rgba(11,107,42,0.07));  color: var(--paidDeep); }
+    .btn-yellow { border-color: rgba(161,98,7,0.28);   background: linear-gradient(180deg, rgba(161,98,7,0.12),  rgba(161,98,7,0.07));   color: var(--pendingDeep); }
+    .btn-red    { border-color: rgba(200,31,45,0.28);  background: linear-gradient(180deg, rgba(200,31,45,0.10), rgba(200,31,45,0.06));  color: var(--red); }
+    .btn-blue   { border-color: rgba(27,58,107,0.28);  background: linear-gradient(180deg, rgba(27,58,107,0.10), rgba(27,58,107,0.06));  color: var(--blue); }
+    .btn-primary {
+      border-color: rgba(27,58,107,0.40);
+      background: linear-gradient(180deg, #1b3a6b, #152d54);
+      color: white; font-size: 15px; padding: 12px 18px;
+    }
+    .btn-primary:hover { filter: brightness(1.1); }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .toolbar-left, .toolbar-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--stroke); vertical-align: top; }
+    th { font-weight: 800; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+    tr:hover td { background: rgba(27,58,107,0.02); }
+
+    .badge {
+      display: inline-block; padding: 3px 9px; border-radius: 999px;
+      font-size: 11px; font-weight: 800; text-transform: uppercase; white-space: nowrap;
+    }
+    .badge-confirmed { background: var(--paidDeepBg);  color: var(--paidDeep); }
+    .badge-pending   { background: var(--pendingBg);   color: var(--pendingDeep); }
+
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .pay-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 8px;
+      font-size: 11px; font-weight: 700; background: rgba(27,58,107,0.07); color: var(--blue);
+    }
+
+    .ok  { color: #16a34a; font-weight: 800; }
+    .err { color: #dc2626; font-weight: 800; }
+
+    .filter-row {
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 0;
+    }
+    .filter-row label { margin: 0; display: flex; align-items: center; gap: 8px; }
+    .filter-row select, .filter-row input[type="search"] { width: auto; padding: 7px 11px; font-size: 13px; }
+
+    #app { display: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Login Screen ───────────────────────────────────────────────── -->
+  <div id="loginScreen" class="login-wrap">
+    <div class="card">
+      <div style="text-align:center; margin-bottom:14px;">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" style="height:52px;" />
+      </div>
+      <h2 style="text-align:center;">Banquet Admin</h2>
+      <p style="text-align:center;">Sign in with your SAWA admin account.</p>
+      <div class="hr"></div>
+      <label>Email</label>
+      <input type="email" id="emailInput" placeholder="admin@example.com" />
+      <label>Password</label>
+      <input type="password" id="passwordInput" placeholder="Password" />
+      <button class="btn btn-primary" style="width:100%; margin-top:14px;" id="loginBtn">Sign In</button>
+      <div id="loginMsg" style="margin-top:10px; font-size:13px;"></div>
+    </div>
+  </div>
+
+  <!-- ── Main App ───────────────────────────────────────────────────── -->
+  <div id="app" class="wrap">
+
+    <div class="topbar">
+      <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SA Wrestling" />
+      <div style="flex:1;">
+        <h1>2026 Banquet — Admin</h1>
+        <div class="sub">RSVP management &amp; payment confirmation &bull; <a href="banquet.html" style="color:var(--blue);">View public page</a></div>
+      </div>
+      <button class="btn btn-sm btn-red" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total RSVPs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value green" id="statConfirmed">0</div>
+        <div class="stat-label">Confirmed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value yellow" id="statPending">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statAdults">0</div>
+        <div class="stat-label">Confirmed Adults</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value green" id="statRevenue">$0</div>
+        <div class="stat-label">Confirmed Revenue</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="card">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button class="btn btn-blue" id="refreshBtn">&#8635; Refresh</button>
+          <div id="refreshMsg" style="font-size:13px;"></div>
+        </div>
+        <div class="toolbar-right filter-row">
+          <label>
+            Filter:
+            <select id="filterStatus">
+              <option value="all">All</option>
+              <option value="pending">Pending Only</option>
+              <option value="confirmed">Confirmed Only</option>
+            </select>
+          </label>
+          <label>
+            Search:
+            <input type="search" id="searchInput" placeholder="Name or email…" style="min-width:160px;" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RSVP Table -->
+    <div class="card">
+      <h2>RSVPs</h2>
+      <div class="hr"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Wrestler(s)</th>
+              <th>Email</th>
+              <th>Adults</th>
+              <th>Under 18</th>
+              <th>Total Due</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Submitted</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="rsvpTableBody">
+            <tr><td colspan="11" style="color:var(--muted); padding:20px 8px;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="tableMsg" style="margin-top:10px; font-size:13px;"></div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore, collection, query, orderBy, getDocs, doc, updateDoc, deleteDoc, serverTimestamp, limit
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDiXKDy1Xg_W7BNzO-bo1FbapXt_hJTYco",
+      authDomain: "tdc-raffle.firebaseapp.com",
+      projectId: "tdc-raffle",
+      storageBucket: "tdc-raffle.firebasestorage.app",
+      messagingSenderId: "832529502371",
+      appId: "1:832529502371:web:7f35743f8be7774c736f16"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    const loginScreen = document.getElementById("loginScreen");
+    const appEl       = document.getElementById("app");
+
+    // ── Auth ──────────────────────────────────────────────────────────
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        loginScreen.style.display = "none";
+        appEl.style.display       = "block";
+        loadRSVPs();
+      } else {
+        loginScreen.style.display = "block";
+        appEl.style.display       = "none";
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email    = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      const msgEl    = document.getElementById("loginMsg");
+      msgEl.textContent = "Signing in…";
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (e) {
+        msgEl.innerHTML = `<span style="color:#dc2626;">Login failed: ${escapeHtml(e.message)}</span>`;
+      }
+    });
+
+    document.getElementById("passwordInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("loginBtn").click();
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+
+    // ── Data ──────────────────────────────────────────────────────────
+    let allRows = [];
+
+    async function loadRSVPs() {
+      document.getElementById("refreshMsg").textContent = "Loading…";
+      try {
+        const q    = query(collection(db, "banquet_rsvp_2026"), orderBy("createdAt", "desc"), limit(500));
+        const snap = await getDocs(q);
+        allRows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderTable();
+        document.getElementById("refreshMsg").textContent = `Loaded ${allRows.length} RSVPs`;
+        setTimeout(() => { document.getElementById("refreshMsg").textContent = ""; }, 3000);
+      } catch (e) {
+        console.error(e);
+        document.getElementById("refreshMsg").innerHTML =
+          `<span style="color:#dc2626;">Error: ${escapeHtml(e.message)}</span>`;
+      }
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", loadRSVPs);
+    document.getElementById("filterStatus").addEventListener("change", renderTable);
+    document.getElementById("searchInput").addEventListener("input", renderTable);
+
+    function renderTable() {
+      const filterVal  = document.getElementById("filterStatus").value;
+      const searchVal  = document.getElementById("searchInput").value.toLowerCase().trim();
+
+      let rows = allRows.filter(r => {
+        if (filterVal !== "all" && r.status !== filterVal) return false;
+        if (searchVal) {
+          const hay = `${r.wrestlerName || ""} ${r.email || ""}`.toLowerCase();
+          if (!hay.includes(searchVal)) return false;
+        }
+        return true;
+      });
+
+      // Stats (always from allRows)
+      const confirmed = allRows.filter(r => r.status === "confirmed");
+      const pending   = allRows.filter(r => r.status === "pending");
+      const confAdults   = confirmed.reduce((s, r) => s + (r.numAdults || 0), 0);
+      const confRevenue  = confirmed.reduce((s, r) => s + (r.totalAmount || 0), 0);
+
+      document.getElementById("statTotal").textContent     = allRows.length;
+      document.getElementById("statConfirmed").textContent = confirmed.length;
+      document.getElementById("statPending").textContent   = pending.length;
+      document.getElementById("statAdults").textContent    = confAdults;
+      document.getElementById("statRevenue").textContent   = "$" + confRevenue;
+
+      const tbody = document.getElementById("rsvpTableBody");
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="11" style="color:var(--muted); padding:20px 8px;">No RSVPs found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map((r, i) => {
+        const statusBadge = r.status === "confirmed"
+          ? `<span class="badge badge-confirmed">Confirmed</span>`
+          : `<span class="badge badge-pending">Pending</span>`;
+
+        const submitted = r.createdAt?.toDate
+          ? r.createdAt.toDate().toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" })
+          : "—";
+
+        const payLabel = {
+          square: "Square", venmo: "Venmo", cashapp: "CashApp",
+          paypal: "PayPal", check: "Check"
+        }[r.paymentMethod] || (r.paymentMethod || "—");
+
+        const actions = r.status === "confirmed"
+          ? `<button class="btn btn-sm btn-yellow" data-id="${r.id}" data-action="unconfirm">Mark Pending</button>
+             <button class="btn btn-sm btn-red" data-id="${r.id}" data-action="delete">Delete</button>`
+          : `<button class="btn btn-sm btn-green" data-id="${r.id}" data-action="confirm">Confirm</button>
+             <button class="btn btn-sm btn-red" data-id="${r.id}" data-action="delete">Delete</button>`;
+
+        return `<tr>
+          <td style="color:var(--muted); font-size:12px;">${i + 1}</td>
+          <td style="font-weight:700;">${escapeHtml(r.wrestlerName || "—")}</td>
+          <td style="font-size:13px; color:var(--muted);">${escapeHtml(r.email || "—")}</td>
+          <td style="text-align:center;">${r.numAdults ?? "—"}</td>
+          <td style="text-align:center;">${r.numUnder18 ?? "—"}</td>
+          <td style="font-weight:700;">$${r.totalAmount ?? 0}</td>
+          <td><span class="pay-badge">${escapeHtml(payLabel)}</span></td>
+          <td>${statusBadge}</td>
+          <td style="font-size:12px; color:var(--muted); white-space:nowrap;">${submitted}</td>
+          <td style="font-size:12px; color:var(--muted); max-width:140px;">${escapeHtml(r.note || "")}</td>
+          <td><div class="actions">${actions}</div></td>
+        </tr>`;
+      }).join("");
+    }
+
+    // ── Actions ───────────────────────────────────────────────────────
+    document.getElementById("rsvpTableBody").addEventListener("click", async (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+
+      const id     = btn.dataset.id;
+      const action = btn.dataset.action;
+      btn.disabled = true;
+
+      try {
+        if (action === "confirm") {
+          await updateDoc(doc(db, "banquet_rsvp_2026", id), { status: "confirmed" });
+          const row = allRows.find(r => r.id === id);
+          if (row) row.status = "confirmed";
+        } else if (action === "unconfirm") {
+          await updateDoc(doc(db, "banquet_rsvp_2026", id), { status: "pending" });
+          const row = allRows.find(r => r.id === id);
+          if (row) row.status = "pending";
+        } else if (action === "delete") {
+          if (!confirm("Delete this RSVP? This cannot be undone.")) { btn.disabled = false; return; }
+          await deleteDoc(doc(db, "banquet_rsvp_2026", id));
+          allRows = allRows.filter(r => r.id !== id);
+        }
+        renderTable();
+      } catch (err) {
+        console.error(err);
+        alert("Action failed: " + err.message);
+        btn.disabled = false;
+      }
+    });
+
+    // ── Helpers ───────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s ?? "")
+        .replaceAll("&",  "&amp;")
+        .replaceAll("<",  "&lt;")
+        .replaceAll(">",  "&gt;")
+        .replaceAll('"',  "&quot;")
+        .replaceAll("'",  "&#039;");
+    }
+  </script>
+</body>
+</html>

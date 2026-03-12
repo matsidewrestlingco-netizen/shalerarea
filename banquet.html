@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2026 Banquet | SAWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:   #fdf8f0;
+      --cream2:  #f5ede0;
+      --card:    #ffffff;
+      --stroke:  rgba(160, 120, 50, 0.14);
+      --text:    #1c1610;
+      --muted:   #6b5a48;
+      --navy:    #1b3a6b;
+      --navy2:   #0f2244;
+      --gold:    #b8860b;
+      --gold-lt: rgba(184,134,11,0.10);
+      --gold-bd: rgba(184,134,11,0.22);
+      --green:   #2a5e2a;
+      --green-lt:rgba(42,94,42,0.08);
+      --shadow:  0 4px 28px rgba(100, 70, 20, 0.09);
+      --shadow-lg: 0 12px 48px rgba(100, 70, 20, 0.13);
+      --radius:  18px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream2) 100%);
+      min-height: 100vh;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15, 34, 68, 0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo img { height: 40px; }
+    .nav-menu { display: flex; list-style: none; gap: 32px; margin: 0; padding: 0; }
+    .nav-menu a {
+      color: rgba(255,255,255,0.78); text-decoration: none;
+      font-size: 14px; font-weight: 600; transition: color 0.2s; letter-spacing: 0.2px;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color: #fff; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-menu {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(15,34,68,0.98); flex-direction: column; gap: 0; padding: 16px 0;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a { display: block; padding: 12px 24px; }
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      padding-top: 64px; /* nav height */
+      background: linear-gradient(160deg, var(--navy2) 0%, var(--navy) 55%, #1f4b8a 100%);
+      position: relative; overflow: hidden; text-align: center;
+      padding-bottom: 0;
+    }
+    /* warm gold glow from below */
+    .hero::after {
+      content: "";
+      position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      background: radial-gradient(ellipse at 50% 130%, rgba(184,134,11,0.30), transparent 68%);
+      pointer-events: none;
+    }
+    /* subtle light scatter */
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(255,255,255,0.04), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(255,255,255,0.03), transparent 40%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto; padding: 60px 24px 0;
+    }
+    .hero-logo {
+      height: 72px; width: auto; display: block; margin: 0 auto 28px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.35));
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      color: rgba(184,134,11,0.85); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600; font-size: clamp(40px, 7vw, 66px);
+      color: #fff; margin: 0 0 16px; line-height: 1.08;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .hero-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.72); line-height: 1.6;
+      margin: 0 auto 32px; max-width: 480px;
+    }
+
+    /* event detail chips */
+    .hero-chips {
+      display: inline-flex; gap: 0; flex-wrap: wrap; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
+      overflow: hidden; background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px); margin-bottom: 28px;
+    }
+    .hero-chip {
+      padding: 11px 22px; font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,0.88); white-space: nowrap;
+    }
+    .hero-chip + .hero-chip {
+      border-left: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-chip svg { vertical-align: -3px; margin-right: 6px; opacity: 0.7; }
+
+    /* wave divider */
+    .hero-wave {
+      display: block; width: 100%; margin-bottom: -2px; position: relative; z-index: 1;
+    }
+    .hero-wave path { fill: var(--cream); }
+
+    /* deadline ribbon */
+    .deadline-ribbon {
+      display: inline-block;
+      background: rgba(184,134,11,0.18); border: 1px solid rgba(184,134,11,0.30);
+      color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+      padding: 7px 18px; border-radius: 999px; margin-bottom: 40px;
+      letter-spacing: 0.2px;
+    }
+
+    /* ─── Main container ─────────────────────────────────────── */
+    .main { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+
+    /* ─── Section divider ─────────────────────────────────────── */
+    .section-heading {
+      text-align: center; margin-bottom: 28px;
+    }
+    .section-heading h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px; font-weight: 600; color: var(--navy); margin: 0 0 8px;
+    }
+    .section-heading p {
+      font-size: 15px; color: var(--muted); margin: 0; line-height: 1.6;
+    }
+    .ornament {
+      display: flex; align-items: center; gap: 12px;
+      margin: 10px auto 0; max-width: 280px;
+    }
+    .ornament-line { flex: 1; height: 1px; background: var(--gold-bd); }
+    .ornament-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    /* ─── Cards ──────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .card-accent {
+      border-top: 3px solid var(--gold);
+    }
+
+    /* ─── Form ───────────────────────────────────────────────── */
+    .form-field { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: 12px; font-weight: 700;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+    input[type="text"], input[type="email"], input[type="number"],
+    select, textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid rgba(160,120,50,0.18);
+      background: #fdf9f3; color: var(--text);
+      outline: none; font-size: 15px; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
+
+    /* pricing note under the pair */
+    .field-hint { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    /* total display */
+    .total-band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(135deg, rgba(184,134,11,0.08), rgba(184,134,11,0.04));
+      border: 1px solid var(--gold-bd);
+      border-radius: 12px; padding: 14px 18px; margin: 20px 0 22px;
+    }
+    .total-left-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .total-left-sub   { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .total-amount     { font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700; color: var(--gold); }
+
+    /* submit button */
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: linear-gradient(160deg, var(--navy2), var(--navy));
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 700; font-family: inherit;
+      cursor: pointer; letter-spacing: 0.3px;
+      box-shadow: 0 4px 18px rgba(15,34,68,0.25);
+      transition: filter 0.15s, transform 0.12s;
+    }
+    .btn-submit:hover  { filter: brightness(1.10); }
+    .btn-submit:active { transform: scale(0.99); }
+
+    /* ─── Messages ───────────────────────────────────────────── */
+    .ok  { color: var(--green); font-weight: 700; font-size: 14px; line-height: 1.5; }
+    .err { color: #b91c1c;      font-weight: 700; font-size: 14px; }
+    .msg-muted { color: var(--muted); font-size: 14px; }
+
+    /* ─── Payment section ────────────────────────────────────── */
+    .payment-heading {
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 14px;
+    }
+    .pay-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
+    }
+    @media (max-width: 480px) { .pay-grid { grid-template-columns: 1fr; } }
+    .pay-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 14px; border-radius: 11px; text-decoration: none;
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      border: 1px solid var(--stroke); color: var(--text);
+      background: #fff; transition: background 0.15s, border-color 0.15s;
+      text-align: center;
+    }
+    .pay-btn:hover { background: var(--cream); border-color: var(--gold-bd); }
+    .pay-btn-square  { border-color: rgba(0,0,0,0.15); }
+    .pay-btn-venmo   { border-color: rgba(0,130,200,0.20); }
+    .pay-btn-cashapp { border-color: rgba(0,160,80,0.20); }
+    .pay-btn-paypal  { border-color: rgba(0,70,160,0.20); }
+
+    .pay-note {
+      font-size: 13px; color: var(--muted); line-height: 1.6;
+      padding: 12px 16px;
+      background: var(--gold-lt); border: 1px solid var(--gold-bd);
+      border-radius: 11px; margin-bottom: 16px;
+    }
+    .pay-note b { color: var(--text); }
+
+    /* check address */
+    .check-block {
+      font-size: 13px; color: var(--muted); line-height: 1.8;
+    }
+    .check-block strong { color: var(--text); }
+
+    /* collapsible QR codes */
+    .qr-toggle {
+      background: none; border: none; cursor: pointer; padding: 0;
+      font-size: 13px; color: var(--gold); font-weight: 700;
+      font-family: inherit; display: flex; align-items: center; gap: 5px;
+      margin-bottom: 12px;
+    }
+    .qr-toggle svg { transition: transform 0.2s; }
+    .qr-toggle.open svg { transform: rotate(90deg); }
+    .qr-grid-wrap { display: none; }
+    .qr-grid-wrap.open { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 480px) { .qr-grid-wrap.open { grid-template-columns: repeat(2, 1fr); } }
+    .qrbox { text-align: center; }
+    .qrbox img { width: 100%; height: auto; border-radius: 9px; border: 1px solid var(--stroke); }
+    .qrlabel { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 5px; }
+
+    /* ─── Divider ─────────────────────────────────────────────── */
+    .warm-hr { height: 1px; background: var(--gold-bd); margin: 20px 0; }
+
+    /* ─── Who's Joining ──────────────────────────────────────── */
+    .guests-section { margin-top: 48px; }
+    .guests-meta {
+      text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 24px;
+    }
+    .guests-meta .guests-count {
+      font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700;
+      color: var(--navy); display: block; line-height: 1;
+    }
+    .guests-meta .guests-sub { margin-top: 4px; }
+
+    .guest-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    @media (max-width: 640px) { .guest-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 380px) { .guest-grid { grid-template-columns: 1fr; } }
+
+    .guest-tile {
+      background: #fff;
+      border: 1px solid var(--gold-bd);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 12px rgba(100,70,20,0.07);
+    }
+    .guest-name  { font-weight: 700; font-size: 15px; color: var(--navy); }
+    .guest-count { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .guests-empty {
+      text-align: center; color: var(--muted); font-size: 15px;
+      padding: 32px 0; font-style: italic;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .footer {
+      text-align: center; padding: 32px 20px;
+      border-top: 1px solid var(--stroke);
+      color: var(--muted); font-size: 12px; line-height: 1.8;
+    }
+    .footer a { color: var(--navy); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="banquet.html" class="active">Banquet</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img class="hero-logo" src="https://www.shalerareawrestling.com/assets/saw.png" alt="Shaler Area Wrestling" />
+      <div class="hero-eyebrow">Shaler Area Wrestling Association</div>
+      <h1 class="hero-title">2026 Banquet</h1>
+      <p class="hero-subtitle">Join us as we celebrate our wrestlers, coaches, and the families who made this season possible.</p>
+
+      <div class="hero-chips">
+        <div class="hero-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Wednesday, April 8th, 2026
+        </div>
+        <div class="hero-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          6:00 PM
+        </div>
+      </div>
+
+      <div class="deadline-ribbon">
+        RSVP by Monday, April 6th, 2026
+      </div>
+    </div>
+
+    <!-- wave into page -->
+    <svg class="hero-wave" viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,54 C360,0 1080,0 1440,54 L1440,54 L0,54 Z"/>
+    </svg>
+  </section>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- RSVP Form -->
+    <div class="section-heading">
+      <h2>Reserve Your Seats</h2>
+      <p>We'd love to have your family there. Fill out the form below and we'll save your spot.</p>
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-line"></div>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <form id="rsvpForm">
+
+        <div class="form-field">
+          <label class="form-label">Wrestler(s) Name *</label>
+          <input id="wrestlerName" type="text" placeholder="First and Last Name" autocomplete="name" required />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Parent / Guardian Email *</label>
+          <input id="email" type="email" placeholder="example@example.com" autocomplete="email" required />
+        </div>
+
+        <div class="field-row">
+          <div class="form-field">
+            <label class="form-label">Adults Attending *</label>
+            <input id="numAdults" type="number" min="0" step="1" value="0" required />
+            <div class="field-hint">First 2 parents included free &mdash; $20 each additional adult</div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Under 18 Attending *</label>
+            <input id="numUnder18" type="number" min="0" step="1" value="0" required />
+            <div class="field-hint">Free &mdash; not including wrestler(s)</div>
+          </div>
+        </div>
+
+        <div class="total-band">
+          <div>
+            <div class="total-left-label">Amount Due</div>
+            <div class="total-left-sub" id="totalBreakdown">0 adults &times; $20</div>
+          </div>
+          <div class="total-amount" id="totalAmount">$0</div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">How will you pay? *</label>
+          <select id="payMethod" required>
+            <option value="free">No payment needed</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Anything else we should know? <span style="font-weight:400;">(optional)</span></label>
+          <textarea id="note" placeholder="Dietary needs, food allergies, special requests…"></textarea>
+        </div>
+
+        <button class="btn-submit" type="submit">Send My RSVP</button>
+        <div id="msg" style="margin-top:14px;"></div>
+
+      </form>
+    </div>
+
+    <!-- Payment instructions -->
+    <div class="card">
+      <div class="payment-heading">Payment Options</div>
+      <p style="font-size:14px; color:var(--muted); margin:0 0 16px;">After submitting, please send your payment using any of the options below. Wrestlers, kids under 18, and the first 2 parents are free &mdash; $20 applies only to additional adults beyond that.</p>
+
+      <div class="pay-note">
+        <b>Important:</b> Include your wrestler's name in the payment memo so we can match it to your RSVP.
+      </div>
+
+      <div class="pay-grid">
+        <a class="pay-btn pay-btn-square" href="https://square.link/u/clH8pZMV" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+          Card — Square
+        </a>
+        <a class="pay-btn pay-btn-venmo" href="#" id="venmoBtn" target="_blank" rel="noopener">
+          Venmo @SAWATitans
+        </a>
+        <a class="pay-btn pay-btn-cashapp" href="https://cash.app/$SAWATitans" target="_blank" rel="noopener">
+          CashApp $SAWATitans
+        </a>
+        <a class="pay-btn pay-btn-paypal" href="https://paypal.me/SAWATitans" target="_blank" rel="noopener">
+          PayPal @SAWATitans
+        </a>
+      </div>
+
+      <button class="qr-toggle" id="qrToggle" type="button">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        Show QR Codes
+      </button>
+      <div class="qr-grid-wrap" id="qrGridWrap">
+        <div class="qrbox">
+          <img src="https://www.shalerareawrestling.com/assets/tdc/venmo_sawa.jpg" alt="Venmo QR" />
+          <div class="qrlabel">Venmo</div>
+        </div>
+        <div class="qrbox">
+          <img src="https://www.shalerareawrestling.com/assets/tdc/square_sawa.png" alt="Square QR" />
+          <div class="qrlabel">Square</div>
+        </div>
+        <div class="qrbox">
+          <img src="https://www.shalerareawrestling.com/assets/tdc/cashapp_sawa.png" alt="CashApp QR" />
+          <div class="qrlabel">CashApp</div>
+        </div>
+        <div class="qrbox">
+          <img src="https://www.shalerareawrestling.com/assets/tdc/paypal_sawa.jpg" alt="PayPal QR" />
+          <div class="qrlabel">PayPal</div>
+        </div>
+      </div>
+
+      <div class="warm-hr"></div>
+
+      <div class="check-block">
+        <strong>Paying by check?</strong> Make it out to <strong>Shaler Area Wrestling Assoc</strong> and mail to:<br/>
+        2409 E Springwood Drive, Glenshaw, PA 15116
+      </div>
+    </div>
+
+    <!-- Who's joining -->
+    <section class="guests-section">
+      <div class="section-heading">
+        <h2>Who's Joining Us</h2>
+        <p>Families confirmed so far — yours will appear here once payment is received.</p>
+        <div class="ornament">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+      </div>
+
+      <div class="guests-meta">
+        <span class="guests-count" id="statFamilies">—</span>
+        <span class="guests-sub" id="guestsSub">families confirmed</span>
+      </div>
+
+      <!-- hidden stat for JS -->
+      <span id="statAttendees" style="display:none;"></span>
+
+      <div id="rsvpGrid" class="guest-grid"></div>
+      <p class="guests-empty" id="rsvpStatusText" style="display:none;"></p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    &copy; 2026 Shaler Area Wrestling Association<br/>
+    Questions? <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">ShalerAreaWrestlingAssoc@gmail.com</a>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+
+    // QR toggle
+    const qrToggle   = document.getElementById('qrToggle');
+    const qrGridWrap = document.getElementById('qrGridWrap');
+    qrToggle.addEventListener('click', () => {
+      const open = qrGridWrap.classList.toggle('open');
+      qrToggle.classList.toggle('open', open);
+      qrToggle.querySelector('span') && (qrToggle.textContent = '');
+      qrToggle.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> ${open ? 'Hide QR Codes' : 'Show QR Codes'}`;
+      if (open) qrToggle.classList.add('open'); else qrToggle.classList.remove('open');
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore, collection, addDoc, serverTimestamp,
+      query, where, orderBy, limit, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDiXKDy1Xg_W7BNzO-bo1FbapXt_hJTYco",
+      authDomain: "tdc-raffle.firebaseapp.com",
+      projectId: "tdc-raffle",
+      storageBucket: "tdc-raffle.firebasestorage.app",
+      messagingSenderId: "832529502371",
+      appId: "1:832529502371:web:7f35743f8be7774c736f16"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // ── Live total ────────────────────────────────────────────────────
+    const numAdultsEl  = document.getElementById("numAdults");
+    const numUnder18El = document.getElementById("numUnder18");
+
+    const PAID_OPTIONS = `
+      <option value="square">Credit / Debit Card — Square</option>
+      <option value="venmo">Venmo (@SAWATitans)</option>
+      <option value="cashapp">CashApp ($SAWATitans)</option>
+      <option value="paypal">PayPal (@SAWATitans)</option>
+      <option value="check">Check (mail to SAWA)</option>
+    `;
+    let lastPaidMethod = "square";
+
+    function updateTotal() {
+      const adults     = Math.max(0, parseInt(numAdultsEl.value, 10) || 0);
+      const chargeable = Math.max(0, adults - 2);
+      const total      = chargeable * 20;
+
+      document.getElementById("totalAmount").textContent = "$" + total;
+      if (adults <= 2) {
+        document.getElementById("totalBreakdown").textContent = "First 2 parents included free";
+      } else {
+        document.getElementById("totalBreakdown").textContent =
+          `${chargeable} additional adult${chargeable !== 1 ? "s" : ""} \u00d7 $20`;
+      }
+
+      const paySelect  = document.getElementById("payMethod");
+      const currentVal = paySelect.value;
+
+      if (total === 0) {
+        // Save whatever paid method they had chosen before switching back
+        if (currentVal && currentVal !== "free") lastPaidMethod = currentVal;
+        paySelect.innerHTML = `<option value="free">No payment needed</option>`;
+      } else {
+        // Only rebuild if we're currently showing the free option
+        if (currentVal === "free") {
+          paySelect.innerHTML = PAID_OPTIONS;
+          paySelect.value     = lastPaidMethod;
+        }
+      }
+    }
+    numAdultsEl.addEventListener("input",  updateTotal);
+    numUnder18El.addEventListener("input", updateTotal);
+
+    // ── Helpers ───────────────────────────────────────────────────────
+    function escapeHtml(s) {
+      return String(s ?? "")
+        .replaceAll("&",  "&amp;")
+        .replaceAll("<",  "&lt;")
+        .replaceAll(">",  "&gt;")
+        .replaceAll('"',  "&quot;")
+        .replaceAll("'",  "&#039;");
+    }
+
+    function setMessage(type, text) {
+      const cls = type === "ok" ? "ok" : (type === "err" ? "err" : "msg-muted");
+      document.getElementById("msg").innerHTML =
+        `<div class="${cls}">${escapeHtml(text)}</div>`;
+    }
+
+    function maskName(full) {
+      const parts = String(full || "").trim().split(/\s+/).filter(Boolean);
+      if (!parts.length) return "";
+      if (parts.length === 1) return parts[0];
+      return parts[0] + " " + parts[1][0].toUpperCase() + ".";
+    }
+
+    // ── Load confirmed RSVPs ──────────────────────────────────────────
+    async function loadConfirmedRSVPs() {
+      try {
+        const q = query(
+          collection(db, "banquet_rsvp_2026"),
+          where("status", "==", "confirmed"),
+          orderBy("createdAt", "asc"),
+          limit(200)
+        );
+        const snap = await getDocs(q);
+        const rows = snap.docs.map(d => {
+          const data = d.data() || {};
+          return {
+            displayName: data.displayName || maskName(data.wrestlerName || ""),
+            numAdults:   data.numAdults  || 0,
+            numUnder18:  data.numUnder18 || 0
+          };
+        });
+        renderRSVPs(rows);
+      } catch (e) {
+        console.error(e);
+        document.getElementById("rsvpStatusText").textContent = "Guest list unavailable right now.";
+        document.getElementById("rsvpStatusText").style.display = "block";
+      }
+    }
+
+    function renderRSVPs(rows) {
+      const totalFamilies  = rows.length;
+      const totalAttendees = rows.reduce((s, r) => s + r.numAdults + r.numUnder18, 0);
+
+      document.getElementById("statFamilies").textContent  = totalFamilies || "0";
+      document.getElementById("statAttendees").textContent = totalAttendees;
+
+      const grid      = document.getElementById("rsvpGrid");
+      const statusEl  = document.getElementById("rsvpStatusText");
+      const subEl     = document.getElementById("guestsSub");
+
+      subEl.textContent = `famil${totalFamilies === 1 ? "y" : "ies"} confirmed · ${totalAttendees} guest${totalAttendees === 1 ? "" : "s"} total`;
+
+      if (!totalFamilies) {
+        grid.innerHTML         = "";
+        statusEl.textContent   = "No confirmations yet — be the first to RSVP!";
+        statusEl.style.display = "block";
+        return;
+      }
+
+      statusEl.style.display = "none";
+      grid.innerHTML = rows.map(r => `
+        <div class="guest-tile">
+          <div class="guest-name">${escapeHtml(r.displayName)}</div>
+          <div class="guest-count">${r.numAdults} adult${r.numAdults !== 1 ? "s" : ""} &middot; ${r.numUnder18} under 18</div>
+        </div>
+      `).join("");
+    }
+
+    // ── Form submit ───────────────────────────────────────────────────
+    document.getElementById("rsvpForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMessage("muted", "Submitting…");
+
+      const wrestlerName  = document.getElementById("wrestlerName").value.trim();
+      const email         = document.getElementById("email").value.trim();
+      const numAdults     = Math.max(0, parseInt(numAdultsEl.value,  10) || 0);
+      const numUnder18    = Math.max(0, parseInt(numUnder18El.value, 10) || 0);
+      const paymentMethod = document.getElementById("payMethod").value;
+      const note          = document.getElementById("note").value.trim();
+      const totalAmount   = Math.max(0, numAdults - 2) * 20;
+
+      if (!wrestlerName || !email) {
+        setMessage("err", "Please enter the wrestler's name and parent email.");
+        return;
+      }
+      if (numAdults === 0 && numUnder18 === 0) {
+        setMessage("err", "Please enter at least one attendee.");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "banquet_rsvp_2026"), {
+          wrestlerName,
+          displayName: maskName(wrestlerName),
+          email,
+          numAdults,
+          numUnder18,
+          totalAmount,
+          paymentMethod,
+          note:   note || null,
+          status: "pending",
+          createdAt: serverTimestamp()
+        });
+
+        const payMsg = totalAmount > 0
+          ? ` Please send $${totalAmount} with your wrestler's name in the memo.`
+          : "";
+        setMessage("ok",
+          `You're all set! Your RSVP has been received.${payMsg} Your name will appear in the guest list once payment is confirmed.`
+        );
+        document.getElementById("rsvpForm").reset();
+        updateTotal();
+      } catch (err) {
+        console.error(err);
+        setMessage("err", "Could not submit. Please try again or email us directly.");
+      }
+    });
+
+    // ── Boot ──────────────────────────────────────────────────────────
+    async function boot() {
+      try { await signInAnonymously(auth); } catch (e) { console.error(e); }
+      await loadConfirmedRSVPs();
+      setInterval(loadConfirmedRSVPs, 300_000);
+    }
+
+    boot();
+  </script>
+</body>
+</html>
