@@ -284,7 +284,7 @@
 
     // ── Auth ──────────────────────────────────────────────────────────
     onAuthStateChanged(auth, user => {
-      if (user) {
+      if (user && !user.isAnonymous) {
         loginScreen.style.display = "none";
         appEl.style.display       = "block";
         loadRSVPs();
