@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2026 Banquet Program | SAWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:    #fdf8f0;
+      --cream2:   #f5ede0;
+      --card:     #ffffff;
+      --stroke:   rgba(160,120,50,0.14);
+      --text:     #1c1610;
+      --muted:    #6b5a48;
+      --navy:     #1b3a6b;
+      --navy2:    #0f2244;
+      --gold:     #b8860b;
+      --gold-lt:  rgba(184,134,11,0.10);
+      --gold-bd:  rgba(184,134,11,0.22);
+      --green:    #2a5e2a;
+      --green-lt: rgba(42,94,42,0.12);
+      --red-lt:   rgba(185,28,28,0.10);
+      --shadow:   0 4px 28px rgba(100,70,20,0.09);
+      --radius:   18px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream2) 100%);
+      min-height: 100vh;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15,34,68,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo img { height: 40px; }
+    .nav-menu { display: flex; list-style: none; gap: 32px; margin: 0; padding: 0; }
+    .nav-menu a {
+      color: rgba(255,255,255,0.78); text-decoration: none;
+      font-size: 14px; font-weight: 600; transition: color 0.2s; letter-spacing: 0.2px;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color: #fff; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-menu {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(15,34,68,0.98); flex-direction: column; gap: 0; padding: 16px 0;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a { display: block; padding: 12px 24px; }
+    }
+
+    /* ─── Section Jump Bar ───────────────────────────────────── */
+    .jump-bar {
+      position: sticky; top: 64px; z-index: 90;
+      background: rgba(255,252,245,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gold-bd);
+    }
+    .jump-bar-inner {
+      max-width: 720px; margin: 0 auto; padding: 0 20px;
+      display: flex; gap: 0; overflow-x: auto;
+    }
+    .jump-bar-inner::-webkit-scrollbar { display: none; }
+    .jump-btn {
+      flex-shrink: 0;
+      padding: 12px 18px; font-size: 13px; font-weight: 700;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap; letter-spacing: 0.2px;
+    }
+    .jump-btn:hover { color: var(--navy); border-bottom-color: var(--gold); }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      padding-top: 64px;
+      background: linear-gradient(160deg, var(--navy2) 0%, var(--navy) 55%, #1f4b8a 100%);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      background: radial-gradient(ellipse at 50% 130%, rgba(184,134,11,0.30), transparent 68%);
+      pointer-events: none;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(255,255,255,0.04), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(255,255,255,0.03), transparent 40%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto; padding: 56px 24px 0;
+    }
+    .hero-logo {
+      height: 72px; width: auto; display: block; margin: 0 auto 24px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.35));
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      color: rgba(184,134,11,0.85); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600; font-size: clamp(36px, 7vw, 62px);
+      color: #fff; margin: 0 0 8px; line-height: 1.1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .hero-subtitle {
+      font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.6;
+      margin: 0 auto 28px; max-width: 480px;
+    }
+    .hero-chips {
+      display: inline-flex; gap: 0; flex-wrap: wrap; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
+      overflow: hidden; background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px); margin-bottom: 40px;
+    }
+    .hero-chip {
+      padding: 11px 22px; font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,0.88); white-space: nowrap;
+    }
+    .hero-chip + .hero-chip { border-left: 1px solid rgba(255,255,255,0.12); }
+    .hero-chip svg { vertical-align: -3px; margin-right: 6px; opacity: 0.7; }
+    .hero-wave { display: block; width: 100%; margin-bottom: -2px; position: relative; z-index: 1; }
+    .hero-wave path { fill: var(--cream); }
+
+    /* ─── Main ───────────────────────────────────────────────── */
+    .main { max-width: 720px; margin: 0 auto; padding: 44px 20px 72px; }
+
+    /* ─── Section Headings ───────────────────────────────────── */
+    .section-heading { text-align: center; margin-bottom: 28px; }
+    .section-heading h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px; font-weight: 600; color: var(--navy); margin: 0 0 8px;
+    }
+    .section-heading p { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.6; }
+    .ornament {
+      display: flex; align-items: center; gap: 12px;
+      margin: 10px auto 0; max-width: 280px;
+    }
+    .ornament-line { flex: 1; height: 1px; background: var(--gold-bd); }
+    .ornament-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    /* ─── Cards ──────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .card-accent { border-top: 3px solid var(--gold); }
+    .card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 16px;
+    }
+
+    /* ─── Section spacer ─────────────────────────────────────── */
+    .team-section { margin-bottom: 64px; scroll-margin-top: 120px; }
+
+    /* ─── Team header banner ─────────────────────────────────── */
+    .team-banner {
+      background: linear-gradient(135deg, var(--navy2), var(--navy));
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 32px rgba(15,34,68,0.20);
+    }
+    .team-banner-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      color: rgba(184,134,11,0.80); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .team-banner-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(26px, 5vw, 38px); font-weight: 600; color: #fff;
+      margin: 0 0 10px; line-height: 1.1;
+    }
+    .team-record-chip {
+      display: inline-block;
+      background: rgba(184,134,11,0.18); border: 1px solid rgba(184,134,11,0.35);
+      color: rgba(255,255,255,0.90); font-size: 13px; font-weight: 700;
+      padding: 5px 14px; border-radius: 999px; letter-spacing: 0.3px;
+    }
+
+    /* ─── Coaches ────────────────────────────────────────────── */
+    .coach-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 4px;
+    }
+    .coach-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--gold-lt); border: 1px solid var(--gold-bd);
+      border-radius: 999px; padding: 7px 14px;
+    }
+    .coach-pill-name { font-weight: 700; font-size: 14px; color: var(--navy); }
+    .coach-pill-role { font-size: 12px; color: var(--muted); }
+
+    /* ─── Roster ─────────────────────────────────────────────── */
+    .grade-group { margin-bottom: 20px; }
+    .grade-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .wrestler-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .wrestler-chip {
+      background: #fff;
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      box-shadow: 0 1px 4px rgba(100,70,20,0.05);
+    }
+
+    /* ─── Warm divider ───────────────────────────────────────── */
+    .warm-hr { height: 1px; background: var(--gold-bd); margin: 24px 0; }
+
+    /* ─── Season Record Stat ─────────────────────────────────── */
+    .record-stat {
+      text-align: center; margin-bottom: 20px;
+    }
+    .record-number {
+      font-family: 'Oswald', sans-serif; font-size: 48px; font-weight: 700;
+      color: var(--navy); line-height: 1;
+    }
+    .record-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-top: 4px; }
+
+    /* ─── Dual Results ───────────────────────────────────────── */
+    .dual-list { list-style: none; margin: 0; padding: 0; }
+    .dual-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(160,120,50,0.08);
+      font-size: 14px;
+    }
+    .dual-row:last-child { border-bottom: none; }
+    .dual-badge {
+      flex-shrink: 0;
+      width: 26px; height: 26px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+    }
+    .badge-w { background: var(--green-lt); color: var(--green); }
+    .badge-l { background: var(--red-lt); color: #b91c1c; }
+    .badge-t { background: var(--gold-lt); color: var(--gold); }
+    .dual-opp { flex: 1; font-weight: 600; color: var(--text); }
+    .dual-score { color: var(--muted); font-size: 13px; }
+    .dual-event-header {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--gold);
+      padding: 12px 0 6px; border-bottom: 1px solid var(--gold-bd);
+      margin-top: 4px;
+    }
+    .dual-event-header:first-child { margin-top: 0; padding-top: 0; }
+
+    /* ─── Tournament Section ─────────────────────────────────── */
+    .tourn-list { display: flex; flex-direction: column; gap: 16px; }
+    .tourn-card {
+      background: #fff; border: 1px solid var(--stroke);
+      border-radius: 14px; padding: 16px 18px;
+      box-shadow: 0 2px 12px rgba(100,70,20,0.06);
+    }
+    .tourn-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .tourn-name { font-weight: 700; font-size: 15px; color: var(--navy); }
+    .tourn-place {
+      font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 700;
+      background: var(--gold-lt); border: 1px solid var(--gold-bd);
+      color: var(--gold); padding: 3px 10px; border-radius: 999px;
+      white-space: nowrap;
+    }
+    .placer-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+    .placer-row { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .placer-pos {
+      width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--gold-bd);
+      background: var(--gold-lt); display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: var(--gold); flex-shrink: 0;
+    }
+    .placer-name { font-weight: 600; color: var(--text); }
+
+    /* ─── Collapsible dual details ───────────────────────────── */
+    details.dual-details { margin-top: 4px; }
+    details.dual-details summary {
+      cursor: pointer; font-size: 13px; font-weight: 700; color: var(--gold);
+      list-style: none; display: flex; align-items: center; gap: 5px;
+      padding: 6px 0; user-select: none;
+    }
+    details.dual-details summary::-webkit-details-marker { display: none; }
+    details.dual-details summary::before {
+      content: "▶"; font-size: 9px; transition: transform 0.2s; display: inline-block;
+    }
+    details.dual-details[open] summary::before { transform: rotate(90deg); }
+
+    /* ─── Agenda Timeline ────────────────────────────────────── */
+    .agenda-list { display: flex; flex-direction: column; gap: 0; }
+    .agenda-item {
+      display: flex; gap: 20px; position: relative;
+    }
+    .agenda-item::before {
+      content: ""; position: absolute;
+      left: 66px; top: 36px; bottom: -1px; width: 1px;
+      background: var(--gold-bd);
+    }
+    .agenda-item:last-child::before { display: none; }
+    .agenda-time {
+      flex-shrink: 0; width: 70px;
+      font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600;
+      color: var(--gold); padding-top: 20px; text-align: right;
+    }
+    .agenda-dot {
+      flex-shrink: 0; position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 16px;
+    }
+    .agenda-dot-circle {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--navy); border: 2px solid var(--gold);
+    }
+    .agenda-body { flex: 1; padding: 14px 0 22px; }
+    .agenda-title { font-weight: 700; font-size: 15px; color: var(--navy); margin-bottom: 2px; }
+    .agenda-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ─── Sponsor grid ───────────────────────────────────────── */
+    .sponsor-logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 560px) { .sponsor-logo-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 380px) { .sponsor-logo-grid { grid-template-columns: repeat(2, 1fr); } }
+    .sponsor-logo-item {
+      background: #fff; border: 1px solid var(--stroke);
+      border-radius: 12px; padding: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(100,70,20,0.05);
+      aspect-ratio: 3/2;
+    }
+    .sponsor-logo-item img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .sponsor-text-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .sponsor-text-chip {
+      background: #fff; border: 1px solid var(--gold-bd);
+      border-radius: 8px; padding: 7px 14px;
+      font-size: 13px; font-weight: 600; color: var(--navy);
+    }
+
+    /* ─── Board Thank You ────────────────────────────────────── */
+    .board-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+    }
+    @media (max-width: 480px) { .board-grid { grid-template-columns: 1fr; } }
+    .board-role { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .board-name { font-weight: 700; font-size: 15px; color: var(--navy); }
+    .board-member { padding: 10px 14px; background: #fff; border: 1px solid var(--stroke); border-radius: 12px; }
+    .thank-you-body {
+      font-size: 15px; line-height: 1.8; color: var(--text);
+    }
+    .thank-you-body p { margin: 0 0 16px; }
+    .thank-you-body p:last-child { margin-bottom: 0; }
+    blockquote.board-msg {
+      margin: 0;
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(27,58,107,0.04), rgba(184,134,11,0.04));
+      border-left: 3px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .footer {
+      text-align: center; padding: 32px 20px;
+      border-top: 1px solid var(--stroke);
+      color: var(--muted); font-size: 12px; line-height: 1.8;
+    }
+    .footer a { color: var(--navy); text-decoration: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="banquet.html" class="active">Banquet</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img class="hero-logo" src="https://www.shalerareawrestling.com/assets/saw.png" alt="Shaler Area Wrestling" />
+      <div class="hero-eyebrow">Shaler Area Wrestling Association</div>
+      <h1 class="hero-title">2025–2026 Banquet Program</h1>
+      <p class="hero-subtitle">Celebrating our wrestlers, coaches, and the families who made this season extraordinary.</p>
+      <div class="hero-chips">
+        <div class="hero-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Wednesday, April 8th, 2026
+        </div>
+        <div class="hero-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          6:00 PM
+        </div>
+        <div class="hero-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Wildwood Golf Club
+        </div>
+      </div>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,54 C360,0 1080,0 1440,54 L1440,54 L0,54 Z"/>
+    </svg>
+  </section>
+
+  <!-- Jump Bar -->
+  <div class="jump-bar">
+    <div class="jump-bar-inner">
+      <a class="jump-btn" href="#agenda">Agenda</a>
+      <a class="jump-btn" href="#girls-varsity">Girls Varsity</a>
+      <a class="jump-btn" href="#junior-high">Junior High</a>
+      <a class="jump-btn" href="#boys-varsity">Boys Varsity</a>
+      <a class="jump-btn" href="#sponsors">Sponsors</a>
+      <a class="jump-btn" href="#board">Boosters</a>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- ═══════════════════════════════════════════════════════
+         AGENDA
+    ══════════════════════════════════════════════════════════ -->
+    <section id="agenda" class="team-section">
+      <div class="section-heading">
+        <h2>Evening Agenda</h2>
+        <p>Wildwood Golf Club · 2195 Sample Rd, Allison Park, PA 15101</p>
+        <div class="ornament"><div class="ornament-line"></div><div class="ornament-dot"></div><div class="ornament-line"></div></div>
+      </div>
+
+      <div class="card card-accent">
+        <div class="agenda-list">
+          <div class="agenda-item">
+            <div class="agenda-time">6:00</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Doors Open &amp; Check In</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">6:30</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Welcome &amp; Dinner Served</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">7:00</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Girls Varsity Recognition</div>
+              <div class="agenda-desc">Coach's Remarks · Wrestler Recognition &amp; Award Presentation · Wrestler Gifts</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">7:15</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Junior High Recognition</div>
+              <div class="agenda-desc">Coach's Remarks · Wrestler Recognition &amp; Award Presentation · Wrestler Gifts</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">7:30</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Boys Varsity Recognition</div>
+              <div class="agenda-desc">Coach's Remarks · Wrestler Recognition &amp; Award Presentation · Wrestler Gifts</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">7:45</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Coach Gifts &amp; Board Remarks</div>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">8:00</div>
+            <div class="agenda-dot"><div class="agenda-dot-circle"></div></div>
+            <div class="agenda-body">
+              <div class="agenda-title">Closing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         GIRLS VARSITY
+    ══════════════════════════════════════════════════════════ -->
+    <section id="girls-varsity" class="team-section">
+      <div class="team-banner">
+        <div class="team-banner-label">2025–2026 Season</div>
+        <div class="team-banner-name">Girls Varsity</div>
+        <span class="team-record-chip">15–2 Overall</span>
+      </div>
+
+      <!-- Coaches -->
+      <div class="card">
+        <div class="card-title">Coaching Staff</div>
+        <div class="coach-row">
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Drew D'Agostino</div>
+              <div class="coach-pill-role">Head Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">AJ D'Agostino</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Brandon Lehmeier</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Heather Verbanic</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roster -->
+      <div class="card">
+        <div class="card-title">Roster</div>
+        <div class="grade-group">
+          <div class="grade-label">Freshman</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Gianna Alcalde</span>
+            <span class="wrestler-chip">Alayah Jackson</span>
+            <span class="wrestler-chip">Zoey Lehmeier</span>
+            <span class="wrestler-chip">Emma Morgan</span>
+            <span class="wrestler-chip">Sierra Willis</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group">
+          <div class="grade-label">Sophomore</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Mariah Brown</span>
+            <span class="wrestler-chip">Melissa Escoto</span>
+            <span class="wrestler-chip">Emily Karos</span>
+            <span class="wrestler-chip">Breana Kochanowski</span>
+            <span class="wrestler-chip">Layla Lehmeier</span>
+            <span class="wrestler-chip">Blythe Letters</span>
+            <span class="wrestler-chip">Alexis Melfi</span>
+            <span class="wrestler-chip">Charlotte Paladin</span>
+            <span class="wrestler-chip">Alana Worsham</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group">
+          <div class="grade-label">Junior</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Lilly Conner</span>
+            <span class="wrestler-chip">Paige Mehlhoff</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group" style="margin-bottom:0;">
+          <div class="grade-label">Senior</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">McKenzie Gilbert</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year in Review -->
+      <div class="card">
+        <div class="card-title">Year in Review</div>
+
+        <div class="record-stat">
+          <div class="record-number">15–2</div>
+          <div class="record-label">Season Dual Record</div>
+        </div>
+
+        <details class="dual-details">
+          <summary>View Dual Results</summary>
+          <ul class="dual-list" style="margin-top:12px;">
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Kiski Area</span><span class="dual-score">39–30</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Hampton</span><span class="dual-score">66–0</span></li>
+            <li class="dual-event-header">Hiller Holiday Duals — 1st Place</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Trinity</span><span class="dual-score">49–18</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Butler</span><span class="dual-score">51–18</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Connellsville</span><span class="dual-score">44–27</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Avella</span><span class="dual-score">54–12</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Southmoreland</span><span class="dual-score">47–23</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Fox Chapel</span><span class="dual-score">59–12</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Plum</span><span class="dual-score">47–30</span></li>
+            <li class="dual-event-header">North Allegheny Duals — 3rd Place</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Saegertown</span><span class="dual-score">63–12</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Fort LeBoeuf</span><span class="dual-score">39–34</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Sharpsville</span><span class="dual-score">60–18</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Norwin</span><span class="dual-score">54–18</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Pine Richland</span><span class="dual-score">39–36</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Penn Hills</span><span class="dual-score">71–0</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Valley</span><span class="dual-score">54–12</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Franklin Regional</span><span class="dual-score">60–12</span></li>
+          </ul>
+        </details>
+
+        <div class="warm-hr"></div>
+        <div class="card-title" style="margin-bottom:14px;">Tournament Highlights</div>
+        <div class="tourn-list">
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Ram Slam Tournament</div>
+              <div class="tourn-place">2nd Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">1</span><span class="placer-name">Gianna Alcalde</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Blythe Letters</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Charlotte Paladin</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Sierra Willis</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Butler Tournament</div>
+              <div class="tourn-place">2nd Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Blythe Letters</span></li>
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Charlotte Paladin</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Gianna Alcalde</span></li>
+              <li class="placer-row"><span class="placer-pos">4</span><span class="placer-name">Lilly Conner</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Mariah Brown</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Sierra Willis</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">North Allegheny Girls Invitational</div>
+              <div class="tourn-place">4th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">1</span><span class="placer-name">Blythe Letters</span></li>
+              <li class="placer-row"><span class="placer-pos">4</span><span class="placer-name">Charlotte Paladin</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Gianna Alcalde</span></li>
+              <li class="placer-row"><span class="placer-pos">8</span><span class="placer-name">Lilly Conner</span></li>
+              <li class="placer-row"><span class="placer-pos">8</span><span class="placer-name">Breana Kochanowski</span></li>
+              <li class="placer-row"><span class="placer-pos">8</span><span class="placer-name">Zoey Lehmeier</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">District 7 WPIAL Tournament</div>
+              <div class="tourn-place"></div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Blythe Letters</span></li>
+              <li class="placer-row"><span class="placer-pos">4</span><span class="placer-name">Charlotte Paladin</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Gianna Alcalde</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">McKenzie Gilbert</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">West Regional Tournament</div>
+              <div class="tourn-place">5th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">1</span><span class="placer-name">Blythe Letters</span></li>
+              <li class="placer-row"><span class="placer-pos">4</span><span class="placer-name">Gianna Alcalde</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">PIAA Girls Championship</div>
+              <div class="tourn-place">49th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Blythe Letters</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         JUNIOR HIGH
+    ══════════════════════════════════════════════════════════ -->
+    <section id="junior-high" class="team-section">
+      <div class="team-banner">
+        <div class="team-banner-label">2025–2026 Season</div>
+        <div class="team-banner-name">Junior High</div>
+        <span class="team-record-chip">13–8 Overall</span>
+      </div>
+
+      <!-- Coaches -->
+      <div class="card">
+        <div class="card-title">Coaching Staff</div>
+        <div class="coach-row">
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Adam Santoro</div>
+              <div class="coach-pill-role">Head Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Clint Waronsky</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Ken Wise</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Ryan Aleski</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roster -->
+      <div class="card">
+        <div class="card-title">Roster</div>
+        <div class="grade-group">
+          <div class="grade-label">7th Grade</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Brody McGorry</span>
+            <span class="wrestler-chip">Hunter Dembowski</span>
+            <span class="wrestler-chip">Keegan Calvin</span>
+            <span class="wrestler-chip">Killian McMahon</span>
+            <span class="wrestler-chip">Maddox Harvey</span>
+            <span class="wrestler-chip">Maddox Willis</span>
+            <span class="wrestler-chip">Neeson Aleski</span>
+            <span class="wrestler-chip">Nico Zottola</span>
+            <span class="wrestler-chip">Will Heidenreich</span>
+            <span class="wrestler-chip">Camden Meng</span>
+            <span class="wrestler-chip">Cullen McKay</span>
+            <span class="wrestler-chip">Cattaleya Dixon</span>
+            <span class="wrestler-chip">Zayden Montoya</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group">
+          <div class="grade-label">8th Grade</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Alijah Latwin</span>
+            <span class="wrestler-chip">Antonio Morgano</span>
+            <span class="wrestler-chip">Arian Jackson</span>
+            <span class="wrestler-chip">Austin Hajdukiewicz</span>
+            <span class="wrestler-chip">Briana Stetson</span>
+            <span class="wrestler-chip">Concetta Letters</span>
+            <span class="wrestler-chip">Kara Roblaski</span>
+            <span class="wrestler-chip">Mike Crawford</span>
+            <span class="wrestler-chip">Reagan Coyne</span>
+            <span class="wrestler-chip">Tom Leskowak</span>
+            <span class="wrestler-chip">Tommy Bursick</span>
+            <span class="wrestler-chip">Veronica Rotondo</span>
+            <span class="wrestler-chip">Patrick Morrow</span>
+            <span class="wrestler-chip">Cali Garcia</span>
+            <span class="wrestler-chip">Emily O'Brien</span>
+            <span class="wrestler-chip">Jia Donovan</span>
+            <span class="wrestler-chip">Sean Daughtery</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group" style="margin-bottom:0;">
+          <div class="grade-label">Freshman</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Bryan Ricci</span>
+            <span class="wrestler-chip">Kian Odille</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year in Review -->
+      <div class="card">
+        <div class="card-title">Year in Review</div>
+
+        <div class="record-stat">
+          <div class="record-number">13–8</div>
+          <div class="record-label">Season Dual Record</div>
+        </div>
+
+        <details class="dual-details">
+          <summary>View Dual Results</summary>
+          <ul class="dual-list" style="margin-top:12px;">
+            <li class="dual-event-header">Shaler Area Titan Duals — 8th Place (2–4)</li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Belle Vernon</span><span class="dual-score">36–46</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Gateway</span><span class="dual-score">48–27</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Penn Trafford</span><span class="dual-score">36–35</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Reynolds</span><span class="dual-score">39–36</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Bethel Park</span><span class="dual-score">48–42</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Armstrong</span><span class="dual-score">40–45</span></li>
+            <li class="dual-event-header">Standalone Duals</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Avonworth</span><span class="dual-score">51–35</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Fox Chapel</span><span class="dual-score">45–37</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">North Hills</span><span class="dual-score">52–26</span></li>
+            <li class="dual-event-header">Peters Township Bebout Duals (3–2)</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Hampton</span><span class="dual-score">28–25</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">West Mifflin</span><span class="dual-score">24–21</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Ringgold</span><span class="dual-score">36–15</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Chartiers Valley</span><span class="dual-score">22–26</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Peters Township</span><span class="dual-score">24–4</span></li>
+            <li class="dual-event-header">Standalone Duals</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Penn Hills</span><span class="dual-score">36–0</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Gateway</span><span class="dual-score">52–9</span></li>
+            <li class="dual-event-header">Trinity Duals (3–2)</li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Woodland Hills</span><span class="dual-score">35–6</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Armstrong</span><span class="dual-score">43–22</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Trinity</span><span class="dual-score">17–52</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Mt. Lebanon</span><span class="dual-score">32–30</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">McGuffey</span><span class="dual-score">15–45</span></li>
+          </ul>
+        </details>
+
+        <div class="warm-hr"></div>
+        <div class="card-title" style="margin-bottom:14px;">Tournament Highlights</div>
+        <div class="tourn-list">
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Allegheny County Junior High Championships</div>
+              <div class="tourn-place">13th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">1</span><span class="placer-name">Arian Jackson</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Briana Stetson</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">Patrick Morrow</span></li>
+              <li class="placer-row"><span class="placer-pos">7</span><span class="placer-name">Michael Crawford</span></li>
+              <li class="placer-row"><span class="placer-pos">7</span><span class="placer-name">Neeson Aleski</span></li>
+              <li class="placer-row"><span class="placer-pos">8</span><span class="placer-name">Hunter Dembowski</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">District 7 Championship</div>
+              <div class="tourn-place">21st Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">4</span><span class="placer-name">Arian Jackson</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         BOYS VARSITY
+    ══════════════════════════════════════════════════════════ -->
+    <section id="boys-varsity" class="team-section">
+      <div class="team-banner">
+        <div class="team-banner-label">2025–2026 Season</div>
+        <div class="team-banner-name">Boys Varsity</div>
+        <span class="team-record-chip">5–3 Overall</span>
+      </div>
+
+      <!-- Coaches -->
+      <div class="card">
+        <div class="card-title">Coaching Staff</div>
+        <div class="coach-row">
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Mickey Moran</div>
+              <div class="coach-pill-role">Head Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Ronnie D'Amico</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+          <div class="coach-pill">
+            <div>
+              <div class="coach-pill-name">Mike Yuiska</div>
+              <div class="coach-pill-role">Assistant Coach</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roster -->
+      <div class="card">
+        <div class="card-title">Roster</div>
+        <div class="grade-group">
+          <div class="grade-label">Freshman</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Zachary Bal</span>
+            <span class="wrestler-chip">Sean Barie</span>
+            <span class="wrestler-chip">Malachi Ewell</span>
+            <span class="wrestler-chip">Ryan Fitzgerald</span>
+            <span class="wrestler-chip">Evan Leombruno</span>
+            <span class="wrestler-chip">Liam Perlik</span>
+            <span class="wrestler-chip">Tyson Scherer</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group">
+          <div class="grade-label">Sophomore</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Weston Emmons</span>
+            <span class="wrestler-chip">Makar Kolkov</span>
+            <span class="wrestler-chip">Chase Meyer</span>
+            <span class="wrestler-chip">Ayden Tavella</span>
+            <span class="wrestler-chip">Cole Tunstall</span>
+            <span class="wrestler-chip">David Small</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group">
+          <div class="grade-label">Junior</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Jack Begg</span>
+            <span class="wrestler-chip">Jonah Cable</span>
+            <span class="wrestler-chip">Gordon Hackaday</span>
+            <span class="wrestler-chip">Anthony Jones</span>
+            <span class="wrestler-chip">Carson Ross</span>
+          </div>
+        </div>
+        <div class="warm-hr"></div>
+        <div class="grade-group" style="margin-bottom:0;">
+          <div class="grade-label">Senior</div>
+          <div class="wrestler-grid">
+            <span class="wrestler-chip">Calogeo Caprino</span>
+            <span class="wrestler-chip">Trevor Cignetti</span>
+            <span class="wrestler-chip">Dustun Corfield</span>
+            <span class="wrestler-chip">Derick Rodriguez</span>
+            <span class="wrestler-chip">Zac Ehrenberger</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year in Review -->
+      <div class="card">
+        <div class="card-title">Year in Review</div>
+
+        <div class="record-stat">
+          <div class="record-number">5–3</div>
+          <div class="record-label">Season Dual Record</div>
+        </div>
+
+        <details class="dual-details">
+          <summary>View Dual Results</summary>
+          <ul class="dual-list" style="margin-top:12px;">
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Avonworth</span><span class="dual-score">67–5</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Pittsburgh Central Catholic</span><span class="dual-score">44–26</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">North Hills</span><span class="dual-score">36–30</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Penn Hills</span><span class="dual-score">65–11</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Carrick</span><span class="dual-score">65–6</span></li>
+            <li class="dual-row"><span class="dual-badge badge-w">W</span><span class="dual-opp">Westinghouse</span><span class="dual-score">64–12</span></li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Gateway</span><span class="dual-score">44–27</span></li>
+            <li class="dual-event-header">District 7 AAA Duals</li>
+            <li class="dual-row"><span class="dual-badge badge-l">L</span><span class="dual-opp">Peters Township</span><span class="dual-score">39–34</span></li>
+          </ul>
+        </details>
+
+        <div class="warm-hr"></div>
+        <div class="card-title" style="margin-bottom:14px;">Tournament Highlights</div>
+        <div class="tourn-list">
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Chartiers-Houston Invitational</div>
+              <div class="tourn-place">8th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Ayden Tavella</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Anthony Jones</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Jonah Cable</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Trevor Cignetti</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">King of the Mountain</div>
+              <div class="tourn-place">26th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">7</span><span class="placer-name">Anthony Jones</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Powerade Tournament</div>
+              <div class="tourn-place">66th Place</div>
+            </div>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">Allegheny County Championship</div>
+              <div class="tourn-place">8th Place</div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Trevor Cignetti</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Weston Emmons</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">Ayden Tavella</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">Jonah Cable</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">Anthony Jones</span></li>
+              <li class="placer-row"><span class="placer-pos">8</span><span class="placer-name">Cole Tunstall</span></li>
+            </ul>
+          </div>
+          <div class="tourn-card">
+            <div class="tourn-header">
+              <div class="tourn-name">District 7 AAA Section North</div>
+              <div class="tourn-place"></div>
+            </div>
+            <ul class="placer-list">
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Anthony Jones</span></li>
+              <li class="placer-row"><span class="placer-pos">2</span><span class="placer-name">Jonah Cable</span></li>
+              <li class="placer-row"><span class="placer-pos">3</span><span class="placer-name">Weston Emmons</span></li>
+              <li class="placer-row"><span class="placer-pos">5</span><span class="placer-name">Trevor Cignetti</span></li>
+              <li class="placer-row"><span class="placer-pos">6</span><span class="placer-name">Cole Tunstall</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPONSORS
+    ══════════════════════════════════════════════════════════ -->
+    <section id="sponsors" class="team-section">
+      <div class="section-heading">
+        <h2>2025–2026 Sponsors</h2>
+        <p>A huge thank you to all of our sponsors who helped make this a breakout year for Shaler Area Wrestling!</p>
+        <div class="ornament"><div class="ornament-line"></div><div class="ornament-dot"></div><div class="ornament-line"></div></div>
+      </div>
+
+      <div class="card card-accent">
+        <div class="sponsor-logo-grid">
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Cable.png" alt="Cable Orthodontics" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/petvet.png" alt="PetVet365" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/MJB.png" alt="MJB Drafting Services" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/ASW.png" alt="ASW" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Aiellos.png" alt="Aiello's Pizza" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Pasquale.png" alt="Pasquale's Pizzeria" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Neely.png" alt="Neely Funeral Home" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Three.png" alt="Three Brothers Bagels" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/SumFadez.png" alt="Sumfadez Barbershop" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/PlayItAgain.png" alt="Play It Again Sports" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Critchlow.png" alt="Critchlow Enterprises" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/ShopNSave.png" alt="Shop 'N Save" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/PerfectClimate.png" alt="A Perfect Climate" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/renos.png" alt="Reno's Deli" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/edgar.png" alt="Edgar Snyder &amp; Associates" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/PGH Law.png" alt="PGH Law" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Lighthouse.png" alt="Lighthouse Electric" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/A&S.png" alt="A&amp;S Carpet Collection" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/J&T.png" alt="J&amp;T Tire &amp; Auto Service" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/Matside.png" alt="Matside Wrestling Co" /></div>
+          <div class="sponsor-logo-item"><img src="https://www.shalerareawrestling.com/assets/sponsor/cafe118.png" alt="Café 118" /></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         BOOSTERS BOARD
+    ══════════════════════════════════════════════════════════ -->
+    <section id="board" class="team-section" style="margin-bottom:0;">
+      <div class="section-heading">
+        <h2>Wrestling Boosters</h2>
+        <p>Shaler Area Wrestling Association · 2025–2026 Board</p>
+        <div class="ornament"><div class="ornament-line"></div><div class="ornament-dot"></div><div class="ornament-line"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Board Members</div>
+        <div class="board-grid">
+          <div class="board-member">
+            <div class="board-role">President</div>
+            <div class="board-name">Daniel Emmons</div>
+          </div>
+          <div class="board-member">
+            <div class="board-role">Vice President</div>
+            <div class="board-name">Kylie DePalma</div>
+          </div>
+          <div class="board-member">
+            <div class="board-role">Secretary</div>
+            <div class="board-name">Michael Crawford</div>
+          </div>
+          <div class="board-member">
+            <div class="board-role">Treasurer</div>
+            <div class="board-name">Eric Ross</div>
+          </div>
+          <div class="board-member">
+            <div class="board-role">Fundraising / Operations</div>
+            <div class="board-name">Gretchen Tunstall</div>
+          </div>
+          <div class="board-member">
+            <div class="board-role">Concessions</div>
+            <div class="board-name">Beth Hackaday</div>
+          </div>
+        </div>
+        <div class="pay-note" style="margin-bottom:0;">
+          Board elections for next season coming in May/June. At least one vacant position (Treasurer) — be on the lookout!
+        </div>
+      </div>
+
+      <div class="card card-accent">
+        <div class="card-title">A Note from the Board</div>
+        <blockquote class="board-msg">
+          <div class="thank-you-body">
+            <p>This season didn't just move the program forward; it raised the standard.</p>
+            <p>We took on more than ever before: three major tournaments, the addition of our Girls Varsity team to the board, coaching transitions, and continued growth across every level of the program. None of that happens without the people behind the scenes showing up, stepping up, and getting it done.</p>
+            <p><strong>To our coaches:</strong> Thank you for your leadership, your consistency, and the example you set every single day. You're not just building wrestlers; you're building tough, disciplined, and confident young people. That impact goes far beyond the mat.</p>
+            <p><strong>To our parents:</strong> This year demanded a lot, and you delivered. From long tournament days to organizing, volunteering, and supporting in every way imaginable, you helped make all three events a success. You kept this program running at a high level. That kind of commitment is what separates good programs from great ones.</p>
+            <p>What we accomplished this year matters, but how we did it matters even more. This is a community that shows up for each other, and it shows in everything we do.</p>
+            <p>We're proud of where we are, and even more excited about where we're headed.</p>
+            <p style="margin-bottom:0;"><strong>Thank you for being the backbone of Shaler Area Wrestling.</strong></p>
+          </div>
+        </blockquote>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" style="height:36px; margin-bottom:10px; opacity:0.6;" /><br>
+    Shaler Area Wrestling Association · 2025–2026<br>
+    <a href="index.html">Home</a> &nbsp;·&nbsp;
+    <a href="team.html">Team</a> &nbsp;·&nbsp;
+    <a href="sponsors.html">Sponsors</a> &nbsp;·&nbsp;
+    <a href="banquet.html">Banquet</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+    document.querySelectorAll('.nav-menu a').forEach(a =>
+      a.addEventListener('click', () => navMenu.classList.remove('active'))
+    );
+  </script>
+
+</body>
+</html>
