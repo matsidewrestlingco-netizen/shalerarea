@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Survey Admin | SAWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #f6f8fc; --bg2: #eef3fb; --card: #ffffff;
+      --stroke: rgba(15,23,42,0.10); --text: #0f172a; --muted: #475569;
+      --blue: #1b3a6b; --gold: #b8860b; --red: #c81f2d;
+      --green: #0b6b2a; --green-bg: rgba(11,107,42,0.12);
+      --shadow: 0 10px 30px rgba(15,23,42,0.08); --radius: 18px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text); min-height: 100vh;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+
+    /* ── Login ── */
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .login-card {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: var(--radius); padding: 40px 36px;
+      box-shadow: var(--shadow); width: 100%; max-width: 380px;
+    }
+    .login-card h1 {
+      font-family: 'Oswald', sans-serif; font-size: 24px; color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .login-card p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .form-label {
+      display: block; font-size: 12px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; margin-top: 14px;
+    }
+    input[type="email"], input[type="password"] {
+      width: 100%; padding: 11px 14px; border-radius: 10px;
+      border: 1px solid rgba(15,23,42,0.15); background: #f8fafc;
+      font-size: 15px; font-family: inherit; color: var(--text); outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--blue); background: #fff; }
+    .btn-login {
+      width: 100%; padding: 13px; margin-top: 20px;
+      background: var(--blue); color: #fff; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+      transition: filter 0.15s;
+    }
+    .btn-login:hover { filter: brightness(1.12); }
+    .login-err { color: var(--red); font-size: 13px; font-weight: 600; margin-top: 10px; min-height: 20px; }
+
+    /* ── App shell ── */
+    #appShell { display: none; }
+    .topbar {
+      background: var(--blue); padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .topbar-left img { height: 40px; }
+    .topbar-left h1 {
+      font-family: 'Oswald', sans-serif; font-size: 22px; color: #fff; font-weight: 600;
+    }
+    .btn-logout {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; padding: 8px 16px; border-radius: 8px; font-size: 13px;
+      font-weight: 700; font-family: inherit; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-logout:hover { background: rgba(255,255,255,0.25); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 48px; }
+
+    /* ── Stats strip ── */
+    .stats-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px;
+    }
+    @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2,1fr); } }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Oswald', sans-serif; font-size: 36px; font-weight: 700;
+      color: var(--blue); line-height: 1;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* ── Table card ── */
+    .table-card {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .table-card-header {
+      padding: 18px 22px; border-bottom: 1px solid var(--stroke);
+      font-family: 'Oswald', sans-serif; font-size: 18px; color: var(--blue);
+    }
+    #responsesTable {
+      width: 100%; border-collapse: collapse; font-size: 13px;
+    }
+    #responsesTable thead th {
+      background: #f1f5f9; padding: 10px 14px; text-align: left;
+      font-size: 11px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap;
+    }
+    #responsesTable tbody tr { border-bottom: 1px solid rgba(15,23,42,0.06); cursor: pointer; transition: background 0.1s; }
+    #responsesTable tbody tr:hover { background: #f8fafc; }
+    #responsesTable td { padding: 10px 14px; vertical-align: top; }
+
+    /* pill badges */
+    .pill {
+      display: inline-block; padding: 2px 9px; border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+    }
+    .pill-green { background: var(--green-bg); color: var(--green); }
+    .pill-gold  { background: rgba(184,134,11,0.12); color: var(--gold); }
+    .pill-red   { background: rgba(200,31,45,0.12); color: var(--red); }
+    .pill-gray  { background: rgba(71,85,105,0.10); color: var(--muted); }
+
+    /* ── Detail panel ── */
+    .detail-row td {
+      background: #f8fafc; padding: 16px 20px;
+      border-bottom: 2px solid var(--blue);
+    }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .detail-grid { grid-template-columns: 1fr; } }
+    .detail-field label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 4px; }
+    .detail-field p { font-size: 13px; color: var(--text); line-height: 1.5; white-space: pre-wrap; }
+    .detail-field p.empty { color: var(--muted); font-style: italic; }
+
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 15px; }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div id="loginScreen" class="login-wrap">
+    <div class="login-card">
+      <h1>Survey Admin</h1>
+      <p>Sign in to view banquet feedback responses.</p>
+      <label class="form-label" for="emailInput">Email</label>
+      <input type="email" id="emailInput" placeholder="admin@example.com" autocomplete="email" />
+      <label class="form-label" for="passwordInput">Password</label>
+      <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password" />
+      <button class="btn-login" id="loginBtn">Sign In</button>
+      <div class="login-err" id="loginErr" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- App shell -->
+  <div id="appShell">
+    <div class="topbar">
+      <div class="topbar-left">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" />
+        <h1>Survey Admin</h1>
+      </div>
+      <button class="btn-logout" id="logoutBtn">Sign Out</button>
+    </div>
+    <div class="wrap">
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-num" id="statTotal">—</div><div class="stat-label">Responses</div></div>
+        <div class="stat-card"><div class="stat-num" id="statOverall">—</div><div class="stat-label">Avg Overall</div></div>
+        <div class="stat-card"><div class="stat-num" id="statLikely">—</div><div class="stat-label">Likely to Return</div></div>
+        <div class="stat-card"><div class="stat-num" id="statRecognized">—</div><div class="stat-label">Felt Recognized</div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">All Responses</div>
+        <div style="overflow-x:auto;">
+          <table id="responsesTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Overall</th>
+                <th>Avg Rating</th>
+                <th>Length</th>
+                <th>Recognized</th>
+                <th>Cost OK</th>
+                <th>Return?</th>
+              </tr>
+            </thead>
+            <tbody id="responsesBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="emptyState" style="display:none;">No responses yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore, collection, getDocs, orderBy, query
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDiXKDy1Xg_W7BNzO-bo1FbapXt_hJTYco",
+      authDomain:        "tdc-raffle.firebaseapp.com",
+      projectId:         "tdc-raffle",
+      storageBucket:     "tdc-raffle.firebasestorage.app",
+      messagingSenderId: "832529502371",
+      appId:             "1:832529502371:web:7f35743f8be7774c736f16"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    const loginScreen = document.getElementById("loginScreen");
+    const appShell    = document.getElementById("appShell");
+
+    onAuthStateChanged(auth, user => {
+      if (user && !user.isAnonymous) {
+        loginScreen.style.display = "none";
+        appShell.style.display    = "block";
+        if (!responsesLoaded) { responsesLoaded = true; loadResponses(); }
+      } else {
+        loginScreen.style.display = "flex";
+        appShell.style.display    = "none";
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email    = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      const errEl    = document.getElementById("loginErr");
+      const btn      = document.getElementById("loginBtn");
+      errEl.textContent = "";
+      btn.disabled = true;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch {
+        errEl.textContent = "Invalid email or password.";
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("passwordInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") document.getElementById("loginBtn").click();
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+
+    function escHtml(s) {
+      return String(s ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function fmtDate(ts) {
+      if (!ts) return "—";
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    }
+
+    function overallPill(val) {
+      if (!val) return '<span class="pill pill-gray">—</span>';
+      const cls = val === "Excellent" || val === "Good" ? "pill-green"
+                : val === "Below Average"               ? "pill-red"
+                : "pill-gold";
+      return `<span class="pill ${cls}">${escHtml(val)}</span>`;
+    }
+
+    function likelyPill(val) {
+      if (!val) return '<span class="pill pill-gray">—</span>';
+      const cls = val === "Very likely" || val === "Likely" ? "pill-green"
+                : val === "Unlikely"                        ? "pill-red"
+                : "pill-gold";
+      return `<span class="pill ${cls}">${escHtml(val)}</span>`;
+    }
+
+    function yesNoPill(val) {
+      if (!val) return '<span class="pill pill-gray">—</span>';
+      const cls = val === "Yes" ? "pill-green" : val === "No" ? "pill-red" : "pill-gold";
+      return `<span class="pill ${cls}">${escHtml(val)}</span>`;
+    }
+
+    function avgRatingPill(ratings) {
+      if (!ratings) return '<span class="pill pill-gray">—</span>';
+      const vals = Object.values(ratings).filter(v => v != null);
+      if (!vals.length) return '<span class="pill pill-gray">—</span>';
+      const avg = (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1);
+      const cls = parseFloat(avg) >= 4 ? "pill-green"
+                : parseFloat(avg) >= 3 ? "pill-gold"
+                : "pill-red";
+      return `<span class="pill ${cls}">${avg}</span>`;
+    }
+
+    function buildDetailRow(id, d) {
+      const changesHtml  = escHtml((d.preferredChanges || []).join(", ") || "None");
+      const otherHtml    = d.preferredChangesOther ? ` (Other: ${escHtml(d.preferredChangesOther)})` : "";
+      const ratingsStr = d.ratings
+        ? Object.entries(d.ratings)
+            .map(([k, v]) => `${k}: ${v ?? "—"}`)
+            .join(" · ")
+        : "—";
+      return `
+        <tr class="detail-row" id="detail-${escHtml(id)}">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-field">
+                <label>Q4 — What they enjoyed</label>
+                <p class="${d.enjoyedMost ? "" : "empty"}">${escHtml(d.enjoyedMost) || "No response"}</p>
+              </div>
+              <div class="detail-field">
+                <label>Q5 — Improvements for next year</label>
+                <p class="${d.improvements ? "" : "empty"}">${escHtml(d.improvements) || "No response"}</p>
+              </div>
+              <div class="detail-field">
+                <label>Q2 — Category Ratings</label>
+                <p>${escHtml(ratingsStr)}</p>
+              </div>
+              <div class="detail-field">
+                <label>Q8 — Preferred Changes</label>
+                <p>${changesHtml}${otherHtml}</p>
+              </div>
+              <div class="detail-field" style="grid-column:1/-1;">
+                <label>Q10 — Additional Comments</label>
+                <p class="${d.additionalComments ? "" : "empty"}">${escHtml(d.additionalComments) || "No response"}</p>
+              </div>
+            </div>
+          </td>
+        </tr>`;
+    }
+
+    let openDetailRowId = null;
+    let surveyDocsMap = {};
+    let responsesLoaded = false;
+
+    document.getElementById("responsesBody").addEventListener("click", e => {
+      const row = e.target.closest("tr[data-id]");
+      if (row) toggleDetail(row.dataset.id);
+    });
+
+    function toggleDetail(id) {
+      const existing = document.getElementById(`detail-${id}`);
+      if (existing) {
+        existing.remove();
+        if (openDetailRowId === id) { openDetailRowId = null; return; }
+      }
+      if (openDetailRowId) {
+        const prev = document.getElementById(`detail-${openDetailRowId}`);
+        if (prev) prev.remove();
+      }
+      openDetailRowId = id;
+      const mainRow = document.getElementById("responsesBody").querySelector(`tr[data-id="${CSS.escape(id)}"]`);
+      if (mainRow) {
+        mainRow.insertAdjacentHTML("afterend", buildDetailRow(id, surveyDocsMap[id]));
+      }
+    }
+
+    async function loadResponses() {
+      openDetailRowId = null;
+      try {
+        const q    = query(collection(db, "banquet_survey_2026"), orderBy("submittedAt", "desc"));
+        const snap = await getDocs(q);
+        const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        const total = docs.length;
+        document.getElementById("statTotal").textContent = total || "0";
+
+        const overallMap = { Excellent: 4, Good: 3, Average: 2, "Below Average": 1 };
+        const overallVals = docs.map(d => overallMap[d.overallRating]).filter(v => v != null);
+        const avgOverall  = overallVals.length
+          ? (overallVals.reduce((a,b) => a+b, 0) / overallVals.length).toFixed(1)
+          : null;
+        document.getElementById("statOverall").textContent = avgOverall ?? "—";
+
+        const likelyCount = docs.filter(d =>
+          d.likelyToAttend === "Very likely" || d.likelyToAttend === "Likely"
+        ).length;
+        document.getElementById("statLikely").textContent = total
+          ? `${Math.round((likelyCount / total) * 100)}%`
+          : "—";
+
+        const recognizedCount = docs.filter(d => d.athleteRecognized === "Yes").length;
+        document.getElementById("statRecognized").textContent = total
+          ? `${Math.round((recognizedCount / total) * 100)}%`
+          : "—";
+
+        const tbody  = document.getElementById("responsesBody");
+        const emptyEl = document.getElementById("emptyState");
+
+        if (!total) {
+          emptyEl.textContent   = "No responses yet.";
+          emptyEl.style.display = "block";
+          return;
+        }
+
+        emptyEl.style.display = "none";
+        tbody.innerHTML = docs.map(d => `
+          <tr data-id="${escHtml(d.id)}">
+            <td>${fmtDate(d.submittedAt)}</td>
+            <td>${d.name ? escHtml(d.name) : '<span style="color:var(--muted);font-style:italic;">Anonymous</span>'}</td>
+            <td>${overallPill(d.overallRating)}</td>
+            <td>${avgRatingPill(d.ratings)}</td>
+            <td>${d.programLength ? escHtml(d.programLength) : '<span class="pill pill-gray">—</span>'}</td>
+            <td>${yesNoPill(d.athleteRecognized)}</td>
+            <td>${yesNoPill(d.costReasonable)}</td>
+            <td>${likelyPill(d.likelyToAttend)}</td>
+          </tr>
+        `).join("");
+
+        surveyDocsMap = Object.fromEntries(docs.map(d => [d.id, d]));
+      } catch (err) {
+        console.error(err);
+        const emptyEl = document.getElementById("emptyState");
+        emptyEl.textContent   = "Could not load responses. Check your connection and try refreshing.";
+        emptyEl.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Banquet Survey | SAWA</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:   #fdf8f0;
+      --cream2:  #f5ede0;
+      --card:    #ffffff;
+      --stroke:  rgba(160, 120, 50, 0.14);
+      --text:    #1c1610;
+      --muted:   #6b5a48;
+      --navy:    #1b3a6b;
+      --navy2:   #0f2244;
+      --gold:    #b8860b;
+      --gold-lt: rgba(184,134,11,0.10);
+      --gold-bd: rgba(184,134,11,0.22);
+      --green:   #2a5e2a;
+      --green-lt:rgba(42,94,42,0.08);
+      --shadow:  0 4px 28px rgba(100, 70, 20, 0.09);
+      --shadow-lg: 0 12px 48px rgba(100, 70, 20, 0.13);
+      --radius:  18px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream2) 100%);
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15,34,68,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-container {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo img { height: 40px; }
+    .nav-menu { display: flex; list-style: none; gap: 32px; margin: 0; padding: 0; }
+    .nav-menu a {
+      color: rgba(255,255,255,0.78); text-decoration: none;
+      font-size: 14px; font-weight: 600; transition: color 0.2s; letter-spacing: 0.2px;
+    }
+    .nav-menu a:hover, .nav-menu a.active { color: #fff; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-menu {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(15,34,68,0.98); flex-direction: column; gap: 0; padding: 16px 0;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a { display: block; padding: 12px 24px; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding-top: 64px;
+      background: linear-gradient(160deg, var(--navy2) 0%, var(--navy) 55%, #1f4b8a 100%);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      background: radial-gradient(ellipse at 50% 130%, rgba(184,134,11,0.30), transparent 68%);
+      pointer-events: none;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(255,255,255,0.04), transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(255,255,255,0.03), transparent 40%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 760px; margin: 0 auto; padding: 60px 24px 0;
+    }
+    .hero-logo {
+      height: 72px; width: auto; display: block; margin: 0 auto 28px;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.35));
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      color: rgba(184,134,11,0.85); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600; font-size: clamp(36px, 6vw, 58px);
+      color: #fff; margin: 0 0 16px; line-height: 1.1;
+    }
+    .hero-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.72); line-height: 1.6;
+      margin: 0 auto 40px; max-width: 480px;
+    }
+    .hero-wave {
+      display: block; width: 100%; margin-bottom: -2px; position: relative; z-index: 1;
+    }
+    .hero-wave path { fill: var(--cream); }
+
+    /* ── Main ── */
+    .main { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+
+    /* ── Section heading ── */
+    .section-heading { text-align: center; margin-bottom: 28px; }
+    .section-heading h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px; font-weight: 600; color: var(--navy); margin: 0 0 8px;
+    }
+    .section-heading p { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.6; }
+    .ornament { display: flex; align-items: center; gap: 12px; margin: 10px auto 0; max-width: 280px; }
+    .ornament-line { flex: 1; height: 1px; background: var(--gold-bd); }
+    .ornament-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card); border: 1px solid var(--stroke);
+      border-radius: var(--radius); padding: 28px 28px 24px;
+      box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .card-accent { border-top: 3px solid var(--gold); }
+
+    /* ── Question label ── */
+    .q-label {
+      font-size: 11px; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+    }
+    .q-text {
+      font-size: 16px; font-weight: 600; color: var(--navy);
+      margin: 0 0 16px; line-height: 1.4;
+    }
+    .q-hint { font-size: 13px; color: var(--muted); margin: -10px 0 14px; }
+
+    /* ── Radio / Checkbox choices ── */
+    .choice-list { display: flex; flex-direction: column; gap: 8px; }
+    .choice-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px; cursor: pointer;
+      border: 1px solid rgba(160,120,50,0.14); background: #fdf9f3;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .choice-item:hover { border-color: var(--gold-bd); background: #faf5eb; }
+    .choice-item input[type="radio"],
+    .choice-item input[type="checkbox"] { accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+    .choice-item label { font-size: 15px; color: var(--text); cursor: pointer; flex: 1; }
+
+    /* ── Other text field inside checkbox ── */
+    .other-input {
+      flex: 1; padding: 4px 10px; border-radius: 8px;
+      border: 1px solid rgba(160,120,50,0.20); background: #fff;
+      font-size: 14px; font-family: inherit; color: var(--text);
+      outline: none;
+    }
+    .other-input:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(184,134,11,0.12); }
+
+    /* ── Rating grid ── */
+    .rating-table { width: 100%; border-collapse: collapse; }
+    .rating-table th {
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      text-align: center; padding: 6px 8px;
+    }
+    .rating-table th:first-child { text-align: left; }
+    .rating-table td {
+      text-align: center; padding: 8px 8px;
+      border-bottom: 1px solid rgba(160,120,50,0.08);
+    }
+    .rating-table td:first-child { text-align: left; font-size: 14px; color: var(--text); }
+    .rating-table input[type="radio"] { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+    @media (max-width: 520px) {
+      .rating-table th, .rating-table td { padding: 6px 4px; }
+      .rating-table td:first-child { font-size: 12px; }
+    }
+
+    /* ── Textarea ── */
+    textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid rgba(160,120,50,0.18); background: #fdf9f3;
+      color: var(--text); outline: none; font-size: 15px; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 90px; resize: vertical;
+    }
+    textarea:focus {
+      border-color: var(--gold); background: #fff;
+      box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+    }
+
+    /* ── Optional name band ── */
+    .name-band {
+      background: var(--gold-lt); border: 1px solid var(--gold-bd);
+      border-radius: 14px; padding: 18px 22px; margin-bottom: 20px;
+    }
+    .name-band .form-label {
+      display: block; font-size: 12px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+    }
+    input[type="text"] {
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid rgba(160,120,50,0.18); background: #fff;
+      color: var(--text); outline: none; font-size: 15px; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="text"]:focus {
+      border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+    }
+
+    /* ── Submit ── */
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: linear-gradient(160deg, var(--navy2), var(--navy));
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 700; font-family: inherit;
+      cursor: pointer; letter-spacing: 0.3px;
+      box-shadow: 0 4px 18px rgba(15,34,68,0.25);
+      transition: filter 0.15s, transform 0.12s;
+    }
+    .btn-submit:hover  { filter: brightness(1.10); }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ── Messages ── */
+    .ok  { color: var(--green); font-weight: 700; font-size: 14px; line-height: 1.5; }
+    .err { color: #b91c1c;     font-weight: 700; font-size: 14px; }
+    .msg-muted { color: var(--muted); font-size: 14px; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; padding: 32px 20px;
+      border-top: 1px solid var(--stroke);
+      color: var(--muted); font-size: 12px; line-height: 1.8;
+    }
+    .footer a { color: var(--navy); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA" />
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="banquet.html" class="active">Banquet</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img class="hero-logo" src="https://www.shalerareawrestling.com/assets/saw.png" alt="Shaler Area Wrestling" />
+      <div class="hero-eyebrow">Shaler Area Wrestling Association</div>
+      <h1 class="hero-title">Banquet Feedback Survey</h1>
+      <p class="hero-subtitle">Help us make next year even better. Your feedback means a lot to us — this takes about 2 minutes.</p>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,54 C360,0 1080,0 1440,54 L1440,54 L0,54 Z"/>
+    </svg>
+  </section>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="section-heading">
+      <h2>Share Your Thoughts</h2>
+      <p>All questions are optional. Submit anonymously or include your name.</p>
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-line"></div>
+      </div>
+    </div>
+
+    <form id="surveyForm" novalidate>
+
+      <!-- Optional name -->
+      <div class="name-band">
+        <label class="form-label" for="respondentName">Your Name <span style="font-weight:400;text-transform:none;font-size:11px;">(optional — leave blank to stay anonymous)</span></label>
+        <input type="text" id="respondentName" placeholder="First and Last Name" autocomplete="name" />
+      </div>
+
+      <!-- Q1 -->
+      <div class="card card-accent">
+        <div class="q-label">Question 1 of 10</div>
+        <div class="q-text" id="q1-label">Overall, how would you rate this year's banquet?</div>
+        <div class="choice-list" role="group" aria-labelledby="q1-label">
+          <div class="choice-item">
+            <input type="radio" name="overallRating" id="r1a" value="Excellent" />
+            <label for="r1a">Excellent</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="overallRating" id="r1b" value="Good" />
+            <label for="r1b">Good</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="overallRating" id="r1c" value="Average" />
+            <label for="r1c">Average</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="overallRating" id="r1d" value="Below Average" />
+            <label for="r1d">Below Average</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="card">
+        <div class="q-label">Question 2 of 10</div>
+        <div class="q-text">How would you rate the following?</div>
+        <div class="q-hint">1 = Poor &nbsp;·&nbsp; 5 = Excellent</div>
+        <table class="rating-table">
+          <thead>
+            <tr>
+              <th scope="col" aria-hidden="true"></th>
+              <th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Venue / Location</td>
+              <td><input type="radio" name="rVenue" value="1" aria-label="Venue / Location: 1" /></td>
+              <td><input type="radio" name="rVenue" value="2" aria-label="Venue / Location: 2" /></td>
+              <td><input type="radio" name="rVenue" value="3" aria-label="Venue / Location: 3" /></td>
+              <td><input type="radio" name="rVenue" value="4" aria-label="Venue / Location: 4" /></td>
+              <td><input type="radio" name="rVenue" value="5" aria-label="Venue / Location: 5" /></td>
+            </tr>
+            <tr>
+              <td>Food Quality</td>
+              <td><input type="radio" name="rFood" value="1" aria-label="Food Quality: 1" /></td>
+              <td><input type="radio" name="rFood" value="2" aria-label="Food Quality: 2" /></td>
+              <td><input type="radio" name="rFood" value="3" aria-label="Food Quality: 3" /></td>
+              <td><input type="radio" name="rFood" value="4" aria-label="Food Quality: 4" /></td>
+              <td><input type="radio" name="rFood" value="5" aria-label="Food Quality: 5" /></td>
+            </tr>
+            <tr>
+              <td>Event Organization</td>
+              <td><input type="radio" name="rOrg" value="1" aria-label="Event Organization: 1" /></td>
+              <td><input type="radio" name="rOrg" value="2" aria-label="Event Organization: 2" /></td>
+              <td><input type="radio" name="rOrg" value="3" aria-label="Event Organization: 3" /></td>
+              <td><input type="radio" name="rOrg" value="4" aria-label="Event Organization: 4" /></td>
+              <td><input type="radio" name="rOrg" value="5" aria-label="Event Organization: 5" /></td>
+            </tr>
+            <tr>
+              <td>Length of Program</td>
+              <td><input type="radio" name="rLength" value="1" aria-label="Length of Program: 1" /></td>
+              <td><input type="radio" name="rLength" value="2" aria-label="Length of Program: 2" /></td>
+              <td><input type="radio" name="rLength" value="3" aria-label="Length of Program: 3" /></td>
+              <td><input type="radio" name="rLength" value="4" aria-label="Length of Program: 4" /></td>
+              <td><input type="radio" name="rLength" value="5" aria-label="Length of Program: 5" /></td>
+            </tr>
+            <tr>
+              <td>Awards / Recognition</td>
+              <td><input type="radio" name="rAwards" value="1" aria-label="Awards / Recognition: 1" /></td>
+              <td><input type="radio" name="rAwards" value="2" aria-label="Awards / Recognition: 2" /></td>
+              <td><input type="radio" name="rAwards" value="3" aria-label="Awards / Recognition: 3" /></td>
+              <td><input type="radio" name="rAwards" value="4" aria-label="Awards / Recognition: 4" /></td>
+              <td><input type="radio" name="rAwards" value="5" aria-label="Awards / Recognition: 5" /></td>
+            </tr>
+            <tr>
+              <td>Speakers</td>
+              <td><input type="radio" name="rSpeakers" value="1" aria-label="Speakers: 1" /></td>
+              <td><input type="radio" name="rSpeakers" value="2" aria-label="Speakers: 2" /></td>
+              <td><input type="radio" name="rSpeakers" value="3" aria-label="Speakers: 3" /></td>
+              <td><input type="radio" name="rSpeakers" value="4" aria-label="Speakers: 4" /></td>
+              <td><input type="radio" name="rSpeakers" value="5" aria-label="Speakers: 5" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Q3 -->
+      <div class="card">
+        <div class="q-label">Question 3 of 10</div>
+        <div class="q-text" id="q3-label">Did the banquet feel too long, too short, or about right?</div>
+        <div class="choice-list" role="group" aria-labelledby="q3-label">
+          <div class="choice-item">
+            <input type="radio" name="programLength" id="r3a" value="Too long" />
+            <label for="r3a">Too long</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="programLength" id="r3b" value="About right" />
+            <label for="r3b">About right</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="programLength" id="r3c" value="Too short" />
+            <label for="r3c">Too short</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="card">
+        <div class="q-label">Question 4 of 10</div>
+        <div class="q-text" id="q4-label">What did you enjoy most about the banquet?</div>
+        <textarea id="enjoyedMost" aria-labelledby="q4-label" placeholder="Share what stood out to you…" maxlength="2000"></textarea>
+      </div>
+
+      <!-- Q5 -->
+      <div class="card">
+        <div class="q-label">Question 5 of 10</div>
+        <div class="q-text" id="q5-label">What could we improve for next year?</div>
+        <textarea id="improvements" aria-labelledby="q5-label" placeholder="All feedback welcome…" maxlength="2000"></textarea>
+      </div>
+
+      <!-- Q6 -->
+      <div class="card">
+        <div class="q-label">Question 6 of 10</div>
+        <div class="q-text" id="q6-label">Did your athlete feel properly recognized?</div>
+        <div class="choice-list" role="group" aria-labelledby="q6-label">
+          <div class="choice-item">
+            <input type="radio" name="athleteRecognized" id="r6a" value="Yes" />
+            <label for="r6a">Yes</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="athleteRecognized" id="r6b" value="Somewhat" />
+            <label for="r6b">Somewhat</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="athleteRecognized" id="r6c" value="No" />
+            <label for="r6c">No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="card">
+        <div class="q-label">Question 7 of 10</div>
+        <div class="q-text" id="q7-label">Was the cost of the banquet reasonable?</div>
+        <div class="choice-list" role="group" aria-labelledby="q7-label">
+          <div class="choice-item">
+            <input type="radio" name="costReasonable" id="r7a" value="Yes" />
+            <label for="r7a">Yes</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="costReasonable" id="r7b" value="No" />
+            <label for="r7b">No</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="costReasonable" id="r7c" value="Not sure" />
+            <label for="r7c">Not sure</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="card">
+        <div class="q-label">Question 8 of 10</div>
+        <div class="q-text" id="q8-label">Would you prefer any of the following changes?</div>
+        <div class="q-hint">Select all that apply</div>
+        <div class="choice-list" role="group" aria-labelledby="q8-label">
+          <div class="choice-item">
+            <input type="checkbox" id="c8a" value="Shorter program" />
+            <label for="c8a">Shorter program</label>
+          </div>
+          <div class="choice-item">
+            <input type="checkbox" id="c8b" value="Different venue" />
+            <label for="c8b">Different venue</label>
+          </div>
+          <div class="choice-item">
+            <input type="checkbox" id="c8c" value="Different food options" />
+            <label for="c8c">Different food options</label>
+          </div>
+          <div class="choice-item">
+            <input type="checkbox" id="c8d" value="More athlete recognition" />
+            <label for="c8d">More athlete recognition</label>
+          </div>
+          <div class="choice-item">
+            <input type="checkbox" id="c8e" value="Less formal / more casual" />
+            <label for="c8e">Less formal / more casual</label>
+          </div>
+          <div class="choice-item">
+            <input type="checkbox" id="c8f" value="Other" />
+            <label for="c8f">Other:</label>
+            <input type="text" id="c8fText" class="other-input" placeholder="describe…" aria-label="Other — please describe" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="card">
+        <div class="q-label">Question 9 of 10</div>
+        <div class="q-text" id="q9-label">How likely are you to attend next year's banquet?</div>
+        <div class="choice-list" role="group" aria-labelledby="q9-label">
+          <div class="choice-item">
+            <input type="radio" name="likelyToAttend" id="r9a" value="Very likely" />
+            <label for="r9a">Very likely</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="likelyToAttend" id="r9b" value="Likely" />
+            <label for="r9b">Likely</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="likelyToAttend" id="r9c" value="Unsure" />
+            <label for="r9c">Unsure</label>
+          </div>
+          <div class="choice-item">
+            <input type="radio" name="likelyToAttend" id="r9d" value="Unlikely" />
+            <label for="r9d">Unlikely</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="card">
+        <div class="q-label">Question 10 of 10</div>
+        <div class="q-text" id="q10-label">Any additional comments or suggestions?</div>
+        <textarea id="additionalComments" aria-labelledby="q10-label" placeholder="Anything else on your mind…" maxlength="2000"></textarea>
+      </div>
+
+      <button class="btn-submit" type="submit" id="submitBtn">Submit Feedback</button>
+      <div id="msg" style="margin-top:14px;" aria-live="polite"></div>
+
+    </form>
+
+  </main>
+
+  <footer class="footer">
+    &copy; 2026 Shaler Area Wrestling Association<br/>
+    Questions? <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">ShalerAreaWrestlingAssoc@gmail.com</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp }            from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp }
+      from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDiXKDy1Xg_W7BNzO-bo1FbapXt_hJTYco",
+      authDomain:        "tdc-raffle.firebaseapp.com",
+      projectId:         "tdc-raffle",
+      storageBucket:     "tdc-raffle.firebasestorage.app",
+      messagingSenderId: "832529502371",
+      appId:             "1:832529502371:web:7f35743f8be7774c736f16"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    function setMsg(type, text) {
+      const cls = type === "ok" ? "ok" : type === "err" ? "err" : "msg-muted";
+      const el = document.createElement("div");
+      el.className = cls;
+      el.textContent = text;
+      document.getElementById("msg").replaceChildren(el);
+    }
+
+    function getRadio(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function getCheckedValues(ids) {
+      return ids
+        .map(id => document.getElementById(id))
+        .filter(el => el && el.checked)
+        .map(el => el.value);
+    }
+
+    document.getElementById("surveyForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      setMsg("muted", "Submitting…");
+
+      const name = document.getElementById("respondentName").value.trim() || null;
+
+      function parseRating(name) {
+        const v = getRadio(name);
+        return v !== null ? parseInt(v, 10) : null;
+      }
+      const ratings = {
+        venue:        parseRating("rVenue"),
+        food:         parseRating("rFood"),
+        organization: parseRating("rOrg"),
+        length:       parseRating("rLength"),
+        awards:       parseRating("rAwards"),
+        speakers:     parseRating("rSpeakers"),
+      };
+
+      const preferredChanges = getCheckedValues(["c8a","c8b","c8c","c8d","c8e","c8f"]);
+      const otherText = document.getElementById("c8f").checked
+        ? (document.getElementById("c8fText").value.trim() || null)
+        : null;
+
+      const payload = {
+        name,
+        overallRating:      getRadio("overallRating"),
+        ratings,
+        programLength:      getRadio("programLength"),
+        enjoyedMost:        document.getElementById("enjoyedMost").value.trim()          || null,
+        improvements:       document.getElementById("improvements").value.trim()         || null,
+        athleteRecognized:  getRadio("athleteRecognized"),
+        costReasonable:     getRadio("costReasonable"),
+        preferredChanges,
+        preferredChangesOther: otherText,
+        likelyToAttend:     getRadio("likelyToAttend"),
+        additionalComments: document.getElementById("additionalComments").value.trim()   || null,
+        submittedAt:        serverTimestamp(),
+      };
+
+      try {
+        if (!auth.currentUser) await signInAnonymously(auth);
+        await addDoc(collection(db, "banquet_survey_2026"), payload);
+        setMsg("ok", "Thank you! Your feedback has been submitted.");
+        document.getElementById("surveyForm").style.display = "none";
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        setMsg("err", "Could not submit. Please try again or email us directly.");
+      }
+    });
+  </script>
+
+</body>
+</html>
