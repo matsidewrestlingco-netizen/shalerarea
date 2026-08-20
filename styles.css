@@ -27,6 +27,8 @@
 
   --radius: 8px;
   --radius-lg: 16px;
+
+  --banner-height: 48px;
 }
 
 *, *::before, *::after {
@@ -68,9 +70,67 @@ body {
    NAVIGATION
    =========================================== */
 
-.nav {
+.alert-banner {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  min-height: var(--banner-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  background: linear-gradient(90deg, var(--red-dark) 0%, var(--red-primary) 50%, var(--red-dark) 100%);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: filter 0.2s ease;
+}
+
+.alert-banner:hover,
+.alert-banner:focus-visible {
+  filter: brightness(1.1);
+  outline: none;
+}
+
+.alert-banner-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.alert-banner strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.alert-banner-sep {
+  opacity: 0.5;
+}
+
+.alert-banner-cta {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  :root { --banner-height: 60px; }
+  .alert-banner { font-size: 0.85rem; padding: 8px 12px; }
+  .alert-banner-inner { gap: 6px; }
+}
+
+.nav {
+  position: fixed;
+  top: var(--banner-height);
   left: 0;
   right: 0;
   z-index: 1000;
@@ -679,7 +739,7 @@ body {
 
 .page-header {
   background: linear-gradient(135deg, var(--blue-dark), var(--blue-primary));
-  padding: 140px 0 60px;
+  padding: calc(140px + var(--banner-height)) 0 60px;
   text-align: center;
 }
 
