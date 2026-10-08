@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Titan Duals | Shaler Area Wrestling</title>
+  <meta name="description" content="2026 Titan Duals: Saturday, December 5th at Shaler Area High School. Twelve teams, schedule, admission, pools, and coach information.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Banner: white so the navy wordmark shows */
+    .td-banner {
+      background: var(--white);
+      padding: 110px 0 48px;
+      text-align: center;
+      border-bottom: 4px solid var(--red-primary);
+    }
+
+    .td-banner h1 {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      line-height: 0;
+    }
+
+    .td-banner h1 img {
+      display: block;
+      width: 100%;
+    }
+
+    .td-date {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+      font-weight: 600;
+      color: var(--blue-dark);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .td-place {
+      color: var(--gray-600);
+      margin: 6px 0 24px;
+    }
+
+    .td-white {
+      background: var(--white);
+    }
+
+    /* Key/value rows (schedule, admission) */
+    .td-rows {
+      list-style: none;
+    }
+
+    .td-rows li {
+      display: flex;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .td-rows li:last-child {
+      border-bottom: none;
+    }
+
+    .td-time {
+      flex-shrink: 0;
+      width: 84px;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--red-primary);
+    }
+
+    .td-rows strong {
+      color: var(--blue-dark);
+    }
+
+    .td-rows .td-price {
+      margin-left: auto;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+
+    .td-note {
+      display: block;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    p.td-note {
+      margin-top: 16px;
+    }
+
+    /* Pools */
+    .td-pool {
+      list-style: none;
+    }
+
+    .td-pool li {
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: var(--gray-100);
+      border-left: 4px solid var(--gray-300);
+      border-radius: var(--radius);
+      font-weight: 500;
+    }
+
+    .td-pool li:last-child {
+      margin-bottom: 0;
+    }
+
+    .td-pool li.td-home {
+      border-left-color: var(--red-primary);
+      color: var(--blue-primary);
+      font-weight: 700;
+    }
+
+    /* Bulleted detail lists */
+    .td-bullets {
+      margin-left: 20px;
+      color: var(--gray-600);
+    }
+
+    .td-bullets li {
+      margin-bottom: 10px;
+    }
+
+    .td-bullets li:last-child {
+      margin-bottom: 0;
+    }
+
+    .td-bullets a,
+    .td-contact a {
+      color: var(--blue-primary);
+      font-weight: 600;
+    }
+
+    /* Format */
+    .td-narrow {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .td-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 12px;
+    }
+
+    .td-table th {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: left;
+      color: var(--white);
+      background: var(--blue-primary);
+      padding: 10px 12px;
+    }
+
+    .td-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .td-table td:last-child {
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+
+    .td-table tr.td-award td {
+      background: rgba(27, 58, 107, 0.08);
+    }
+
+    /* Coaches & Teams */
+    .td-coaches {
+      background: var(--blue-dark);
+    }
+
+    .td-coaches .section-title {
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .td-coaches .section-title::after {
+      background: var(--gold);
+    }
+
+    .td-intro {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+    }
+
+    .td-deadline {
+      background: rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    .td-deadline h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .td-deadline ul {
+      margin-left: 20px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .td-deadline li {
+      margin-bottom: 6px;
+    }
+
+    .td-deadline a {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .td-address {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-200);
+      color: var(--gray-600);
+    }
+
+    .td-address strong {
+      color: var(--blue-dark);
+    }
+
+    .td-contact {
+      text-align: center;
+      color: var(--gray-600);
+    }
+
+    .td-contact p + p {
+      margin-top: 12px;
+    }
+
+    .td-sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 500px) {
+      .td-table th,
+      .td-table td {
+        padding: 10px 8px;
+        font-size: 14px;
+      }
+
+      .td-table th {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="titanduals.html" class="active">Titan Duals</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <section class="td-banner">
+    <div class="container">
+      <h1>
+        <img src="assets/titanduals/2026_titan_duals.png" alt="" width="1313" height="263">
+        <span class="td-sr">2026 Titan Duals</span>
+      </h1>
+      <p class="td-date">Saturday, December 5th, 2026</p>
+      <p class="td-place">Shaler Area High School &bull; 381 Wible Run Rd, Pittsburgh, PA 15209</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Shaler+Area+High+School+381+Wible+Run+Rd+Pittsburgh+PA+15209" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
+    </div>
+  </section>
+
+  <!-- Event Day -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Event Day</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">Schedule</h3>
+          <ul class="td-rows">
+            <li>
+              <span class="td-time">7:30 AM</span>
+              <div><strong>Team Arrival</strong></div>
+            </li>
+            <li>
+              <span class="td-time">8:00 AM</span>
+              <div>
+                <strong>Weigh-Ins</strong>
+                <span class="td-note">One weigh-in for the day. No weight allowance.</span>
+              </div>
+            </li>
+            <li>
+              <span class="td-time">9:00 AM</span>
+              <div>
+                <strong>Wrestling Begins</strong>
+                <span class="td-note">Five rounds of pool play, followed by one placement round.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Spectator Admission</h3>
+          <ul class="td-rows">
+            <li><strong>Adults</strong><span class="td-price">$10</span></li>
+            <li><strong>Students</strong><span class="td-price">$5</span></li>
+            <li><strong>Children under 5</strong><span class="td-price">Free</span></li>
+          </ul>
+          <p class="td-note">We accept cash, Cash App, Venmo, PayPal, and all major credit cards at the door.</p>
+          <p class="td-note">Concessions will be available all day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pools -->
+  <section class="section td-white">
+    <div class="container">
+      <h2 class="section-title">Teams &amp; Pools</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">Pool A</h3>
+          <ul class="td-pool">
+            <li class="td-home">Shaler Area</li>
+            <li>Greensburg Salem</li>
+            <li>Gateway</li>
+            <li>Trinity</li>
+            <li>Hempfield</li>
+            <li>Yough</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Pool B</h3>
+          <ul class="td-pool">
+            <li>Fox Chapel</li>
+            <li>Reynolds</li>
+            <li>Franklin Regional</li>
+            <li>McGuffey</li>
+            <li>Penn Trafford</li>
+            <li>Waynesburg</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Format -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Tournament Format</h2>
+      <div class="card td-narrow">
+        <div class="card-content">
+          <p>We are excited to welcome 12 teams from across western Pennsylvania to the 2026 Titan Duals. Brackets, live scoring, and team standings will be on FloArena.</p>
+        </div>
+        <ul class="td-bullets">
+          <li>Teams are split into two pools of six. Each team wrestles every team in its pool (5 duals), then one placement dual, for a total of 6 duals per team.</li>
+          <li>All duals will be wrestled on Mats 1 through 4.</li>
+          <li>Pool standings and tiebreakers are determined by FloArena.</li>
+        </ul>
+
+        <h3 class="card-title" style="margin-top: 32px;">Placement Round</h3>
+        <div class="card-content">
+          <p>After pool play, each team wrestles the team that finished in the same place in the other pool.</p>
+        </div>
+        <table class="td-table">
+          <thead>
+            <tr>
+              <th>Pool A Finish</th>
+              <th>Pool B Finish</th>
+              <th>Wrestling For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="td-award"><td>1st</td><td>1st</td><td>1st &amp; 2nd Place</td></tr>
+            <tr class="td-award"><td>2nd</td><td>2nd</td><td>3rd &amp; 4th Place</td></tr>
+            <tr class="td-award"><td>3rd</td><td>3rd</td><td>5th &amp; 6th Place</td></tr>
+            <tr><td>4th</td><td>4th</td><td>7th &amp; 8th Place</td></tr>
+            <tr><td>5th</td><td>5th</td><td>9th &amp; 10th Place</td></tr>
+            <tr><td>6th</td><td>6th</td><td>11th &amp; 12th Place</td></tr>
+          </tbody>
+        </table>
+        <p class="td-note">Awards will be presented to the top six teams (shaded rows).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coaches & Teams -->
+  <section class="section td-coaches" id="coaches">
+    <div class="container">
+      <h2 class="section-title">Coaches &amp; Teams</h2>
+      <p class="td-intro">Information for participating programs</p>
+
+      <div class="td-deadline">
+        <h3>Key Deadline: Tuesday, December 1st</h3>
+        <ul>
+          <li>Entry form and $350 team entry fee</li>
+          <li>Team Submission Sheet (emailed to coaches)</li>
+          <li>Concessions tab request, only if your team wants one. Email <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">ShalerAreaWrestlingAssoc@gmail.com</a>.</li>
+        </ul>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title">Team Entry</h3>
+          <ul class="td-bullets">
+            <li>Team Entry Fee: $350, due by Tuesday, December 1st.</li>
+            <li>Teams that have not paid in full will not be permitted to compete.</li>
+            <li>Make checks payable to Shaler Area Wrestling Association and mail them with the entry form.</li>
+          </ul>
+          <div class="doc-list" style="margin-top: 20px;">
+            <a href="assets/docs/2026_Titan_Duals_Info.pdf" class="doc-item">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+              <span>2026 Titan Duals Info Sheet &amp; Entry Form (PDF)</span>
+            </a>
+          </div>
+          <p class="td-address">
+            <strong>Return the form and entry fee to:</strong><br>
+            Shaler Area High School<br>
+            381 Wible Run Road<br>
+            Pittsburgh, PA 15209
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Coaches &amp; Check-In</h3>
+          <ul class="td-bullets">
+            <li>Each team will receive three (3) coach's bands at check-in.</li>
+            <li>All bands go to the head coach. Bands will not be handed out at the front entrance, so late-arriving coaches must get theirs from their head coach.</li>
+            <li>Please share the spectator admission information with your parents and supporters.</li>
+          </ul>
+
+          <h3 class="card-title" style="margin-top: 32px;">Novice Exhibition Matches</h3>
+          <ul class="td-bullets">
+            <li>First and second-year wrestlers may wrestle exhibition matches, which will be worked in as time allows.</li>
+            <li>Please mark these athletes clearly on your Team Submission Sheet.</li>
+            <li>Before the tournament, we will send every team a list of novice wrestlers and estimated weights. Coaches, please coordinate exhibitions with each other.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section td-white">
+    <div class="container td-contact">
+      <h2 class="section-title">Questions?</h2>
+      <p>Reach the tournament staff at <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">ShalerAreaWrestlingAssoc@gmail.com</a>.</p>
+      <p>We look forward to hosting you for another great year of competition at the Titan Duals!</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
+          <p>Shaler Area Wrestling Association</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="team.html">Team</a>
+          <a href="titanduals.html">Titan Duals</a>
+          <a href="sponsors.html">Sponsors</a>
+        </div>
+        <p class="footer-copy">&copy; 2025 Shaler Area Wrestling Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
