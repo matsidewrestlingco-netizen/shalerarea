@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration | Shaler Area Wrestling</title>
+  <meta name="description" content="Register for the 2026-2027 Shaler Area Wrestling High School & Junior High season.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .iframe-shell {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    #reg-iframe {
+      width: 100%;
+      min-height: 1400px;
+      border: 0;
+      display: block;
+    }
+    .iframe-fallback {
+      display: none;
+      padding: 32px;
+      text-align: center;
+      color: var(--gray-600);
+    }
+    .iframe-fallback a {
+      color: var(--blue-primary);
+      font-weight: 600;
+    }
+    .iframe-shell.fallback #reg-iframe { display: none; }
+    .iframe-shell.fallback .iframe-fallback { display: block; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="titanduals.html">Titan Duals</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="registration.html" class="active">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Registration</h1>
+      <p>2026-2027 Shaler Area Wrestling High School &amp; Junior High Registration</p>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="section" style="background: var(--white);">
+    <div class="container">
+      <div class="iframe-shell" id="iframe-shell" style="max-width: 760px; margin: 0 auto;">
+        <iframe id="reg-iframe" src="https://forms.matsidesystems.com/r/shaler-area-wrestling?embed=1" title="Shaler Area Wrestling Registration" loading="lazy"></iframe>
+        <div class="iframe-fallback">
+          Registration is temporarily unavailable in-page.
+          <a href="https://forms.matsidesystems.com/r/shaler-area-wrestling" target="_blank" rel="noopener">Register directly &rarr;</a>
+        </div>
+      </div>
+      <noscript>
+        <p style="margin-top: 16px; text-align: center; color: var(--gray-600);">
+          JavaScript is required for the embedded form.
+          <a href="https://forms.matsidesystems.com/r/shaler-area-wrestling" style="color: var(--blue-primary); font-weight: 600;">Register directly &rarr;</a>
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="section">
+    <div class="container">
+      <div class="card" style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <h3 class="card-title" style="text-align: center;">Questions?</h3>
+        <div class="card-content">
+          <p style="color: var(--gray-600);">Reach out to the booster board at <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com" style="color: var(--blue-primary); font-weight: 600;">ShalerAreaWrestlingAssoc@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
+          <p>Shaler Area Wrestling Association</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="team.html">Team</a>
+          <a href="titanduals.html">Titan Duals</a>
+          <a href="sponsors.html">Sponsors</a>
+          <a href="registration.html">Register</a>
+        </div>
+        <p class="footer-copy">&copy; 2025 Shaler Area Wrestling Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+
+    // Iframe auto-height listener (matches Matside Forms' embed contract)
+    // + a fallback to a direct link if no height message arrives.
+    (function () {
+      const shell = document.getElementById('iframe-shell');
+      const iframe = document.getElementById('reg-iframe');
+      const ALLOWED_ORIGIN = 'https://forms.matsidesystems.com';
+      const TIMEOUT_MS = 6000;
+      let receivedHeight = false;
+
+      window.addEventListener('message', (evt) => {
+        if (evt.origin !== ALLOWED_ORIGIN) return;
+        const data = evt.data;
+        if (!data || data.type !== 'matsysforms-height' || typeof data.px !== 'number') return;
+        if (data.px < 100 || data.px > 10000) return; // sanity clamp
+        iframe.style.height = data.px + 'px';
+        receivedHeight = true;
+      });
+
+      setTimeout(() => {
+        if (!receivedHeight) {
+          shell.classList.add('fallback');
+        }
+      }, TIMEOUT_MS);
+    })();
+  </script>
+</body>
+</html>
