@@ -68,9 +68,9 @@ Sat, Feb 13|District 7 Tournament|9:00 AM|Bethel Park High School`
   }
   events.sort((a, b) => a.ts - b.ts);
   const coaches = {
-    'Boys Varsity': [['Mickey Moran', 'Head Coach'], ["Ronnie D'Amico", 'Assistant'], ['Mike Yiuska', 'Assistant']],
-    'Girls Varsity': [["Drew D'Agostino", 'Head Coach'], ["AJ D'Agostino", 'Assistant'], ['Brandon Lehmeier', 'Assistant'], ['Heather Verbanic', 'Assistant']],
-    'Junior High': [['Adam Santoro', 'Head Coach'], ['Clint Waronsky', 'Assistant'], ['Ryan Aleski', 'Assistant'], ['Ken Wise', 'Assistant']]
+    'Boys Varsity': [['Mickey Moran', 'Head Coach', 'mickeymoran85@gmail.com'], ["Ronnie D'Amico", 'Assistant'], ['Mike Yiuska', 'Assistant']],
+    'Girls Varsity': [["Drew D'Agostino", 'Head Coach', 'Dagostinod@shalerarea.org'], ["AJ D'Agostino", 'Assistant'], ['Brandon Lehmeier', 'Assistant'], ['Heather Verbanic', 'Assistant']],
+    'Junior High': [['Adam Santoro', 'Head Coach', 'santoroa@shalerarea.org'], ['Clint Waronsky', 'Assistant'], ['Ryan Aleski', 'Assistant'], ['Ken Wise', 'Assistant']]
   };
   return { events, coaches, teams: Object.keys(raw) };
 })();
