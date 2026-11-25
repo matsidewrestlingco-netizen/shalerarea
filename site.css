@@ -182,6 +182,8 @@ h1, h2, h3 { margin: 0; color: inherit; }
 .coach-name { font-family: var(--display); font-weight: 700; font-size: 22px; text-transform: uppercase; }
 .coach-role { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .coach-role--head { color: var(--red); }
+.coach-email { font-size: 14px; font-weight: 500; color: var(--navy); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule); overflow-wrap: anywhere; }
+.coach-email:hover { text-decoration-color: currentColor; }
 
 /* ---------- §02 champions ---------- */
 .champions .wrap { padding-top: 112px; padding-bottom: 112px; }
@@ -304,6 +306,7 @@ a.doc:hover, button.doc:hover { color: var(--white); background: rgba(255, 255, 
 .staff-team { font-family: var(--display); font-weight: 700; font-size: 24px; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--navy); }
 .staff-row { display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
 .staff-row strong { font-size: 16px; }
+.staff-person { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
 /* ---------- sponsors page ---------- */
 .jump-nav--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }

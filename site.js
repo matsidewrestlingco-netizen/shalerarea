@@ -43,7 +43,8 @@ const SITE = {
     }));
   }
 
-  const coachRows = (team, render) => (D.coaches[team] || []).map(([name, role]) => render(name, role, role === 'Head Coach')).join('');
+  const coachRows = (team, render) => (D.coaches[team] || []).map(([name, role, email]) => render(name, role, role === 'Head Coach', email)).join('');
+  const coachEmail = email => email ? `<a class="coach-email" href="mailto:${esc(email)}">${esc(email)}</a>` : '';
 
   // ---- Home: Up Next ----
   const nextList = $('#next-list');
@@ -81,8 +82,8 @@ const SITE = {
     const n = upcoming.find(e => e.team === team);
     $('.next-match-date', band).textContent = n ? `${n.dow}, ${n.date} · ${n.time}` : 'Season complete';
     $('.next-match-opp', band).textContent = n ? n.opp : '';
-    $('.coach-list', band).innerHTML = coachRows(team, (name, role, head) => `
-      <div class="coach"><span class="coach-name">${esc(name)}</span><span class="coach-role${head ? ' coach-role--head' : ''}">${esc(role)}</span></div>`);
+    $('.coach-list', band).innerHTML = coachRows(team, (name, role, head, email) => `
+      <div class="coach"><span class="coach-name">${esc(name)}</span><span class="coach-role${head ? ' coach-role--head' : ''}">${esc(role)}</span>${coachEmail(email)}</div>`);
   });
 
   // ---- Team: schedules ----
@@ -145,7 +146,7 @@ const SITE = {
     staffGrid.innerHTML = D.teams.map(t => `
       <div>
         <div class="staff-team">${esc(t)}</div>
-        ${coachRows(t, (name, role, head) => `<div class="staff-row"><strong>${esc(name)}</strong><span class="coach-role${head ? ' coach-role--head' : ''}">${esc(role)}</span></div>`)}
+        ${coachRows(t, (name, role, head, email) => `<div class="staff-row"><span class="staff-person"><strong>${esc(name)}</strong>${coachEmail(email)}</span><span class="coach-role${head ? ' coach-role--head' : ''}">${esc(role)}</span></div>`)}
       </div>`).join('');
   }
 })();
