@@ -107,6 +107,11 @@ h1, h2, h3 { margin: 0; color: inherit; }
 .mobile-nav { display: none; }
 
 /* ---------- hero ---------- */
+.parent-banner { display: block; background: var(--red); color: var(--white); text-align: center; font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; transition: background .15s; }
+.parent-banner .wrap { display: block; padding-top: 12px; padding-bottom: 12px; }
+.parent-banner strong { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.parent-banner:hover, .parent-banner:focus-visible { color: var(--white); background: var(--red-hover); }
+
 .hero { position: relative; height: clamp(560px, 52vw, 780px); background: var(--navy); overflow: hidden; }
 .hero-panels { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .hero-panel { position: relative; overflow: hidden; margin: 0 -8%; clip-path: polygon(17% 0, 100% 0, 84% 100%, 1% 100%); }
