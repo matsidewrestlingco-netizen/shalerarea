@@ -4,198 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sponsors | Shaler Area Wrestling</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="The 2026–27 sponsors of Shaler Area Wrestling, and how local businesses can support the program.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">
-        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="titanduals.html">Titan Duals</a></li>
-        <li><a href="sponsors.html" class="active">Sponsors</a></li>
-        <li><a href="registration.html">Register</a></li>
-      </ul>
-    </div>
-  </nav>
 
-  <!-- Page Header -->
-  <section class="page-header">
-    <div class="container">
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="team.html">Team</a>
+        <a href="team.html#schedules">Schedule</a>
+        <a href="titanduals.html">Titan Duals</a>
+      </nav>
+      <a class="site-logo" href="index.html"><img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling"></a>
+      <nav class="site-nav site-nav--right" aria-label="Secondary">
+        <a href="sponsors.html" class="is-active" aria-current="page">Sponsors</a>
+        <a href="index.html#store">Store</a>
+        <a class="btn-register" href="index.html#register" data-register>Register</a>
+      </nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+      <a href="team.html">Team</a>
+      <a href="team.html#schedules">Schedule</a>
+      <a href="titanduals.html">Titan Duals</a>
+      <a href="sponsors.html" class="is-active">Sponsors</a>
+      <a href="index.html#store">Store</a>
+      <a class="btn-register" href="index.html#register" data-register>Register</a>
+    </nav>
+  </header>
+
+  <section class="wrap team-intro">
+    <div class="eyebrow">Thank you · 2026–27</div>
+    <div class="team-intro-grid">
       <h1>Sponsors</h1>
-      <p>Thank you to our amazing sponsors who support Shaler Area Wrestling</p>
+      <p>Local businesses keep Shaler Area Wrestling on the mat. Their support funds equipment, travel, events, and program development for all three teams.</p>
+    </div>
+    <nav class="jump-nav jump-nav--3" aria-label="On this page">
+      <a href="#current">Our sponsors <span>01</span></a>
+      <a href="#become">Become a sponsor <span>02</span></a>
+      <a href="#contribute">How to contribute <span>03</span></a>
+    </nav>
+  </section>
+
+  <section id="current" class="wrap split sp-current">
+    <div>
+      <div class="eyebrow">§ 01</div>
+      <h2 class="h2">2026–27<br>Sponsors</h2>
+      <p class="sp-lede">Thank you to these local businesses and organizations for their generous support of Shaler Area Wrestling.</p>
+    </div>
+    <div class="sponsor-grid sponsor-grid--3">
+      <div class="sponsor-tile"><img src="assets/site/sponsors/asgard.png" alt="Asgard Raw Dog Food"></div>
+      <div class="sponsor-tile"><img src="assets/site/sponsors/cable-ortho.png" alt="Cable Orthodontics"></div>
+      <div class="sponsor-tile"><img src="assets/site/sponsors/martin.png" alt="Martin Tire &amp; Service"></div>
+      <div class="sponsor-tile"><img src="assets/site/sponsors/matside.png" alt="Matside Wrestling Co."></div>
+      <div class="sponsor-tile"><img src="assets/site/sponsors/neely.png" alt="Neely Funeral Home"></div>
+      <div class="sponsor-tile"><img src="assets/site/sponsors/renos.png" alt="Reno's Deli"></div>
     </div>
   </section>
 
-  <!-- Become a Sponsor -->
-  <section class="section" style="background: var(--white);">
-    <div class="container">
-      <h2 class="section-title">Become a Sponsor</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title">Support Our Wrestlers</h3>
-          <div class="card-content">
-            <p>Your sponsorship directly supports the Shaler Area Wrestling program, helping us provide quality equipment, training resources, and opportunities for our student-athletes.</p>
-            <p style="margin-top: 16px;"><strong>Sponsorship benefits include:</strong></p>
-            <ul style="margin: 16px 0; color: var(--gray-600);">
-              <li>Recognition on our website</li>
-              <li>Logo display at home matches</li>
-              <li>Social media recognition</li>
-              <li>Program and event visibility</li>
-              <li>Support local youth athletics</li>
-            </ul>
-            <p style="margin-top: 16px;">Interested in sponsoring? Contact us at <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com" style="color: var(--blue-primary); font-weight: 600;">ShalerAreaWrestlingAssoc@gmail.com</a></p>
-          </div>
-        </div>
-
-        <div class="card" style="background: linear-gradient(135deg, var(--blue-dark), var(--blue-primary)); color: white;">
-          <h3 class="card-title" style="color: white;">How to Contribute</h3>
-          <div class="card-content">
-            <p style="color: rgba(255,255,255,0.9);">We accept sponsorships via the following methods:</p>
-
-            <div style="background: rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 20px;">
-              <p style="color: var(--gold); font-weight: 700; font-family: var(--font-display); letter-spacing: 1px; margin-bottom: 8px;">VENMO</p>
-              <p style="color: white; font-size: 1.1rem; font-weight: 600;">@SAWAtitans2</p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.1); border-radius: var(--radius); padding: 16px; margin-top: 12px;">
-              <p style="color: var(--gold); font-weight: 700; font-family: var(--font-display); letter-spacing: 1px; margin-bottom: 8px;">MAIL CHECK TO</p>
-              <p style="color: white; line-height: 1.6;">
-                Shaler Area Wrestling Association<br>
-                2409 E Springwood Dr<br>
-                Glenshaw, PA 15116
-              </p>
-            </div>
-
-            <p style="color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 16px;">Please include "Sponsorship" in the memo line.</p>
-          </div>
-        </div>
+  <section id="become" class="documents on-navy">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow">§ 02</div>
+        <h2 class="h2">Become a Sponsor</h2>
+        <p>Your sponsorship directly supports Shaler Area wrestlers with quality equipment, training resources, and opportunities to compete. SAWA is a 501(c)(3) nonprofit.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Current Sponsors -->
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">2025-2026 Sponsors</h2>
-      <p style="text-align: center; color: var(--gray-600); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-        We are grateful to these local businesses and organizations for their generous support of Shaler Area Wrestling.
-      </p>
-
-      <div class="sponsor-grid">
-        <div class="sponsor-item">
-          <img src="https://www.shalerareawrestling.com/assets/sponsor/petvet.png" alt="PetVet 365">
+      <div class="doc-groups">
+        <div>
+          <div class="doc-group-head mono"><span>Sponsorship benefits</span><span>Every package</span></div>
+          <ul class="sp-benefits">
+            <li>Recognition on our website</li>
+            <li>Logo display at home matches</li>
+            <li>Social media recognition</li>
+            <li>Program and event visibility</li>
+            <li>Support local youth athletics</li>
+          </ul>
         </div>
-        <div class="sponsor-item">
-          <img src="https://www.shalerareawrestling.com/assets/sponsor/Cable.png" alt="Cable Orthodontics">
+        <div>
+          <div class="doc-group-head mono"><span>Packages</span><span>$250 – $2,000</span></div>
+          <a class="doc" href="assets/docs/saw_sponsorship_packet.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">2026–27 Sponsorship Packet</span><span class="doc-desc">Five season packages for local businesses, with what each one includes.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
         </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/MJB.png" alt="MJB Drafting Services">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/ASW.png" alt="ASW">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/Pasquale.png" alt="Pasquale's Pizza">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/Aiellos.png" alt="Aiello's Pizza">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/Neely.png" alt="Neely Funeral Home">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/Three.png" alt="Three Brothers Bagels">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/SumFadez.png" alt="SumFadez Barber Shop">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/PlayItAgain.png" alt="Play It Again Sports">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/Critchlow.png" alt="Critchlow Enterprises">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/ShopNSave.png" alt="Shop N Save">
-        </div>
-        <div class="sponsor-item">
-           <img src="https://www.shalerareawrestling.com/assets/sponsor/PerfectClimate.png" alt="A Perfect Climate">
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 50px;">
-        <p style="color: var(--gray-600); margin-bottom: 20px;">Want to see your business here?</p>
-        <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com" class="btn btn-primary">Become a Sponsor</a>
       </div>
     </div>
   </section>
 
-  <!-- Special Thanks -->
-  <section class="section" style="background: var(--white);">
-    <div class="container">
-      <div class="card" style="max-width: 800px; margin: 0 auto; text-align: center; background: linear-gradient(135deg, rgba(27,58,107,0.05), rgba(200,31,45,0.05));">
-        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--red-primary), var(--red-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-        </div>
-        <h3 class="card-title" style="text-align: center;">Thank You!</h3>
-        <p style="color: var(--gray-600); max-width: 500px; margin: 0 auto;">
-          Our sponsors make it possible for us to provide the best experience for our wrestlers. Their support funds equipment, travel, events, and program development. We truly appreciate every contribution to Shaler Area Wrestling.
-        </p>
-        <p style="font-family: var(--font-display); color: var(--blue-primary); font-size: 1.2rem; letter-spacing: 2px; margin-top: 20px;">
-          PRIDE • TRADITION • GRIT
-        </p>
+  <section id="contribute" class="wrap cta">
+    <div class="cta-register">
+      <div>
+        <div class="eyebrow sp-eyebrow-light">§ 03</div>
+        <h2>Your business<br>here</h2>
       </div>
+      <div class="cta-register-foot">
+        <p>Interested in sponsoring? Email us at ShalerAreaWrestlingAssoc@gmail.com and we'll help you pick a package.</p>
+        <a class="btn-white" href="mailto:ShalerAreaWrestlingAssoc@gmail.com?subject=Sponsorship">Email us</a>
+      </div>
+    </div>
+    <div class="cta-store sp-contribute">
+      <div>
+        <div class="eyebrow">How to contribute</div>
+        <div class="sp-method">
+          <div class="mono mono-sm">Venmo</div>
+          <div class="sp-method-value">@SAWAtitans2</div>
+        </div>
+        <div class="sp-method">
+          <div class="mono mono-sm">Mail a check to</div>
+          <address class="sp-address">Shaler Area Wrestling Association<br>2409 E Springwood Dr<br>Glenshaw, PA 15116</address>
+        </div>
+      </div>
+      <p class="sp-memo">Please include “Sponsorship” in the memo line.</p>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
-          <p>Shaler Area Wrestling Association</p>
-        </div>
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="team.html">Team</a>
-          <a href="titanduals.html">Titan Duals</a>
-          <a href="sponsors.html">Sponsors</a>
-          <a href="registration.html">Register</a>
-        </div>
-        <p class="footer-copy">&copy; 2025 Shaler Area Wrestling Association. All rights reserved.</p>
-      </div>
+  <section class="wrap partners partners--ruled">
+    <div class="mono">Official partners</div>
+    <div class="partner-logos">
+      <div class="partner-ua"><img src="assets/site/partners/under-armour.png" alt="Under Armour" style="height:56px;width:auto" loading="lazy"><span class="mono">An Under Armour school</span></div>
+      <img src="assets/site/partners/gpsa.png" alt="GPSA Group" style="height:64px;width:auto" loading="lazy">
+    </div>
+  </section>
+
+  <footer class="wrap site-footer">
+    <img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling" loading="lazy">
+    <div class="footer-name">Shaler Area<br>Wrestling Association</div>
+    <div class="footer-links mono">
+      <a href="https://www.instagram.com/shalerareahs_mswrestling" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61550515549498" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">Email</a>
+      <span>© 2026 SAWA</span>
     </div>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active');
-    });
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-      });
-    });
-  </script>
+  <script src="site.js"></script>
 </body>
 </html>

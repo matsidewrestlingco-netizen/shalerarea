@@ -4,212 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team | Shaler Area Wrestling</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Season schedules, forms, and coaching staff for Shaler Area Boys Varsity, Girls Varsity, and Junior High wrestling.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo">
-        <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
-      </a>
-      <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="team.html" class="active">Team</a></li>
-        <li><a href="titanduals.html">Titan Duals</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-        <li><a href="registration.html">Register</a></li>
-      </ul>
-    </div>
-  </nav>
 
-  <!-- Page Header -->
-  <section class="page-header">
-    <div class="container">
-      <h1>Team</h1>
-      <p>Schedules, documents, and resources for wrestlers and parents</p>
+  <header class="site-header" data-noprint>
+    <div class="wrap">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="team.html" class="is-active" aria-current="page">Team</a>
+        <a href="#schedules">Schedule</a>
+        <a href="titanduals.html">Titan Duals</a>
+      </nav>
+      <a class="site-logo" href="index.html"><img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling"></a>
+      <nav class="site-nav site-nav--right" aria-label="Secondary">
+        <a href="sponsors.html">Sponsors</a>
+        <a href="index.html#store">Store</a>
+        <a class="btn-register" href="index.html#register" data-register>Register</a>
+      </nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+      <a href="team.html" class="is-active">Team</a>
+      <a href="#schedules">Schedule</a>
+      <a href="titanduals.html">Titan Duals</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="index.html#store">Store</a>
+      <a class="btn-register" href="index.html#register" data-register>Register</a>
+    </nav>
+  </header>
+
+  <section class="wrap team-intro" data-noprint>
+    <div class="eyebrow">Parents &amp; wrestlers hub · 2026–27</div>
+    <div class="team-intro-grid">
+      <h1>The Team</h1>
+      <p>Season schedules, required forms, and everything families need for Boys Varsity, Girls Varsity, and Junior High.</p>
+    </div>
+    <nav class="jump-nav" aria-label="On this page">
+      <a href="#schedules">Schedules <span>01</span></a>
+      <a href="#documents">Documents <span>02</span></a>
+      <a href="#season-info">Season info <span>03</span></a>
+      <a href="#contacts">Coaches <span>04</span></a>
+    </nav>
+  </section>
+
+  <section id="schedules" class="wrap schedules">
+    <div class="schedules-head" data-noprint>
+      <div>
+        <div class="eyebrow">§ 01</div>
+        <h2 class="h2">Season Schedules</h2>
+      </div>
+      <button type="button" class="btn-navy" id="print-btn">Print <span data-team-name></span> schedule</button>
+    </div>
+    <div class="tabs" id="tabs" role="tablist" data-noprint></div>
+
+    <div class="print-head">
+      <img src="assets/site/sa-wrestling-logo.png" alt="">
+      <div>
+        <div class="print-head-title">Shaler Area <span data-team-name></span> Wrestling</div>
+        <div class="mono mono-sm">2026–27 Schedule · shalerareawrestling.com</div>
+      </div>
+    </div>
+
+    <div class="sched-row sched-row--head"><span>Date</span><span>Event</span><span>Time</span><span>Location</span><span style="text-align:right">H / A</span></div>
+    <div id="sched-body" aria-live="polite"></div>
+    <div class="sched-note" data-noprint>Times and locations are subject to change. Check back or follow us on social for updates.</div>
+  </section>
+
+  <section id="documents" class="documents on-navy" data-noprint>
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow">§ 02</div>
+        <h2 class="h2">Forms &amp; Documents</h2>
+        <p>New this season? Start with the Parent Information Packet. It covers registration, fundraising, volunteering, and key dates. Questions? <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">Email us</a>.</p>
+      </div>
+      <div class="doc-groups">
+
+        <div>
+          <div class="doc-group-head mono"><span>Start here</span><span>All families</span></div>
+          <a class="doc" href="assets/docs/saw_parentinfo_2026-27.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">2026–27 Parent Information Packet</span><span class="doc-desc">Registration, the $150 fundraising goal, volunteer and concession commitments, commitment checks, and key dates.</span></span><span class="doc-type">PDF · 6 pp</span><span class="doc-action">Download ↓</span></a>
+          <a class="doc" href="assets/docs/saw_parent_codeofconduct.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Parent/Guardian Code of Conduct</span><span class="doc-desc">Read and sign. Agreeing to it is a condition of participation in the program.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+          <a class="doc" href="assets/docs/saw_student_handbook.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Shaler Area Student-Athlete Handbook</span><span class="doc-desc">District athletic policies for students and families (revised April 2026).</span></span><span class="doc-type">PDF · 10 pp</span><span class="doc-action">Download ↓</span></a>
+        </div>
+
+        <div>
+          <div class="doc-group-head mono"><span>Printable schedules</span><span>2026–27</span></div>
+          <div id="print-docs"></div>
+        </div>
+
+        <div>
+          <div class="doc-group-head mono"><span>Fundraisers</span><span>Counts toward $150</span></div>
+          <a class="doc" href="assets/docs/saw_pickaday_fundraiser.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Pick-a-Day Calendar</span><span class="doc-desc">$1,000 drawing on Sun, Dec 20. Calendar, donor log, and money due to your coach Sun, Dec 6.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+          <a class="doc" href="assets/docs/saw_renosfundraiser.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Reno&#39;s Deli Hoagie Fundraiser</span><span class="doc-desc">12-inch hoagies, $14 each. Orders due Dec 9, delivery Dec 15.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+        </div>
+
+        <div>
+          <div class="doc-group-head mono"><span>Nutrition</span><span>Team Optimism</span></div>
+          <a class="doc" href="assets/docs/saw_mealplan_overview_v2.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Meal Plan Overview</span><span class="doc-desc">Why clean fueling matters for wrestlers and how to use the plan at home.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+          <a class="doc" href="assets/docs/saw_mealplan_v2.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">Wrestling Meal Plan</span><span class="doc-desc">Food choices by meal: breakfast, lunch, dinner, and snacks.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+        </div>
+
+        <div>
+          <div class="doc-group-head mono"><span>Business sponsorship</span><span>$250 – $2,000</span></div>
+          <a class="doc" href="assets/docs/saw_sponsorship_packet.pdf" target="_blank" rel="noopener"><span style="min-width:0"><span class="doc-name">2026–27 Sponsorship Packet</span><span class="doc-desc">Five season packages for local businesses. SAWA is a 501(c)(3) nonprofit.</span></span><span class="doc-type">PDF · 2 pp</span><span class="doc-action">Download ↓</span></a>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- Schedules Section -->
-  <section class="section" style="background: var(--white);">
-    <div class="container">
-      <h2 class="section-title">Schedules</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title">Varsity Schedule</h3>
-          <div class="card-content">
-            <p>View the complete varsity wrestling schedule including dual meets, tournaments, and special events.</p>
-            <div class="doc-list" style="margin-top: 16px;">
-              <a href="https://schools.snap.app/ShalerAreaTitans/athletics/wrestling/b/v?tab=results" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Boys Varsity Schedule</span>
-              </a>
-              <a href="https://schools.snap.app/ShalerAreaTitans/athletics/wrestling/g/v" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Girls Varsity Schedule</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Junior High Schedule</h3>
-          <div class="card-content">
-            <p>View the complete junior high wrestling schedule for middle school wrestlers.</p>
-            <div class="doc-list" style="margin-top: 16px;">
-              <a href="https://schools.snap.app/ShalerAreaTitans/athletics/wrestling/b/jh" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Junior High Schedule</span>
-              </a>
-            </div>
-          </div>
+  <section id="season-info" class="wrap season-info" data-noprint>
+    <div class="eyebrow">§ 03</div>
+    <h2 class="h2">Season Info</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-title">Practice</div>
+        <div class="info-sub">Monday – Friday</div>
+        <div class="info-row"><strong>Girls Varsity</strong><span class="info-time">3:00 – 4:30 PM</span><span class="info-loc">Shaler Area High School</span></div>
+        <div class="info-row"><strong>Boys Varsity</strong><span class="info-time">4:00 – 5:30 PM</span><span class="info-loc">Shaler Area High School</span></div>
+        <div class="info-row"><strong>Junior High</strong><span class="info-time">3:30 – 5:15 PM</span><span class="info-loc">Shaler Area Elementary School</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-title">Weigh-ins</div>
+        <div class="info-row"><strong>Dual meets</strong><span class="info-time">1 hour before the match</span></div>
+        <div class="info-row"><strong>Tournaments</strong><span class="info-time">Day of the tournament</span></div>
+        <p class="info-body">Check the <a href="#schedules">season schedule</a> for match start times.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-title">Communication</div>
+        <p class="info-body">All team updates, including schedule changes, come through the GameChanger app. Download it and join your wrestler's team.</p>
+        <div class="gc-tile"><img src="assets/site/partners/gamechanger.png" alt="GameChanger" loading="lazy"></div>
+        <div class="gc-links">
+          <a class="link-rule" href="https://apps.apple.com/app/apple-store/id1308415878" target="_blank" rel="noopener">App Store →</a>
+          <a class="link-rule" href="https://play.google.com/store/apps/details?id=com.gc.teammanager" target="_blank" rel="noopener">Google Play →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Documents Section -->
-  <section class="section" id="documents">
-    <div class="container">
-      <h2 class="section-title">Documents</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3 class="card-title">Parent Resources</h3>
-          <div class="card-content">
-            <p>Important documents for parents and guardians. Please review these before the season begins.</p>
-            <div class="doc-list" style="margin-top: 16px;">
-              <a href="/assets/docs/ShalerArea_ParentCodeOfConduct_V2.pdf" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Parent Code of Conduct</span>
-              </a>
-              <a href="/assets/docs/SAWrestling_ParentInfo_2025-26.pdf" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Parent Information Packet</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 class="card-title">Parent Portal</h3>
-          <div class="card-content">
-            <p>Access the parent check-in portal to track your wrestler's progress, view announcements, and stay connected with the team.</p>
-            <a href="#" class="btn btn-primary" style="margin-top: 16px;">Access Parent Portal (COMING SOON!)</a>
-          </div>
-        </div>
-      </div>
+  <section id="contacts" class="staff" data-noprint>
+    <div class="wrap">
+      <div class="eyebrow">§ 04</div>
+      <h2 class="h2">Coaching Staff</h2>
+      <div class="staff-grid" id="staff-grid"></div>
     </div>
   </section>
 
-  <!-- Meal Plan Section -->
-  <section class="section" id="nutrition">
-    <div class="container">
-      <h2 class="section-title">Nutrition & Meal Plan</h2>
-      <div class="card" style="max-width: 900px; margin: 0 auto;">
-        <div class="grid-2" style="align-items: center;">
-          <div class="card-content">
-            <h3 class="card-title">Fuel Your Performance</h3>
-            <p>Proper nutrition is essential for wrestling performance. We've partnered with <strong>Cameron Loughran of Team Optimism</strong> to develop a custom wrestling nutrition plan for our athletes.</p>
-            <p style="margin-top: 16px;"><strong>The meal plan includes:</strong></p>
-            <ul style="margin: 16px 0; color: var(--gray-600);">
-              <li>Pre-practice and post-practice nutrition</li>
-              <li>Competition day meal timing</li>
-              <li>Weight management strategies</li>
-              <li>Hydration guidelines</li>
-              <li>Sample daily meal breakdowns</li>
-            </ul>
-            <div class="doc-list" style="margin-top: 20px;">
-              <a href="/assets/docs/MealPlan.pdf" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Download Meal Plan (PDF)</span>
-              </a>
-            </div>
-
-            <div class="doc-list" style="margin-top: 20px;">
-              <a href="/assets/docs/MealPlanOverview.pdf" class="doc-item">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Download Meal Plan Overview (PDF)</span>
-              </a>
-            </div>
-            
-          </div>
-          <div style="background: linear-gradient(135deg, var(--blue-dark), var(--blue-primary)); border-radius: var(--radius-lg); padding: 30px; text-align: center; color: white;">
-            <p style="font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 10px; color: var(--gold);">SAMPLE DAY</p>
-            <div style="text-align: left; font-size: 14px;">
-              <p style="color: rgba(255,255,255,0.9); margin: 12px 0;"><strong style="color: var(--gold);">Breakfast:</strong> Oatmeal with banana, eggs, orange juice</p>
-              <p style="color: rgba(255,255,255,0.9); margin: 12px 0;"><strong style="color: var(--gold);">Lunch:</strong> Grilled chicken, brown rice, vegetables</p>
-              <p style="color: rgba(255,255,255,0.9); margin: 12px 0;"><strong style="color: var(--gold);">Pre-Practice:</strong> Apple with peanut butter</p>
-              <p style="color: rgba(255,255,255,0.9); margin: 12px 0;"><strong style="color: var(--gold);">Dinner:</strong> Lean protein, complex carbs, salad</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  <section class="wrap partners partners--ruled" data-noprint>
+    <div class="mono">Official partners</div>
+    <div class="partner-logos">
+      <div class="partner-ua"><img src="assets/site/partners/under-armour.png" alt="Under Armour" style="height:56px;width:auto" loading="lazy"><span class="mono">An Under Armour school</span></div>
+      <img src="assets/site/partners/gpsa.png" alt="GPSA Group" style="height:64px;width:auto" loading="lazy">
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="https://www.shalerareawrestling.com/assets/saw.png" alt="SAWA">
-          <p>Shaler Area Wrestling Association</p>
-        </div>
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="team.html">Team</a>
-          <a href="titanduals.html">Titan Duals</a>
-          <a href="sponsors.html">Sponsors</a>
-          <a href="registration.html">Register</a>
-        </div>
-        <p class="footer-copy">&copy; 2025 Shaler Area Wrestling Association. All rights reserved.</p>
-      </div>
+  <footer class="wrap site-footer" data-noprint>
+    <img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling" loading="lazy">
+    <div class="footer-name">Shaler Area<br>Wrestling Association</div>
+    <div class="footer-links mono">
+      <a href="https://www.instagram.com/shalerareahs_mswrestling" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61550515549498" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">Email</a>
+      <span>© 2026 SAWA</span>
     </div>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active');
-    });
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-      });
-    });
-  </script>
+  <script src="data/season.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>
