@@ -399,7 +399,21 @@ Winters, Dylan|2018|AAA|SR|126|6th`
     { name: 'Nellis', members: ['Nellis, Keith', 'Nellis, Kevin', 'Nellis, Kraig', 'Nellis, Ken', 'Nellis, Kyle'] },
     { name: 'Letters', members: ['Letters, Troy', 'Letters, Taylor', 'Letters, Blythe'] },
     { name: 'Nelson', members: ['Nelson, Nick', 'Nelson, Matt'] },
-    { name: 'Heinl', members: ['Heinl, Austin', 'Heinl, Logan', 'Heinl, Mike'] }
+    { name: 'Heinl', members: ['Heinl, Austin', 'Heinl, Logan', 'Heinl, Mike'] },
+    { name: 'Ford', members: ['Ford, Joe', 'Ford, Tom', 'Ford, Mike'] },
+    { name: 'Kuzniewski', members: ['Kuzniewski, John', 'Kuzniewski, Regis'] },
+    { name: 'Dillman', members: ['Dillman, Alvin', 'Dillman, Leslie'] },
+    { name: 'Ellenberger', members: ['Ellenberger, Tim', 'Ellenberger, Tom'] },
+    { name: 'Cavanaugh', members: ['Cavanaugh, Mike', 'Cavanaugh, Terry'] },
+    { name: 'Fleming', members: ['Fleming, Steve', 'Fleming, Josh'] },
+    { name: 'Giel', members: ['Giel, Dave', 'Giel, Andy'] },
+    { name: 'Schmitt', members: ['Schmitt, Dave', 'Schmitt, Matt'] },
+    { name: 'Seaton', members: ['Seaton, Bob', 'Seaton, Tom'] },
+    { name: 'Massucci', members: ['Massucci, Rich', 'Massucci, Dave'] },
+    { name: 'Shapert', members: ['Shapert, Ryan', 'Shapert, Shaun'] },
+    { name: 'Miller', members: ['Miller, Rayburn', 'Miller, Jeff'] },
+    { name: 'Brown', members: ['Brown, John', 'Brown, Rick'] },
+    { name: 'Jones', members: ['Jones, Ed', 'Jones, Anthony'] }
   ];
 
   const levels = Object.keys(raw);
