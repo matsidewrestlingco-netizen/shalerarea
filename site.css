@@ -197,6 +197,8 @@ h1, h2, h3 { margin: 0; color: inherit; }
 .honor-name { font-weight: 700; font-size: 17px; }
 .honor-school { font-weight: 500; font-size: 14px; color: var(--on-navy); }
 .honor-years { font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: .06em; }
+.champions-more { margin-top: 48px; }
+.on-navy .link-rule { border-bottom-color: var(--red); }
 
 /* ---------- register / store ---------- */
 .cta { padding-top: 112px; padding-bottom: 112px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 8px; }
@@ -378,6 +380,58 @@ a.doc:hover, button.doc:hover { color: var(--white); background: rgba(255, 255, 
 .td-contact p { font-size: 17px; line-height: 1.65; margin: 0 0 12px; }
 .td-contact a { border-bottom: 1px solid var(--red); font-weight: 600; }
 
+/* ---------- champions page ---------- */
+.jump-nav--auto { grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); }
+.team-intro .hon-h1 { font-size: clamp(64px, 8.5vw, 140px); }
+.hon-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-top: 48px; }
+.hon-stat { border-top: 4px solid var(--navy); padding-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.hon-stat-n { font-family: var(--display); font-weight: 700; font-size: clamp(56px, 6vw, 96px); line-height: .85; color: var(--red); }
+.hon-stat .mono { color: var(--muted); }
+
+.hon-controls { display: flex; align-items: end; gap: 24px; flex-wrap: wrap; padding-top: 40px; padding-bottom: 8px; }
+.hon-search, .hon-decade { display: flex; flex-direction: column; gap: 8px; }
+.hon-search { flex: 1 1 320px; max-width: 520px; }
+.hon-search .mono, .hon-decade .mono { color: var(--muted); font-size: 11px; }
+.hon-controls input, .hon-controls select { font: inherit; font-size: 16px; height: 48px; color: var(--navy); background: var(--white); border: 1px solid var(--navy); border-radius: 0; padding: 12px 14px; width: 100%; }
+.hon-controls input:focus, .hon-controls select:focus { outline: 2px solid var(--red); outline-offset: -1px; }
+.hon-clear[hidden] { display: none; }
+.hon-clear { background: none; border-top: 0; border-left: 0; border-right: 0; cursor: pointer; color: var(--red); border-bottom-color: var(--red); margin-bottom: 12px; }
+.hon-empty { padding-top: 48px; padding-bottom: 96px; color: var(--muted); }
+
+.hon-level { scroll-margin-top: 16px; }
+.hon-level .wrap { padding-top: 80px; padding-bottom: 32px; }
+.hon-level-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+.hon-level-head .h2 { margin-bottom: 0; }
+.hon-level-head > .mono { color: var(--muted); }
+.hon-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin-top: 40px; align-items: start; }
+.hon-group:only-child { grid-column: 1 / -1; }
+.hon-group-head { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--navy); }
+.hon-group-head span:last-child { color: var(--red); }
+.hon-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 64px 36px 56px; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.hon-row--head { padding: 10px 0; color: var(--muted); font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.hon-row--head span:last-child, .hon-place { text-align: right; }
+.hon-year { font-family: var(--display); font-weight: 700; font-size: 18px; }
+.hon-who { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.hon-name { background: none; border: 0; padding: 0; cursor: pointer; text-align: left; font-weight: 700; font-size: 16px; color: var(--navy); }
+.hon-name:hover { color: var(--red); }
+.hon-tag { font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--red); border: 1px solid var(--red); padding: 1px 6px; }
+.hon-wt, .hon-grade { font-size: 14px; color: var(--muted); }
+.hon-place { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.hon-row.is-champ .hon-place { color: var(--red); }
+
+.hon-families { margin-top: 64px; scroll-margin-top: 16px; }
+.hon-families .wrap { padding-top: 96px; padding-bottom: 96px; }
+.hon-families-lede { font-size: 17px; line-height: 1.65; max-width: 560px; margin: 0 0 48px; color: var(--on-navy); }
+.family-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: start; }
+.family-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 12px; border-bottom: 2px solid var(--white); }
+.family-name { font-family: var(--display); font-weight: 700; font-size: 28px; line-height: 1; text-transform: uppercase; }
+.family-head .mono { color: var(--on-navy); white-space: nowrap; }
+.family-note { font-size: 14px; color: var(--on-navy); margin: 12px 0 0; }
+.family-row { display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule-navy); }
+.on-navy .hon-name { color: var(--white); }
+.on-navy .hon-name:hover { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.family-sum { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--on-navy); }
+
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
   :root { --gutter: 20px; }
@@ -432,6 +486,18 @@ a.doc:hover, button.doc:hover { color: var(--white); background: rgba(255, 255, 
   .td-row { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; }
   .td-row--price { grid-template-columns: minmax(0, 1fr) auto; }
   .td-deadline { padding: 24px 20px; }
+
+  .hon-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .hon-groups, .family-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .hon-level .wrap { padding-top: 56px; }
+  .hon-families .wrap { padding-top: 72px; padding-bottom: 72px; }
+  .hon-row { grid-template-columns: 44px minmax(0, 1fr) auto; gap: 2px 12px; }
+  .hon-row--head { display: none; }
+  .hon-year { grid-row: 1 / span 2; }
+  .hon-place { grid-column: 3; grid-row: 1; }
+  .hon-wt, .hon-grade { grid-row: 2; font-size: 13px; }
+  .hon-wt { grid-column: 2; }
+  .hon-grade { grid-column: 3; text-align: right; }
 }
 
 @media (max-width: 520px) {

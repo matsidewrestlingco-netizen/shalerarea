@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Champions &amp; Placers | Shaler Area Wrestling</title>
+  <meta name="description" content="Every Shaler Area wrestling State, Regional, WPIAL, and Section champion and placer since 1951.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="team.html">Team</a>
+        <a href="team.html#schedules">Schedule</a>
+        <a href="titanduals.html">Titan Duals</a>
+        <a href="champions.html" class="is-active" aria-current="page">Champions</a>
+      </nav>
+      <a class="site-logo" href="index.html"><img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling"></a>
+      <nav class="site-nav site-nav--right" aria-label="Secondary">
+        <a href="sponsors.html">Sponsors</a>
+        <a href="index.html#store">Store</a>
+        <a class="btn-register" href="index.html#register" data-register>Register</a>
+      </nav>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+      <a href="team.html">Team</a>
+      <a href="team.html#schedules">Schedule</a>
+      <a href="titanduals.html">Titan Duals</a>
+      <a href="champions.html" class="is-active">Champions</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="index.html#store">Store</a>
+      <a class="btn-register" href="index.html#register" data-register>Register</a>
+    </nav>
+  </header>
+
+  <section class="wrap team-intro">
+    <div class="eyebrow">Shaler Area wrestling history · <span id="hon-span"></span></div>
+    <div class="team-intro-grid">
+      <h1 class="hon-h1">Champions</h1>
+      <p>Every Shaler Area wrestler who won or placed at the Section, WPIAL, Regional, and State tournaments. Search for a name or pick a decade.</p>
+    </div>
+    <div class="hon-stats" id="hon-stats"></div>
+    <nav class="jump-nav jump-nav--auto" id="hon-jump" aria-label="On this page"></nav>
+  </section>
+
+  <section class="wrap hon-controls" aria-label="Search and filter">
+    <label class="hon-search">
+      <span class="mono">Search</span>
+      <input type="search" id="hon-q" placeholder="Wrestler name" autocomplete="off">
+    </label>
+    <label class="hon-decade">
+      <span class="mono">Decade</span>
+      <select id="hon-decade"></select>
+    </label>
+    <button type="button" class="hon-clear link-rule" id="hon-clear" hidden>Clear ×</button>
+  </section>
+
+  <div id="hon-levels" aria-live="polite"></div>
+  <div class="wrap hon-empty" id="hon-empty" hidden>No results match that search. Try a last name only, or a different decade.</div>
+
+  <section id="families" class="hon-families on-navy" hidden>
+    <div class="wrap">
+      <div class="eyebrow" id="families-num"></div>
+      <h2 class="h2">Wrestling Families</h2>
+      <p class="hon-families-lede">Brothers, sisters, and generations who have all brought home titles for Shaler.</p>
+      <div class="family-grid" id="family-grid"></div>
+    </div>
+  </section>
+
+  <section class="wrap partners partners--ruled">
+    <div class="mono">Official partners</div>
+    <div class="partner-logos">
+      <div class="partner-ua"><img src="assets/site/partners/under-armour.png" alt="Under Armour" style="height:56px;width:auto" loading="lazy"><span class="mono">An Under Armour school</span></div>
+      <img src="assets/site/partners/gpsa.png" alt="GPSA Group" style="height:64px;width:auto" loading="lazy">
+    </div>
+  </section>
+
+  <footer class="wrap site-footer">
+    <img src="assets/site/sa-wrestling-logo.png" alt="Shaler Area Wrestling" loading="lazy">
+    <div class="footer-name">Shaler Area<br>Wrestling Association</div>
+    <div class="footer-links mono">
+      <a href="https://www.instagram.com/shalerareahs_mswrestling" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61550515549498" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:ShalerAreaWrestlingAssoc@gmail.com">Email</a>
+      <span>© 2026 SAWA</span>
+    </div>
+  </footer>
+
+  <script src="data/honors.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>
