@@ -1,18 +1,19 @@
 // Shaler Area champions & placers (from shaler_champs_placers.xlsx). Used by champions.html.
 //
 // TO ADD A RESULT: add one line under the right level. One result per line:
-//   Last, First|Year|Division|Grade|Weight|Place
+//   Last, First|Year|Division|Grade|Weight|Place|Note
 // Place "1st" counts as a champion; anything else is a placer. Leave a field
 // empty (nothing between the bars) if it isn't known. Division is AAA, A, or
 // GIRLS; Girls results get a "Girls" tag. Spell a wrestler's name the same way
-// every time so their results group together.
+// every time so their results group together. Note is optional: a short
+// line shown under the wrestler's name for a milestone result.
 //
 // State champions come from the Home page list. Their weight and grade were
 // filled in from the same season's WPIAL result where there was one.
 window.SA_HONORS = (() => {
   const raw = {
-    'State': `Peery, Edwin|1951||SO|112|1st
-Peery, Edwin|1952||JR|120|1st
+    'State': `Peery, Ed|1951||SO|112|1st
+Peery, Ed|1952||JR|120|1st
 Kopnisky, Bob|1961||SR|154|1st
 Nellis, Keith|1973||SR|112|1st
 Siar, Bob|1979|AAA|||1st
@@ -31,14 +32,14 @@ Nellis, Kevin|1974|A|SR|105|2nd
 Nellis, Kraig|1979|AAA|SR|112|2nd
 Nellis, Kyle|1980|AAA|SO|98|2nd
 Nelson, Nick|2006|AAA|JR|140|2nd
-Peery, Edwin|1953||SR|120|2nd
+Peery, Ed|1953||SR|120|2nd
 Siar, Bob|1977|AAA|SO|132|2nd
 Sullivan, Ryan|2017|AAA|SO|106|2nd
 Letters, Taylor|2003|AAA|SR|152|3rd
 Moran, Mickey|2003|AAA|JR|160|3rd
 Nelson, Nick|2005|AAA|SO|135|3rd
 Yuiska, Mike|1987|AAA|JR|126|3rd
-Letters, Blythe|2026|GIRLS|SO|106|3rd
+Letters, Blythe|2026|GIRLS|SO|106|3rd|First girls State placer in Shaler Area history
 Benko, Pat|1978|AAA|JR|167|4th
 Nellis, Kraig|1978|AAA|JR|98|4th
 Zimmerman, Greg|1982|AAA|JR|138|4th
@@ -73,9 +74,9 @@ Nellis, Keith|1973||SR|112|1st
 Nellis, Kevin|1973||JR|98|1st
 Nelson, Matt|2006|AAA|JR|130|1st
 Nelson, Nick|2007|AAA|SR|145|1st
-Peery, Edwin|1951||SO|112|1st
-Peery, Edwin|1952||JR|120|1st
-Peery, Edwin|1953||SR|120|1st
+Peery, Ed|1951||SO|112|1st
+Peery, Ed|1952||JR|120|1st
+Peery, Ed|1953||SR|120|1st
 Relyea, John|1964||JR|112|1st
 Sullivan, Ryan|2018|AAA|JR|113|1st
 Tokar, Ray|1964||SR|UNL|1st
@@ -209,7 +210,7 @@ Nelson, Nick|2007|AAA|SR|145|1st
 Newhouse, Neal|1956||SO|88|1st
 Newhouse, Neal|1958||SR|112|1st
 O'Connell, Bob|1967||JR|127|1st
-Peery, Edwin|1953||SR|120|1st
+Peery, Ed|1953||SR|120|1st
 Pollak, Jake|2017|AAA|SO|152|1st
 Reinsfelder, Garrett|2018|AAA|SR|132|1st
 Relyea, John|1964||JR|112|1st
@@ -393,13 +394,19 @@ Winters, Dylan|2018|AAA|SR|126|6th`
 
   // Wrestling families: the family name plus each member exactly as spelled above.
   // The page pulls each member's titles from the results. Empty = section hidden.
-  const families = [];
+  // Add an optional note, e.g. { name: 'Nellis', note: 'Five brothers', members: [...] }.
+  const families = [
+    { name: 'Nellis', members: ['Nellis, Keith', 'Nellis, Kevin', 'Nellis, Kraig', 'Nellis, Ken', 'Nellis, Kyle'] },
+    { name: 'Letters', members: ['Letters, Troy', 'Letters, Taylor', 'Letters, Blythe'] },
+    { name: 'Nelson', members: ['Nelson, Nick', 'Nelson, Matt'] },
+    { name: 'Heinl', members: ['Heinl, Austin', 'Heinl, Logan', 'Heinl, Mike'] }
+  ];
 
   const levels = Object.keys(raw);
   const results = levels.flatMap(level => raw[level].trim().split('\n').map(line => {
-    const [name, year, div, grade, weight, place] = line.split('|').map(s => s.trim());
+    const [name, year, div, grade, weight, place, note = ''] = line.split('|').map(s => s.trim());
     const [last, first] = name.split(',').map(s => s.trim());
-    return { level, name, display: first ? `${first} ${last}` : last, last, year: +year, div, grade, weight, place, champ: place === '1st' };
+    return { level, name, display: first ? `${first} ${last}` : last, last, year: +year, div, grade, weight, place, note, champ: place === '1st' };
   }));
 
   return { levels, results, families };

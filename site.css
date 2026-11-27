@@ -415,6 +415,7 @@ a.doc:hover, button.doc:hover { color: var(--white); background: rgba(255, 255, 
 .hon-name { background: none; border: 0; padding: 0; cursor: pointer; text-align: left; font-weight: 700; font-size: 16px; color: var(--navy); }
 .hon-name:hover { color: var(--red); }
 .hon-tag { font-family: var(--mono); font-weight: 500; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--red); border: 1px solid var(--red); padding: 1px 6px; }
+.hon-note { flex-basis: 100%; font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--red); }
 .hon-wt, .hon-grade { font-size: 14px; color: var(--muted); }
 .hon-place { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .hon-row.is-champ .hon-place { color: var(--red); }

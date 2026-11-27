@@ -188,7 +188,7 @@ const SITE = {
     const row = r => `
       <div class="hon-row${r.champ ? ' is-champ' : ''}">
         <span class="hon-year">${r.year}</span>
-        <span class="hon-who"><button type="button" class="hon-name" data-name="${esc(r.display)}">${esc(r.display)}</button>${r.div === 'GIRLS' ? '<span class="hon-tag">Girls</span>' : ''}</span>
+        <span class="hon-who"><button type="button" class="hon-name" data-name="${esc(r.display)}">${esc(r.display)}</button>${r.div === 'GIRLS' ? '<span class="hon-tag">Girls</span>' : ''}${r.note ? `<span class="hon-note">★ ${esc(r.note)}</span>` : ''}</span>
         <span class="hon-wt">${r.weight ? esc(r.weight === 'UNL' ? 'Unl.' : `${r.weight} lb`) : ''}</span>
         <span class="hon-grade">${esc(r.grade)}</span>
         <span class="hon-place">${r.champ ? 'Champ' : esc(r.place)}</span>
@@ -255,7 +255,7 @@ const SITE = {
         const mine = H.results.filter(r => r.name === name);
         const parts = H.levels.map(l => {
           const n = mine.filter(r => r.level === l && r.champ).length;
-          return n ? `${n}× ${LABEL[l] || l}` : '';
+          return n ? `${n}× ${l} champ` : '';
         }).filter(Boolean);
         const placings = mine.filter(r => !r.champ).length;
         if (placings) parts.push(plural(placings, 'placing'));
