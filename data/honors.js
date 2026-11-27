@@ -412,8 +412,7 @@ Winters, Dylan|2018|AAA|SR|126|6th`
     { name: 'Massucci', members: ['Massucci, Rich', 'Massucci, Dave'] },
     { name: 'Shapert', members: ['Shapert, Ryan', 'Shapert, Shaun'] },
     { name: 'Miller', members: ['Miller, Rayburn', 'Miller, Jeff'] },
-    { name: 'Brown', members: ['Brown, John', 'Brown, Rick'] },
-    { name: 'Jones', members: ['Jones, Ed', 'Jones, Anthony'] }
+    { name: 'Brown', members: ['Brown, John', 'Brown, Rick'] }
   ];
 
   const levels = Object.keys(raw);
