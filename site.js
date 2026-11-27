@@ -149,4 +149,136 @@ const SITE = {
         ${coachRows(t, (name, role, head, email) => `<div class="staff-row"><span class="staff-person"><strong>${esc(name)}</strong>${coachEmail(email)}</span><span class="coach-role${head ? ' coach-role--head' : ''}">${esc(role)}</span></div>`)}
       </div>`).join('');
   }
+
+  // ---- Champions page ----
+  const honLevels = $('#hon-levels');
+  if (honLevels && window.SA_HONORS) {
+    const H = window.SA_HONORS;
+    const LABEL = { State: 'PIAA State', Regional: 'Regional', WPIAL: 'WPIAL', Section: 'Section' };
+    const placeNum = p => parseInt(p, 10) || 99;
+    const byYear = (a, b) => a.year - b.year || placeNum(a.place) - placeNum(b.place) || a.last.localeCompare(b.last);
+    const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+    const years = H.results.map(r => r.year);
+    const first = Math.min(...years), last = Math.max(...years);
+    const titles = level => H.results.filter(r => r.level === level && r.champ).length;
+
+    $('#hon-span').textContent = `${first}–${last}`;
+    $('#hon-stats').innerHTML = [
+      [titles('State'), 'State titles'],
+      [titles('WPIAL'), 'WPIAL titles'],
+      [titles('Section'), 'Section titles'],
+      [new Set(H.results.map(r => r.name)).size, 'Wrestlers honored']
+    ].map(([n, label]) => `<div class="hon-stat"><span class="hon-stat-n">${n}</span><span class="mono">${label}</span></div>`).join('');
+
+    const families = H.families.filter(f => f.members && f.members.length);
+    const sections = [...H.levels.map(l => [l.toLowerCase(), LABEL[l] || l]), ...(families.length ? [['families', 'Families']] : [])];
+    const jump = $('#hon-jump');
+    jump.style.setProperty('--cols', sections.length);
+    jump.innerHTML = sections.map(([id, label], i) => `<a href="#${id}">${esc(label)} <span>${String(i + 1).padStart(2, '0')}</span></a>`).join('');
+
+    const decade = $('#hon-decade');
+    const decades = [];
+    for (let d = Math.floor(first / 10) * 10; d <= last; d += 10) decades.push(d);
+    decade.innerHTML = '<option value="">All years</option>' + decades.map(d => `<option value="${d}">${d}s</option>`).join('');
+
+    const q = $('#hon-q');
+    const clear = $('#hon-clear');
+    const empty = $('#hon-empty');
+    const head = '<div class="hon-row hon-row--head"><span>Year</span><span>Wrestler</span><span>Weight</span><span>Grade</span><span>Place</span></div>';
+    const row = r => `
+      <div class="hon-row${r.champ ? ' is-champ' : ''}">
+        <span class="hon-year">${r.year}</span>
+        <span class="hon-who"><button type="button" class="hon-name" data-name="${esc(r.display)}">${esc(r.display)}</button>${r.div === 'GIRLS' ? '<span class="hon-tag">Girls</span>' : ''}${r.note ? `<span class="hon-note">★ ${esc(r.note)}</span>` : ''}</span>
+        <span class="hon-wt">${r.weight ? esc(r.weight === 'UNL' ? 'Unl.' : `${r.weight} lb`) : ''}</span>
+        <span class="hon-grade">${esc(r.grade)}</span>
+        <span class="hon-place">${r.champ ? 'Champ' : esc(r.place)}</span>
+      </div>`;
+    const group = (title, list) => list.length ? `
+      <div class="hon-group">
+        <div class="hon-group-head mono"><span>${title}</span><span>${list.length}</span></div>
+        ${head}${list.map(row).join('')}
+      </div>` : '';
+
+    const render = () => {
+      const term = q.value.trim().toLowerCase();
+      const dec = +decade.value;
+      const match = r => (!term || r.display.toLowerCase().includes(term) || r.name.toLowerCase().includes(term))
+        && (!dec || (r.year >= dec && r.year < dec + 10));
+      const filtering = Boolean(term || dec);
+      clear.hidden = !filtering;
+      let shown = 0;
+      honLevels.innerHTML = H.levels.map((level, i) => {
+        const all = H.results.filter(r => r.level === level);
+        const list = all.filter(match).sort(byYear);
+        shown += list.length;
+        if (!list.length && filtering) return '';
+        const champs = list.filter(r => r.champ);
+        const placers = list.filter(r => !r.champ);
+        return `
+          <section id="${level.toLowerCase()}" class="hon-level">
+            <div class="wrap">
+              <div class="hon-level-head">
+                <div>
+                  <div class="eyebrow">§ ${String(i + 1).padStart(2, '0')}</div>
+                  <h2 class="h2">${esc(LABEL[level] || level)}</h2>
+                </div>
+                <div class="mono">${filtering ? `${list.length} of ${all.length} results` : `${plural(all.filter(r => r.champ).length, 'title')} · ${plural(all.filter(r => !r.champ).length, 'placing')}`}</div>
+              </div>
+              <div class="hon-groups">
+                ${group('Champions', champs)}
+                ${group('Placers', placers)}
+              </div>
+            </div>
+          </section>`;
+      }).join('');
+      empty.hidden = shown > 0;
+    };
+
+    const search = name => {
+      q.value = name;
+      decade.value = '';
+      render();
+      honLevels.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    q.addEventListener('input', render);
+    decade.addEventListener('change', render);
+    clear.addEventListener('click', () => { q.value = ''; decade.value = ''; render(); q.focus(); });
+    honLevels.addEventListener('click', e => {
+      const b = e.target.closest('.hon-name');
+      if (b) search(b.dataset.name);
+    });
+    render();
+
+    // Wrestling families
+    if (families.length) {
+      const summary = name => {
+        const mine = H.results.filter(r => r.name === name);
+        const parts = H.levels.map(l => {
+          const n = mine.filter(r => r.level === l && r.champ).length;
+          return n ? `${n}× ${l} champ` : '';
+        }).filter(Boolean);
+        const placings = mine.filter(r => !r.champ).length;
+        if (placings) parts.push(plural(placings, 'placing'));
+        return parts.join(' · ');
+      };
+      $('#families').hidden = false;
+      $('#families-num').textContent = `§ ${String(sections.length).padStart(2, '0')}`;
+      $('#family-grid').innerHTML = families.map(f => {
+        const champTotal = H.results.filter(r => f.members.includes(r.name) && r.champ).length;
+        return `
+          <div class="family">
+            <div class="family-head"><span class="family-name">The ${esc(f.name)} Family</span><span class="mono">${plural(champTotal, 'title')}</span></div>
+            ${f.note ? `<p class="family-note">${esc(f.note)}</p>` : ''}
+            ${f.members.map(name => {
+              const r = H.results.find(x => x.name === name);
+              return `<div class="family-row"><button type="button" class="hon-name" data-name="${esc(r ? r.display : name)}">${esc(r ? r.display : name)}</button><span class="family-sum">${esc(summary(name))}</span></div>`;
+            }).join('')}
+          </div>`;
+      }).join('');
+      $('#family-grid').addEventListener('click', e => {
+        const b = e.target.closest('.hon-name');
+        if (b) search(b.dataset.name);
+      });
+    }
+  }
 })();
